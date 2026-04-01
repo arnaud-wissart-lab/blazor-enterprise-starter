@@ -160,6 +160,14 @@
     display: grid;
     gap: var(--bes-space-4);
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+}
+
+.showcase-feedback,
+.showcase-form-note {
+    margin: 0;
+    color: var(--bes-color-text-secondary);
+    font-size: var(--bes-font-size-sm);
 }
 
 .showcase-nested-header {

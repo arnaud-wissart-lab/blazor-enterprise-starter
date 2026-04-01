@@ -99,21 +99,26 @@
         <AppCard Eyebrow="Actions" Title="AppButton" Description="Variantes principales, tailles et état de chargement pour les actions d’écran.">
             <div class="showcase-stack">
                 <div class="showcase-inline">
-                    <AppButton>Action principale</AppButton>
-                    <AppButton Variant="AppButtonVariant.Secondary">Secondaire</AppButton>
-                    <AppButton Variant="AppButtonVariant.Ghost">Ghost</AppButton>
-                    <AppButton Variant="AppButtonVariant.Danger">Danger</AppButton>
+                    <AppButton OnClick="MontrerActionPrincipaleAsync">Action principale</AppButton>
+                    <AppButton Variant="AppButtonVariant.Secondary" OnClick="MontrerActionSecondaireAsync">Secondaire</AppButton>
+                    <AppButton Variant="AppButtonVariant.Ghost" OnClick="MontrerActionNavigationAsync">Ghost</AppButton>
+                    <AppButton Variant="AppButtonVariant.Danger" OnClick="MontrerActionDangerAsync">Danger</AppButton>
                 </div>
 
                 <div class="showcase-inline">
-                    <AppButton Size="AppControlSize.Small">Petit</AppButton>
-                    <AppButton Size="AppControlSize.Large">Grand</AppButton>
+                    <AppButton Size="AppControlSize.Small" OnClick="MontrerActionPetiteAsync">Petit</AppButton>
+                    <AppButton Size="AppControlSize.Large" OnClick="MontrerActionGrandeAsync">Grand</AppButton>
                     <AppButton Disabled="true">Désactivé</AppButton>
                     <AppButton Variant="AppButtonVariant.Secondary" OnClick="ToggleButtonLoadingAsync">
                         @(_isButtonLoading ? "Désactiver l’état de chargement" : "Activer l’état de chargement")
                     </AppButton>
                     <AppButton IsLoading="_isButtonLoading">Action en cours</AppButton>
                 </div>
+
+                @if (!string.IsNullOrWhiteSpace(_messageInteraction))
+                {
+                    <p class="showcase-feedback" role="status">@_messageInteraction</p>
+                }
             </div>
         </AppCard>
 
@@ -141,6 +146,9 @@
                              MaxLength="280"
                              @bind-Value="_message" />
             </div>
+            <p class="showcase-form-note">
+                Les exemples ci-dessus servent à vérifier le rythme vertical, la validation et la cohérence des états de focus.
+            </p>
         </AppCard>
 
         <AppCard Eyebrow="Feedback" Title="AppBadge et AppLoader" Description="Des éléments légers pour signaler des statuts, des niveaux ou une attente côté interface.">
@@ -170,8 +178,8 @@
                         <AppBadge Tone="AppTone.Success">Synchronisé</AppBadge>
                     </Badges>
                     <Actions>
-                        <AppButton Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small">Exporter</AppButton>
-                        <AppButton Size="AppControlSize.Small">Créer</AppButton>
+                        <AppButton Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small" OnClick="ExporterExempleAsync">Exporter</AppButton>
+                        <AppButton Size="AppControlSize.Small" OnClick="CreerExempleAsync">Créer</AppButton>
                     </Actions>
                 </AppPageHeader>
 
@@ -204,11 +212,11 @@
                         <span class="showcase-visual-token">0</span>
                     </VisualContent>
                     <Actions>
-                        <AppButton Size="AppControlSize.Small">Créer un premier rapport</AppButton>
-                        <AppButton Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small">Importer</AppButton>
+                        <AppButton Size="AppControlSize.Small" OnClick="CreerRapportExempleAsync">Créer un premier rapport</AppButton>
+                        <AppButton Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small" OnClick="ImporterRapportExempleAsync">Importer</AppButton>
                     </Actions>
                     <ChildContent>
-                        Les actions restent pilotées par l’écran appelant, sans logique métier embarquée dans le composant.
+                        Dans cette démonstration, les actions déclenchent une modale ou un message de confirmation pour illustrer le comportement attendu.
                     </ChildContent>
                 </AppEmptyState>
 
@@ -221,17 +229,13 @@
 </section>
 
 <AppModal IsOpen="_isModalOpen"
-          Title="Exemple de modale"
-          Description="La modale illustre un dialogue court, lisible et centré sur une action explicite."
+          Title="@_titreModale"
+          Description="@_descriptionModale"
           OnClose="CloseModalAsync">
     <ChildContent>
         <div class="showcase-modal-copy">
-            <p>
-                Ce format fonctionne bien pour une confirmation, une action secondaire ou un court complément d’information.
-            </p>
-            <p>
-                Le contenu reste volontairement bref pour préserver la lisibilité et mettre l’action principale au premier plan.
-            </p>
+            <p>@_contenuModale</p>
+            <p>Le contenu reste volontairement bref pour préserver la lisibilité et mettre l’action principale au premier plan.</p>
         </div>
     </ChildContent>
     <FooterContent>
@@ -254,6 +258,10 @@
     private string? _message = "Bonjour, je vous partage un premier aperçu du tableau de bord produit.";
     private bool _isButtonLoading;
     private bool _isModalOpen;
+    private string? _messageInteraction;
+    private string _titreModale = "Exemple de modale";
+    private string _descriptionModale = "La modale illustre un dialogue court, lisible et centré sur une action explicite.";
+    private string _contenuModale = "Ce format fonctionne bien pour une confirmation, une action secondaire ou un court complément d’information.";
 
     private string? EmailError =>
         string.IsNullOrWhiteSpace(_email) || _email.Contains('@', StringComparison.Ordinal)
@@ -263,12 +271,87 @@
     private Task ToggleButtonLoadingAsync(MouseEventArgs _)
     {
         _isButtonLoading = !_isButtonLoading;
+        _messageInteraction = _isButtonLoading
+            ? "L’état de chargement est activé sur le bouton de démonstration."
+            : "L’état de chargement est désactivé.";
+        return Task.CompletedTask;
+    }
+
+    private Task MontrerActionPrincipaleAsync(MouseEventArgs _)
+    {
+        _messageInteraction = "Action principale déclenchée : en situation réelle, elle lancerait l’opération prioritaire de l’écran.";
+        return Task.CompletedTask;
+    }
+
+    private Task MontrerActionSecondaireAsync(MouseEventArgs _)
+    {
+        _messageInteraction = "Action secondaire déclenchée : elle illustre une action utile mais non prioritaire.";
+        return Task.CompletedTask;
+    }
+
+    private Task MontrerActionNavigationAsync(MouseEventArgs _)
+    {
+        _messageInteraction = "Action de navigation déclenchée : la variante ghost reste adaptée aux actions discrètes.";
+        return Task.CompletedTask;
+    }
+
+    private Task MontrerActionDangerAsync(MouseEventArgs _)
+    {
+        _messageInteraction = "Action sensible déclenchée : la variante danger sert à signaler un impact potentiellement destructif.";
+        return Task.CompletedTask;
+    }
+
+    private Task MontrerActionPetiteAsync(MouseEventArgs _)
+    {
+        _messageInteraction = "Le format compact convient aux tableaux, listes denses et zones d’actions secondaires.";
+        return Task.CompletedTask;
+    }
+
+    private Task MontrerActionGrandeAsync(MouseEventArgs _)
+    {
+        _messageInteraction = "Le format large sert à renforcer une action importante dans un contexte éditorial ou un pied de page.";
+        return Task.CompletedTask;
+    }
+
+    private Task ExporterExempleAsync(MouseEventArgs _)
+    {
+        _messageInteraction = "Export déclenché : dans un écran réel, cette action préparerait un fichier ou un rapport.";
+        return Task.CompletedTask;
+    }
+
+    private Task CreerExempleAsync(MouseEventArgs _)
+    {
+        ConfigurerModale(
+            "Créer un élément",
+            "Exemple d’action primaire associée à un en-tête de page.",
+            "Dans un écran métier, cette action ouvrirait le formulaire de création ou la vue dédiée.");
+
+        return Task.CompletedTask;
+    }
+
+    private Task CreerRapportExempleAsync(MouseEventArgs _)
+    {
+        ConfigurerModale(
+            "Créer un premier rapport",
+            "Exemple d’action principale sur un état vide.",
+            "Le composant peut orienter vers la prochaine étape utile, ici l’ouverture d’un flux de création.");
+
+        return Task.CompletedTask;
+    }
+
+    private Task ImporterRapportExempleAsync(MouseEventArgs _)
+    {
+        _messageInteraction = "Import déclenché : dans un écran réel, cette action ouvrirait un assistant ou un sélecteur de fichier.";
         return Task.CompletedTask;
     }
 
     private Task OpenModalAsync(MouseEventArgs _)
     {
-        _isModalOpen = true;
+        ConfigurerModale(
+            "Exemple de modale",
+            "La modale illustre un dialogue court, lisible et centré sur une action explicite.",
+            "Ce format fonctionne bien pour une confirmation, une action secondaire ou un court complément d’information.");
+
         return Task.CompletedTask;
     }
 
@@ -281,6 +364,7 @@
     private Task ConfirmModalAsync(MouseEventArgs _)
     {
         _isModalOpen = false;
+        _messageInteraction = "La confirmation a été prise en compte sur l’exemple de modale.";
         return Task.CompletedTask;
     }
 
@@ -288,5 +372,13 @@
     {
         _isModalOpen = false;
         return Task.CompletedTask;
+    }
+
+    private void ConfigurerModale(string titre, string description, string contenu)
+    {
+        _titreModale = titre;
+        _descriptionModale = description;
+        _contenuModale = contenu;
+        _isModalOpen = true;
     }
 }

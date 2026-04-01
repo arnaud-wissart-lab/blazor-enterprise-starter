@@ -3,9 +3,14 @@
 <div class="app-shell">
     <aside class="app-shell__sidebar">
         <div class="app-shell__brand">
-            <p class="app-shell__eyebrow">@ProductName</p>
             <div class="app-shell__brand-copy">
-                <h1>@Title</h1>
+                <p class="app-shell__eyebrow">Projet</p>
+                <h1>@ProductName</h1>
+
+                @if (!string.IsNullOrWhiteSpace(Title))
+                {
+                    <p class="app-shell__brand-title">@Title</p>
+                }
 
                 @if (!string.IsNullOrWhiteSpace(Subtitle))
                 {

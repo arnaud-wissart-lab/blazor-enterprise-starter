@@ -113,6 +113,41 @@ public sealed class InMemoryBacklogRepository : IBacklogRepository
             now.AddDays(-6));
 
         yield return BacklogItem.Create(
+            "Concevoir l’écran de détail backlog",
+            "Prévoir une fiche élément avec historique, commentaires et navigation vers les éléments liés.",
+            BacklogItemStatus.Nouveau,
+            BacklogItemPriority.Moyenne,
+            now.AddDays(-3));
+
+        yield return BacklogItem.Create(
+            "Industrialiser les notifications produit",
+            "Définir les notifications utiles pour les changements de statut et les arbitrages prioritaires.",
+            BacklogItemStatus.EnCours,
+            BacklogItemPriority.Haute,
+            now.AddDays(-12));
+
+        yield return BacklogItem.Create(
+            "Ajouter la vue calendrier des jalons",
+            "Présenter les échéances backlog dans une vue calendrier exploitable en comité.",
+            BacklogItemStatus.Pret,
+            BacklogItemPriority.Basse,
+            now.AddDays(-15));
+
+        yield return BacklogItem.Create(
+            "Structurer les filtres enregistrés",
+            "Permettre aux équipes de retrouver rapidement leurs filtres récurrents sur les vues produit.",
+            BacklogItemStatus.Nouveau,
+            BacklogItemPriority.Haute,
+            now.AddDays(-5));
+
+        yield return BacklogItem.Create(
+            "Préparer les exports CSV",
+            "Rendre possible l’export des éléments filtrés pour les revues externes et les reporting rapides.",
+            BacklogItemStatus.Pret,
+            BacklogItemPriority.Moyenne,
+            now.AddDays(-7));
+
+        yield return BacklogItem.Create(
             "Archiver l’ancien workflow d’import",
             "Retirer le flux historique devenu obsolète depuis la nouvelle expérience de saisie.",
             BacklogItemStatus.Archive,

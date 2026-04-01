@@ -34,8 +34,8 @@
     --bes-ref-info-600: #1d4ed8;
 
     /* Typographie */
-    --bes-font-family-heading: "Aptos", "Segoe UI Variable", "Segoe UI", sans-serif;
-    --bes-font-family-body: "Aptos", "Segoe UI Variable", "Segoe UI", sans-serif;
+    --bes-font-family-heading: "Segoe UI Variable Display", "Segoe UI Variable", "Inter", "Segoe UI", sans-serif;
+    --bes-font-family-body: "Segoe UI Variable Text", "Segoe UI Variable", "Inter", "Segoe UI", sans-serif;
     --bes-font-family-mono: "Cascadia Code", "Consolas", "SFMono-Regular", monospace;
 
     --bes-font-size-2xs: 0.75rem;

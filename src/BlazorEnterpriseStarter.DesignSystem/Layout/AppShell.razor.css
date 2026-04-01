@@ -18,12 +18,9 @@
 
 .app-shell__brand {
     display: grid;
-    gap: var(--bes-space-3);
-    padding: var(--bes-space-5);
-    border: 1px solid var(--bes-color-border-subtle);
-    border-radius: var(--bes-radius-lg);
-    background: var(--bes-color-surface-primary);
-    box-shadow: var(--bes-shadow-sm);
+    gap: var(--bes-space-2);
+    padding: var(--bes-space-4) 0 var(--bes-space-4) var(--bes-space-4);
+    border-left: 3px solid var(--bes-color-accent-primary);
 }
 
 .app-shell__eyebrow {
@@ -37,13 +34,20 @@
 
 .app-shell__brand-copy {
     display: grid;
-    gap: var(--bes-space-3);
+    gap: var(--bes-space-2);
 }
 
 .app-shell__brand-copy h1 {
     margin: 0;
-    font-size: clamp(1.5rem, 2vw, 1.9rem);
+    font-size: clamp(1.3rem, 1.6vw, 1.55rem);
     line-height: var(--bes-line-height-snug);
+}
+
+.app-shell__brand-title {
+    margin: 0;
+    font-size: var(--bes-font-size-sm);
+    font-weight: var(--bes-font-weight-semibold);
+    color: var(--bes-color-text-primary);
 }
 
 .app-shell__brand-copy p {

@@ -70,7 +70,6 @@
         <div class="backlog-filters">
             <AppInput Label="Recherche"
                       Placeholder="Titre, description, besoin métier..."
-                      Description="Recherchez par titre ou description. Les résultats se mettent à jour après une courte pause de saisie."
                       IsLoading="@AfficherIndicateurRafraichissement"
                       @bind-Value="Recherche" />
 
@@ -96,8 +95,10 @@
         </div>
     </ChildContent>
     <Footer>
-        <AppButton Variant="AppButtonVariant.Ghost" OnClick="ReinitialiserFiltresAsync">Réinitialiser</AppButton>
-        <AppButton Variant="AppButtonVariant.Secondary" OnClick="AppliquerFiltresAsync">Appliquer les filtres</AppButton>
+        <div class="backlog-filters__actions">
+            <AppButton Variant="AppButtonVariant.Ghost" OnClick="ReinitialiserFiltresAsync">Réinitialiser</AppButton>
+            <AppButton Variant="AppButtonVariant.Secondary" OnClick="AppliquerFiltresAsync">Appliquer les filtres</AppButton>
+        </div>
     </Footer>
 </AppCard>
 

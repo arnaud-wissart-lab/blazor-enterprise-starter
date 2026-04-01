@@ -9,25 +9,52 @@
     <NavigationContent>
         <div class="layout-nav">
             <NavLink href="/" Match="NavLinkMatch.All" class="layout-nav__link">
-                <span class="layout-nav__index">01</span>
                 <span class="layout-nav__copy">
-                    <strong>Accueil</strong>
+                    <span class="layout-nav__headline">
+                        <span class="layout-nav__icon layout-nav__icon--home" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3.75 10.5 12 4l8.25 6.5" />
+                                <path d="M5.75 9.75v9.5h12.5v-9.5" />
+                            </svg>
+                        </span>
+                        <strong>Accueil</strong>
+                    </span>
                     <small>Vue d’ensemble du projet, de l’architecture et des accès principaux.</small>
                 </span>
             </NavLink>
 
             <NavLink href="/composants" class="layout-nav__link">
-                <span class="layout-nav__index">02</span>
                 <span class="layout-nav__copy">
-                    <strong>Bibliothèque UI</strong>
+                    <span class="layout-nav__headline">
+                        <span class="layout-nav__icon layout-nav__icon--library" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="4" y="4" width="6.5" height="6.5" rx="1.2" />
+                                <rect x="13.5" y="4" width="6.5" height="6.5" rx="1.2" />
+                                <rect x="4" y="13.5" width="6.5" height="6.5" rx="1.2" />
+                                <rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.2" />
+                            </svg>
+                        </span>
+                        <strong>Bibliothèque UI</strong>
+                    </span>
                     <small>Fondations visuelles, composants réutilisables et états d’interface.</small>
                 </span>
             </NavLink>
 
             <NavLink href="/backlog" class="layout-nav__link">
-                <span class="layout-nav__index">03</span>
                 <span class="layout-nav__copy">
-                    <strong>Backlog produit</strong>
+                    <span class="layout-nav__headline">
+                        <span class="layout-nav__icon layout-nav__icon--backlog" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M8 6.5h11" />
+                                <path d="M8 12h11" />
+                                <path d="M8 17.5h11" />
+                                <path d="m4.25 6.5 1.5 1.5 2.5-2.5" />
+                                <path d="m4.25 12 1.5 1.5 2.5-2.5" />
+                                <circle cx="5.75" cy="17.5" r="1.25" />
+                            </svg>
+                        </span>
+                        <strong>Backlog produit</strong>
+                    </span>
                     <small>Cas d’usage complet avec recherche, filtres, pagination et édition.</small>
                 </span>
             </NavLink>

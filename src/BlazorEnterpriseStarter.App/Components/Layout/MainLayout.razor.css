@@ -4,10 +4,7 @@
 }
 
 .layout-nav :deep(.layout-nav__link) {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--bes-space-3);
-    align-items: start;
+    display: block;
     padding: var(--bes-space-3) var(--bes-space-4);
     border: 1px solid transparent;
     border-left: 4px solid transparent;
@@ -21,11 +18,18 @@
         box-shadow 140ms ease;
 }
 
+.layout-nav :deep(.layout-nav__link),
+.layout-nav :deep(.layout-nav__link:hover),
+.layout-nav :deep(.layout-nav__link:focus),
+.layout-nav :deep(.layout-nav__link:visited) {
+    text-decoration: none !important;
+}
+
 .layout-nav :deep(.layout-nav__link *),
 .layout-nav :deep(.layout-nav__link:hover *),
 .layout-nav :deep(.layout-nav__link:focus *),
 .layout-nav :deep(.layout-nav__link:visited *) {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 .layout-nav :deep(.layout-nav__link:hover) {
@@ -41,31 +45,46 @@
     box-shadow: var(--bes-shadow-xs);
 }
 
-.layout-nav__index {
+.layout-nav__headline {
+    display: flex;
+    align-items: center;
+    gap: var(--bes-space-3);
+    min-width: 0;
+}
+
+.layout-nav__icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 1.9rem;
-    min-height: 1.9rem;
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
     border-radius: var(--bes-radius-md);
     background: var(--bes-color-surface-tertiary);
-    color: var(--bes-color-accent-strong);
-    font-size: var(--bes-font-size-xs);
-    font-weight: var(--bes-font-weight-bold);
-    letter-spacing: var(--bes-letter-spacing-caps);
+    color: var(--bes-color-accent-primary);
+}
+
+.layout-nav__icon svg {
+    width: 1rem;
+    height: 1rem;
 }
 
 .layout-nav__copy {
     display: grid;
     gap: var(--bes-space-1);
+    min-width: 0;
 }
 
 .layout-nav__copy strong {
+    display: block;
     color: var(--bes-color-text-primary);
     font-size: var(--bes-font-size-sm);
+    line-height: 1.35;
 }
 
 .layout-nav__copy small {
+    display: block;
+    padding-left: calc(2rem + var(--bes-space-3));
     color: var(--bes-color-text-secondary);
     font-size: var(--bes-font-size-xs);
     line-height: 1.45;
