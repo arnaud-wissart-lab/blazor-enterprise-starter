@@ -70,6 +70,7 @@
         <div class="backlog-filters">
             <AppInput Label="Recherche"
                       Placeholder="Titre, description, besoin métier..."
+                      MaxLength="@BacklogInputRules.RechercheLongueurMaximale"
                       IsLoading="@AfficherIndicateurRafraichissement"
                       @bind-Value="Recherche" />
 
@@ -193,7 +194,8 @@ else
     }
     else
     {
-        <div class="backlog-list @(AfficherIndicateurRafraichissement ? "backlog-region--busy" : null)">
+        <div @key="State.CurrentPage"
+             class="backlog-list @ClasseAnimationPagination @(AfficherIndicateurRafraichissement ? "backlog-region--busy" : null)">
             @foreach (var item in Elements)
             {
                 <div @key="item.Id" class="backlog-list__item">
@@ -250,11 +252,15 @@ else
         <div class="backlog-form">
             <AppInput Label="Titre"
                       Placeholder="Exemple : Préparer la feuille de route Q3"
+                      Required="true"
+                      MaxLength="@BacklogInputRules.TitreLongueurMaximale"
                       ErrorMessage="@ObtenirErreurChamp(nameof(BacklogItemFormModel.Titre))"
                       @bind-Value="_formulaire.Titre" />
 
             <AppTextarea Label="Description"
                          Rows="6"
+                         Required="true"
+                         MaxLength="@BacklogInputRules.DescriptionLongueurMaximale"
                          Description="Une description claire facilite la lecture et la priorisation."
                          ErrorMessage="@ObtenirErreurChamp(nameof(BacklogItemFormModel.Description))"
                          @bind-Value="_formulaire.Description" />

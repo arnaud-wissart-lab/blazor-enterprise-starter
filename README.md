@@ -160,6 +160,17 @@ Le projet applique quelques optimisations à vrai bénéfice :
 
 La virtualisation, par exemple, n’a pas été ajoutée sur le backlog car la pagination serveur actuelle la rend peu rentable à ce stade.
 
+### 6. Garde-fous de saisie et sécurité de base
+
+Le projet ne prétend pas couvrir toute la profondeur d’une application exposée à Internet, mais il applique les garde-fous attendus sur une vitrine sérieuse :
+
+- validation côté interface pour raccourcir la boucle de feedback utilisateur
+- validation côté API pour ne jamais faire confiance au client
+- normalisation des saisies métier avant persistence
+- rejet des caractères de contrôle non pris en charge dans les champs backlog
+- rendu des contenus via Razor sans HTML brut injecté dans l’interface
+- antiforgery activé côté application Blazor
+
 ## Points forts UI/UX
 
 Le projet cherche un rendu sérieux, moderne et exploitable dans un contexte métier.

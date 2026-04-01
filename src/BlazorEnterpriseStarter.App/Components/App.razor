@@ -5,6 +5,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
+    <script>
+        (function () {
+            try {
+                const savedTheme = localStorage.getItem('bes-theme');
+
+                if (savedTheme === 'light' || savedTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+            } catch {
+            }
+        })();
+    </script>
     <ResourcePreloader />
     <link rel="stylesheet" href="@Assets["_content/BlazorEnterpriseStarter.DesignSystem/styles/index.css"]" />
     <link rel="stylesheet" href="@Assets["_content/BlazorEnterpriseStarter.Components/styles/components.css"]" />
@@ -17,6 +29,7 @@
 <body>
     <Routes @rendermode="InteractiveServer" />
     <ReconnectModal @rendermode="InteractiveServer" />
+    <script src="@Assets["scripts/theme.js"]"></script>
     <script src="@Assets["_framework/blazor.web.js"]"></script>
 </body>
 

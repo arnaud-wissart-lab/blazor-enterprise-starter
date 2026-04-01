@@ -57,6 +57,7 @@ public partial class Backlog : ComponentBase, IDisposable
     private bool _modaleEditionOuverte;
     private bool _modaleSuppressionOuverte;
     private BacklogItemDto? _itemEnSuppression;
+    private DirectionAnimationPagination _directionAnimationPagination = DirectionAnimationPagination.Aucune;
 
     [Inject]
     public BacklogState State { get; set; } = default!;
@@ -107,6 +108,13 @@ public partial class Backlog : ComponentBase, IDisposable
 
     private string LibelleActionEdition => _idEdition is null ? "Créer l’élément" : "Enregistrer les modifications";
 
+    private string? ClasseAnimationPagination => _directionAnimationPagination switch
+    {
+        DirectionAnimationPagination.Suivante => "backlog-list--slide-next",
+        DirectionAnimationPagination.Precedente => "backlog-list--slide-previous",
+        _ => null
+    };
+
     protected override async Task OnInitializedAsync()
     {
         State.Changed += HandleStateChanged;
@@ -129,6 +137,7 @@ public partial class Backlog : ComponentBase, IDisposable
     {
         AnnulerRechercheDebouncee();
         _messageSucces = null;
+        _directionAnimationPagination = DirectionAnimationPagination.Aucune;
         await State.RefreshAsync(CancellationToken.None);
     }
 
@@ -136,6 +145,7 @@ public partial class Backlog : ComponentBase, IDisposable
     {
         AnnulerRechercheDebouncee();
         _messageSucces = null;
+        _directionAnimationPagination = DirectionAnimationPagination.Aucune;
         await State.ApplyFiltersAsync(CreerRequeteDepuisSaisie(resetPage: true), CancellationToken.None);
     }
 
@@ -143,6 +153,7 @@ public partial class Backlog : ComponentBase, IDisposable
     {
         AnnulerRechercheDebouncee();
         _messageSucces = null;
+        _directionAnimationPagination = DirectionAnimationPagination.Aucune;
         _recherche = null;
         _statutSelectionne = null;
         _prioriteSelectionnee = null;
@@ -156,6 +167,7 @@ public partial class Backlog : ComponentBase, IDisposable
     {
         AnnulerRechercheDebouncee();
         _messageSucces = null;
+        _directionAnimationPagination = DirectionAnimationPagination.Precedente;
         await State.GoToPreviousPageAsync(CancellationToken.None);
     }
 
@@ -163,6 +175,7 @@ public partial class Backlog : ComponentBase, IDisposable
     {
         AnnulerRechercheDebouncee();
         _messageSucces = null;
+        _directionAnimationPagination = DirectionAnimationPagination.Suivante;
         await State.GoToNextPageAsync(CancellationToken.None);
     }
 
@@ -225,21 +238,29 @@ public partial class Backlog : ComponentBase, IDisposable
 
         try
         {
+            var titre = BacklogInputRules.NormaliserTitre(_formulaire.Titre);
+            var description = BacklogInputRules.NormaliserDescription(_formulaire.Description);
+
+            _formulaire.Titre = titre;
+            _formulaire.Description = description;
+
             var commande = new BacklogItemUpsertRequest
             {
-                Titre = _formulaire.Titre,
-                Description = _formulaire.Description,
+                Titre = titre,
+                Description = description,
                 Statut = ConvertirEnum(_statutFormulaireSelectionne, BacklogItemStatus.Nouveau),
                 Priorite = ConvertirEnum(_prioriteFormulaireSelectionnee, BacklogItemPriority.Moyenne)
             };
 
             if (_idEdition is null)
             {
+                _directionAnimationPagination = DirectionAnimationPagination.Aucune;
                 await State.CreateAsync(commande, CancellationToken.None);
                 _messageSucces = "L’élément de backlog a été créé avec succès.";
             }
             else
             {
+                _directionAnimationPagination = DirectionAnimationPagination.Aucune;
                 await State.UpdateAsync(_idEdition.Value, commande, CancellationToken.None);
                 _messageSucces = "L’élément de backlog a été mis à jour.";
             }
@@ -284,6 +305,7 @@ public partial class Backlog : ComponentBase, IDisposable
 
         try
         {
+            _directionAnimationPagination = DirectionAnimationPagination.Aucune;
             await State.DeleteAsync(_itemEnSuppression.Id, CancellationToken.None);
             _messageSucces = "L’élément de backlog a été supprimé.";
             await FermerSuppressionAsync();
@@ -302,25 +324,40 @@ public partial class Backlog : ComponentBase, IDisposable
     private bool ValiderFormulaire()
     {
         var erreurs = new Dictionary<string, string[]>();
-        var titre = _formulaire.Titre.Trim();
-        var description = _formulaire.Description.Trim();
+        var titreBrut = _formulaire.Titre;
+        var descriptionBrute = _formulaire.Description;
+        var titre = BacklogInputRules.NormaliserTitre(titreBrut);
+        var description = BacklogInputRules.NormaliserDescription(descriptionBrute);
+
+        _formulaire.Titre = titre;
+        _formulaire.Description = description;
 
         if (string.IsNullOrWhiteSpace(titre))
         {
             erreurs[nameof(BacklogItemFormModel.Titre)] = ["Le titre est obligatoire."];
         }
-        else if (titre.Length > 120)
+        else if (BacklogInputRules.ContientDesCaracteresInterditsPourTitre(titreBrut))
         {
-            erreurs[nameof(BacklogItemFormModel.Titre)] = ["Le titre ne peut pas dépasser 120 caractères."];
+            erreurs[nameof(BacklogItemFormModel.Titre)] = ["Le titre contient des caractères non pris en charge."];
+        }
+        else if (titre.Length > BacklogInputRules.TitreLongueurMaximale)
+        {
+            erreurs[nameof(BacklogItemFormModel.Titre)] =
+                [$"Le titre ne peut pas dépasser {BacklogInputRules.TitreLongueurMaximale} caractères."];
         }
 
         if (string.IsNullOrWhiteSpace(description))
         {
             erreurs[nameof(BacklogItemFormModel.Description)] = ["La description est obligatoire."];
         }
-        else if (description.Length > 2000)
+        else if (BacklogInputRules.ContientDesCaracteresInterditsPourDescription(descriptionBrute))
         {
-            erreurs[nameof(BacklogItemFormModel.Description)] = ["La description ne peut pas dépasser 2 000 caractères."];
+            erreurs[nameof(BacklogItemFormModel.Description)] = ["La description contient des caractères non pris en charge."];
+        }
+        else if (description.Length > BacklogInputRules.DescriptionLongueurMaximale)
+        {
+            erreurs[nameof(BacklogItemFormModel.Description)] =
+                [$"La description ne peut pas dépasser {BacklogInputRules.DescriptionLongueurMaximale:N0} caractères."];
         }
 
         _erreursFormulaire = erreurs;
@@ -361,7 +398,7 @@ public partial class Backlog : ComponentBase, IDisposable
     private BacklogItemsQueryDto CreerRequeteDepuisSaisie(bool resetPage) =>
         new()
         {
-            Recherche = string.IsNullOrWhiteSpace(_recherche) ? null : _recherche.Trim(),
+            Recherche = BacklogInputRules.NormaliserRecherche(_recherche),
             Statut = ConvertirEnumNullable<BacklogItemStatus>(_statutSelectionne),
             Priorite = ConvertirEnumNullable<BacklogItemPriority>(_prioriteSelectionnee),
             Tri = ConvertirEnum(_triSelectionne, BacklogItemSortField.DateCreation),
@@ -450,5 +487,12 @@ public partial class Backlog : ComponentBase, IDisposable
         public string Titre { get; set; } = string.Empty;
 
         public string Description { get; set; } = string.Empty;
+    }
+
+    private enum DirectionAnimationPagination
+    {
+        Aucune,
+        Suivante,
+        Precedente
     }
 }

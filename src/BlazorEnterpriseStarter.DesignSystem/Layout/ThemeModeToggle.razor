@@ -1,0 +1,32 @@
+@namespace BlazorEnterpriseStarter.DesignSystem.Layout
+
+<button type="button"
+        class="theme-mode-toggle"
+        title="@InfoBulle"
+        aria-label="@LibelleAccessible"
+        @onclick="BasculerAsync">
+    <span class="theme-mode-toggle__icon" aria-hidden="true">
+        @if (_themeActuel == "dark")
+        {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 15.5A7.5 7.5 0 1 1 12.5 4a6 6 0 0 0 7.5 11.5Z" />
+            </svg>
+        }
+        else
+        {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4.25" />
+                <path d="M12 2.75v2.5" />
+                <path d="M12 18.75v2.5" />
+                <path d="m5.46 5.46 1.78 1.78" />
+                <path d="m16.76 16.76 1.78 1.78" />
+                <path d="M2.75 12h2.5" />
+                <path d="M18.75 12h2.5" />
+                <path d="m5.46 18.54 1.78-1.78" />
+                <path d="m16.76 7.24 1.78-1.78" />
+            </svg>
+        }
+    </span>
+
+    <span class="theme-mode-toggle__label">@LibelleVisible</span>
+</button>

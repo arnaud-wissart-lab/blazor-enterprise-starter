@@ -112,6 +112,24 @@ public class BacklogServiceTests
     }
 
     [Fact]
+    public async Task CreerAsync_devrait_normaliser_les_retours_ligne_de_la_description()
+    {
+        var service = CreerService();
+
+        var cree = await service.CreerAsync(
+            new BacklogItemUpsertRequest
+            {
+                Titre = "Préparer la note de cadrage",
+                Description = "Première ligne.\r\nDeuxième ligne.\rTroisième ligne.",
+                Statut = BacklogItemStatus.Pret,
+                Priorite = BacklogItemPriority.Moyenne
+            },
+            CancellationToken.None);
+
+        Assert.Equal("Première ligne.\nDeuxième ligne.\nTroisième ligne.", cree.Description);
+    }
+
+    [Fact]
     public async Task ModifierAsync_devrait_retourner_null_quand_l_element_est_introuvable()
     {
         var service = CreerService(CreerItem("Initial", "Description", BacklogItemStatus.Nouveau, BacklogItemPriority.Moyenne, -1));

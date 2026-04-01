@@ -12,7 +12,7 @@ public sealed class BacklogService(IBacklogRepository repository) : IBacklogServ
     public async Task<PagedResultDto<BacklogItemDto>> ListerAsync(BacklogItemsQueryDto requete, CancellationToken cancellationToken)
     {
         var items = await repository.ListerAsync(cancellationToken);
-        var recherche = requete.Recherche?.Trim();
+        var recherche = BacklogInputRules.NormaliserRecherche(requete.Recherche);
 
         IEnumerable<BacklogItem> sequence = items;
 
@@ -57,9 +57,12 @@ public sealed class BacklogService(IBacklogRepository repository) : IBacklogServ
 
     public async Task<BacklogItemDto> CreerAsync(BacklogItemUpsertRequest commande, CancellationToken cancellationToken)
     {
+        var titre = BacklogInputRules.NormaliserTitre(commande.Titre);
+        var description = BacklogInputRules.NormaliserDescription(commande.Description);
+
         var item = BacklogItem.Create(
-            commande.Titre.Trim(),
-            commande.Description.Trim(),
+            titre,
+            description,
             commande.Statut,
             commande.Priorite,
             DateTimeOffset.UtcNow);
@@ -77,9 +80,12 @@ public sealed class BacklogService(IBacklogRepository repository) : IBacklogServ
             return null;
         }
 
+        var titre = BacklogInputRules.NormaliserTitre(commande.Titre);
+        var description = BacklogInputRules.NormaliserDescription(commande.Description);
+
         var itemMisAJour = item.MettreAJour(
-            commande.Titre.Trim(),
-            commande.Description.Trim(),
+            titre,
+            description,
             commande.Statut,
             commande.Priorite);
 

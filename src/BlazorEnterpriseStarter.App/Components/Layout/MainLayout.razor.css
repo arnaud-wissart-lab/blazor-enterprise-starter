@@ -23,6 +23,8 @@
 .layout-nav :deep(.layout-nav__link:focus),
 .layout-nav :deep(.layout-nav__link:visited) {
     text-decoration: none !important;
+    text-decoration-line: none !important;
+    text-decoration-color: transparent !important;
 }
 
 .layout-nav :deep(.layout-nav__link *),
@@ -30,6 +32,17 @@
 .layout-nav :deep(.layout-nav__link:focus *),
 .layout-nav :deep(.layout-nav__link:visited *) {
     text-decoration: none !important;
+    text-decoration-line: none !important;
+    text-decoration-color: transparent !important;
+}
+
+.layout-nav :deep(a.layout-nav__link),
+.layout-nav :deep(a.layout-nav__link:hover),
+.layout-nav :deep(a.layout-nav__link:focus),
+.layout-nav :deep(a.layout-nav__link:visited) {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    text-decoration-color: transparent !important;
 }
 
 .layout-nav :deep(.layout-nav__link:hover) {
