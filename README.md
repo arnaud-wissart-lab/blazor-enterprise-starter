@@ -1,19 +1,30 @@
 # BlazorEnterpriseStarter
 
-Socle de démonstration pour une application Blazor moderne, structurée pour un contexte professionnel avec une API ASP.NET Core, un design system réutilisable, une conteneurisation Docker simple et une orchestration .NET Aspire.
+BlazorEnterpriseStarter est une solution de démonstration construite pour illustrer une approche professionnelle d’une application métier moderne en .NET.
 
-## Objectif de ce premier incrément
+Le projet met en avant :
 
-Cette première étape pose une base minimale viable, démontrable localement et prête à être enrichie :
+- une interface Blazor structurée et crédible pour un contexte professionnel
+- une API ASP.NET Core dédiée aux cas d’usage métier
+- un design system et une bibliothèque de composants réutilisables
+- une orchestration locale lisible avec .NET Aspire
+- une conteneurisation simple avec Docker
+- une base de tests unitaires orientée comportements à valeur réelle
 
-- solution .NET complète avec séparation claire des responsabilités
-- application `Blazor Web App` pour la vitrine front-end
-- backend `ASP.NET Core Web API` pour les capacités métier et la supervision
-- design system et composants réutilisables isolés dans des bibliothèques dédiées
-- orchestration locale via `.NET Aspire`
-- endpoint de vérification de santé et client front-end pour l’interroger
+L’objectif n’est pas de livrer un produit complet, mais un socle vitrine lisible, maintenable et démontrable localement ou sur GitHub.
 
-## Structure de la solution
+## Objectifs techniques
+
+Le projet a été conçu pour démontrer de manière concrète :
+
+- une séparation claire entre UI, logique applicative, contrats partagés et backend
+- une organisation cohérente d’une solution .NET multi-projets
+- une approche sobre et réutilisable du design system et des composants Blazor
+- un module métier simple mais crédible autour d’un backlog produit
+- une exécution locale propre, à la fois via Aspire et via Docker
+- une base saine pour évoluer ensuite vers de la persistence, de l’authentification ou d’autres modules métier
+
+## Architecture de la solution
 
 ```text
 /src
@@ -29,90 +40,179 @@ Cette première étape pose une base minimale viable, démontrable localement et
   BlazorEnterpriseStarter.Tests
 ```
 
-## Rôle des projets
+### Rôle des projets
 
-- `BlazorEnterpriseStarter.AppHost` : orchestration locale avec Aspire, composition des services et dépendances d’exécution.
-- `BlazorEnterpriseStarter.ServiceDefaults` : configuration transversale Aspire pour la découverte de services, la résilience HTTP, la télémétrie et les endpoints de santé.
-- `BlazorEnterpriseStarter.App` : interface Blazor Web App, point d’entrée de la démonstration utilisateur.
-- `BlazorEnterpriseStarter.Server` : API ASP.NET Core destinée aux fonctionnalités métier et à la supervision technique.
-- `BlazorEnterpriseStarter.Shared` : contrats partagés entre le front-end, l’API et les tests.
-- `BlazorEnterpriseStarter.Components` : composants réutilisables orientés usage métier ou présentation d’écrans.
-- `BlazorEnterpriseStarter.DesignSystem` : primitives d’interface, styles, tokens visuels et layout réutilisable.
-- `BlazorEnterpriseStarter.Tests` : tests unitaires ciblant d’abord les contrats et règles simples du socle.
+- `BlazorEnterpriseStarter.AppHost`
+  Orchestration locale avec .NET Aspire, composition des services et supervision de l’ensemble.
 
-## Structure interne proposée
+- `BlazorEnterpriseStarter.ServiceDefaults`
+  Configuration transverse Aspire pour la découverte de services, la résilience HTTP, la télémétrie et les endpoints de santé.
 
-### `BlazorEnterpriseStarter.App`
+- `BlazorEnterpriseStarter.App`
+  Application Blazor Web App, point d’entrée front-end de la démonstration.
 
-- `Components/Layout` : layout global, gestion de la reconnexion et chrome applicatif
-- `Components/Pages` : pages routées de la démonstration
-- `Services` : clients HTTP et orchestration front-end
-- `wwwroot` : styles et ressources propres à l’application
+- `BlazorEnterpriseStarter.Server`
+  API ASP.NET Core pour les fonctionnalités métier, la santé applicative et l’exposition du module backlog.
 
-### `BlazorEnterpriseStarter.Server`
+- `BlazorEnterpriseStarter.Shared`
+  Contrats partagés entre le front, l’API et les tests.
 
-- `Endpoints` : endpoints minimaux ou groupes d’endpoints
-- `Program.cs` : composition de l’application et pipeline HTTP
-- `appsettings*.json` : configuration d’environnement
+- `BlazorEnterpriseStarter.Components`
+  Composants Blazor réutilisables orientés usages d’interface.
 
-### `BlazorEnterpriseStarter.Shared`
+- `BlazorEnterpriseStarter.DesignSystem`
+  Fondations visuelles, tokens CSS, layout, primitives UI et conventions de composition.
 
-- `Contracts` : DTO, constantes de routes et modèles partagés
+- `BlazorEnterpriseStarter.Tests`
+  Tests unitaires xUnit ciblant en priorité les services applicatifs, la gestion d’état et les comportements à forte valeur démonstrative.
 
-### `BlazorEnterpriseStarter.Components`
+### Vue d’ensemble
 
-- `Monitoring` : composants réutilisables de supervision et de tableau de bord
+```text
+BlazorEnterpriseStarter.App
+  -> consomme BlazorEnterpriseStarter.Components
+  -> consomme BlazorEnterpriseStarter.DesignSystem
+  -> consomme BlazorEnterpriseStarter.Shared
+  -> appelle BlazorEnterpriseStarter.Server via client API dédié
 
-### `BlazorEnterpriseStarter.DesignSystem`
+BlazorEnterpriseStarter.Server
+  -> consomme BlazorEnterpriseStarter.Shared
+  -> expose les endpoints métier et de santé
 
-- `Layout` : gabarits de page et structure visuelle
-- `Elements` : briques UI atomiques et réutilisables
-- `wwwroot/styles` : tokens, variables CSS et styles transverses
+BlazorEnterpriseStarter.AppHost
+  -> orchestre App et Server via .NET Aspire
+```
 
-### `BlazorEnterpriseStarter.Tests`
+## Rôle des technologies
 
-- `Shared` : tests des contrats et conventions du socle
+### Blazor
 
-## Choix d’architecture
+Blazor porte l’interface utilisateur, la structure applicative, les pages de démonstration et le module backlog. Il permet ici de montrer :
 
-### 1. Séparation nette entre UI, API et contrats
+- une UI modulaire
+- des composants réutilisables
+- une gestion d’état locale claire
+- une expérience cohérente entre vitrine UI et module métier
 
-Le front-end Blazor et l’API sont déployables séparément. Cette séparation améliore la lisibilité de l’architecture, permet de faire évoluer la sécurité ou la scalabilité indépendamment et évite de mélanger responsabilités visuelles et responsabilités métier.
+### ASP.NET Core
 
-### 2. Design system dédié
+ASP.NET Core est utilisé pour l’API backend. Son rôle est de :
 
-Le design system n’est pas mélangé avec l’application finale. Les primitives visuelles restent réutilisables pour d’autres écrans ou d’autres projets, ce qui correspond mieux à une démarche produit ou plate-forme.
+- exposer un backend proprement séparé du front
+- porter les cas d’usage du backlog
+- gérer la recherche, le filtrage, le tri et la pagination côté serveur
+- exposer les endpoints de santé
 
-### 3. Composants métier réutilisables
+### Docker
 
-Les composants orientés usage, comme une carte de supervision, sont isolés du design system. Cela permet de garder une frontière claire entre style générique et composition fonctionnelle.
+Docker fournit un mode de lancement simple et démontrable hors Aspire. Il permet de :
 
-### 4. Aspire dès le socle
+- lancer rapidement le front et l’API dans des conteneurs distincts
+- valider la cohérence des URLs inter-services
+- préparer un futur déploiement avec une base conteneurisée propre
 
-L’AppHost et les Service Defaults sont introduits immédiatement pour rendre la démonstration crédible dans un contexte moderne : découverte de services, santé, résilience et observabilité sont prévues dès l’initialisation du projet.
+### .NET Aspire
 
-## Hypothèses techniques
+.NET Aspire est le mode principal d’orchestration locale. Il apporte :
 
-- La solution cible `.NET 10`, cohérent avec le SDK et les templates Aspire installés localement.
-- Le premier incrément privilégie un socle démontrable plutôt qu’une logique métier complète.
-- Les conteneurs exécutent l’application en HTTP interne sur le port `8080`. En environnement déployé, la terminaison TLS a vocation à être assurée par le reverse proxy ou la plate-forme d’hébergement.
+- une composition claire des services
+- la découverte de services
+- des health checks intégrés
+- une expérience de développement plus lisible pour une solution distribuée, même légère
 
-## Démarrage local
+## Choix de conception principaux
 
-### Avec Aspire
+### 1. Front-end, backend et contrats explicitement séparés
+
+Le front Blazor, l’API ASP.NET Core et les contrats partagés vivent dans des projets distincts. Cette séparation améliore la lisibilité, limite le couplage et prépare mieux les évolutions d’un vrai produit.
+
+### 2. Design system distinct de la bibliothèque de composants
+
+Le design system porte les fondations visuelles. Les composants applicatifs les composent ensuite pour répondre à des usages réels. Ce découpage est plus crédible qu’un mélange de styles et de composants dans l’application elle-même.
+
+### 3. Gestion d’état pragmatique sur le module backlog
+
+Le module backlog évite les appels HTTP directs dans les composants Razor. Il s’appuie sur :
+
+- un client API dédié
+- une classe d’état locale
+- des notifications explicites de changement
+- une gestion claire des états `chargement`, `succès` et `erreur`
+
+L’objectif est d’obtenir une architecture compréhensible rapidement, sans introduire une solution de type Redux qui ne serait pas justifiée ici.
+
+### 4. Persistence mémoire pour accélérer la démonstration
+
+Le backlog repose pour l’instant sur une persistence en mémoire. Ce choix est volontaire :
+
+- il accélère la démonstration locale
+- il garde l’architecture simple
+- il reste remplaçable, car la logique métier passe par des abstractions dédiées
+
+### 5. Optimisations limitées aux gains utiles
+
+Le projet applique quelques optimisations à vrai bénéfice :
+
+- pagination serveur
+- debounce sur la recherche
+- conservation des résultats déjà chargés lors d’un rafraîchissement échoué
+- retours visuels de chargement sobres
+
+La virtualisation, par exemple, n’a pas été ajoutée sur le backlog car la pagination serveur actuelle la rend peu rentable à ce stade.
+
+## Points forts UI/UX
+
+Le projet cherche un rendu sérieux, moderne et exploitable dans un contexte métier.
+
+Les principaux partis pris sont :
+
+- un layout principal clair, avec navigation, en-tête et zone de contenu stable
+- un design system sobre, premium et maintenable
+- une hiérarchie visuelle nette, utile pour des captures d’écran GitHub
+- une page d’accueil pensée comme une vitrine technique et non comme un simple placeholder
+- une page dédiée au design system et aux composants
+- un module backlog démonstratif, avec recherche, filtres, tri, pagination et CRUD
+
+Pages actuellement mises en avant :
+
+- `/`
+  Accueil vitrine du projet
+
+- `/composants`
+  Démonstration du design system et des composants réutilisables
+
+- `/backlog`
+  Module métier démonstratif de backlog produit
+
+## Instructions de lancement
+
+### Prérequis
+
+- SDK .NET 10
+- Docker Desktop si vous souhaitez lancer la solution en conteneurs
+- workload Aspire disponible localement pour le lancement via AppHost
+
+### Lancement via Aspire
 
 ```bash
 dotnet run --project src/BlazorEnterpriseStarter.AppHost
 ```
 
-Ports attendus en développement local :
+Ce mode est le chemin principal pour le développement local.
+
+Ports attendus en développement :
 
 - application Blazor : `https://localhost:7196` et `http://localhost:5184`
 - API ASP.NET Core : `https://localhost:7005` et `http://localhost:5036`
 
-Ce mode est le chemin principal pour le développement local. `AppHost` orchestre `App` et `Server`, injecte les informations de service discovery et permet de visualiser l’ensemble via le tableau de bord Aspire.
+Ce lancement permet de bénéficier :
 
-### Via Docker
+- de l’orchestration des services
+- de la découverte de services entre `app` et `server`
+- du tableau de bord Aspire
+- des health checks intégrés
+
+### Lancement via Docker
 
 ```bash
 docker compose up --build
@@ -123,58 +223,68 @@ Ports exposés :
 - application Blazor : `http://localhost:8080`
 - API ASP.NET Core : `http://localhost:8081`
 
-Dans ce mode, l’application front contacte l’API via l’URL interne `http://server:8080` grâce à la variable d’environnement `PlatformApi__BaseUrl` définie dans [docker-compose.yml](C:/Users/ArnaudW/source/repos/blazor-enterprise-starter/docker-compose.yml).
+Dans ce mode, le front contacte l’API via l’URL interne `http://server:8080`.
 
-Pour arrêter et nettoyer les conteneurs :
+Pour arrêter les conteneurs :
 
 ```bash
 docker compose down
 ```
 
-### Sans Aspire ni Docker
+### Vérifications utiles
+
+- Front : `http://localhost:8080` en mode Docker
+- API backlog : `http://localhost:8081/api/backlog-items` en mode Docker
+- Santé : `http://localhost:8081/health` en mode Docker
+
+### Validation locale
 
 ```bash
-dotnet run --project src/BlazorEnterpriseStarter.Server
-dotnet run --project src/BlazorEnterpriseStarter.App
-```
-
-Ce mode reste utile pour un débogage ciblé, mais il est moins confortable que l’orchestration Aspire.
-
-## Conteneurisation
-
-Les fichiers suivants constituent la base Docker :
-
-- [src/BlazorEnterpriseStarter.App/Dockerfile](C:/Users/ArnaudW/source/repos/blazor-enterprise-starter/src/BlazorEnterpriseStarter.App/Dockerfile)
-- [src/BlazorEnterpriseStarter.Server/Dockerfile](C:/Users/ArnaudW/source/repos/blazor-enterprise-starter/src/BlazorEnterpriseStarter.Server/Dockerfile)
-- [docker-compose.yml](C:/Users/ArnaudW/source/repos/blazor-enterprise-starter/docker-compose.yml)
-- [.dockerignore](C:/Users/ArnaudW/source/repos/blazor-enterprise-starter/.dockerignore)
-
-Choix pragmatiques retenus :
-
-- Dockerfiles multi-étapes pour produire des images propres et compactes
-- pas de HTTPS à l’intérieur des conteneurs, afin d’éviter une complexité locale inutile
-- ports internes unifiés à `8080` pour simplifier le raisonnement
-- `docker-compose` minimal, limité au front et à l’API
-- conservation d’Aspire comme orchestrateur local principal
-
-## Cohérence des communications
-
-- En mode Aspire, `App` résout `server` via la découverte de services et l’instruction `.WithReference(...)` de l’AppHost.
-- En mode Docker, `App` bascule automatiquement sur la configuration `PlatformApi:BaseUrl`, injectée par `docker-compose`.
-- Les endpoints `/health` et `/alive` sont exposés en développement et en conteneur pour faciliter la supervision locale et préparer un futur déploiement.
-
-## Validation
-
-```bash
-dotnet restore
 dotnet build BlazorEnterpriseStarter.sln
 dotnet test BlazorEnterpriseStarter.sln
 docker compose config
 ```
 
-## Prochaines étapes naturelles
+## Captures d’écran
 
-- ajouter une vraie couche application et domaine si l’on introduit des cas métier
-- brancher une persistance ou un fournisseur externe
-- enrichir le design system avec formulaires, tableaux et navigation
-- préparer un déploiement derrière un reverse proxy ou une plate-forme managée
+Section à compléter avec des captures à mesure que la vitrine visuelle se stabilise.
+
+Suggestions de captures :
+
+- accueil du projet
+- page de démonstration du design system et des composants
+- module backlog produit
+- vue Aspire locale
+
+Exemple de structure à compléter :
+
+```md
+![Accueil](docs/screenshots/home.png)
+![Composants](docs/screenshots/components.png)
+![Backlog](docs/screenshots/backlog.png)
+```
+
+## Pistes d’évolution
+
+Les évolutions naturelles du projet seraient :
+
+- remplacer la persistence mémoire par EF Core et une base relationnelle
+- ajouter une authentification et une gestion des rôles
+- enrichir le backlog avec des commentaires, affectations ou workflows
+- introduire des tests de composants Blazor avec bUnit si le périmètre UI s’élargit
+- ajouter une stratégie de déploiement plus complète avec reverse proxy ou plate-forme managée
+- préparer une CI plus poussée avec analyse statique et publication d’images
+
+## Valeur démonstrative pour un recruteur technique
+
+Ce dépôt permet d’évaluer rapidement plusieurs dimensions utiles dans un contexte de recrutement :
+
+- capacité à structurer une solution .NET proprement
+- compréhension des frontières entre front, API, contrats partagés et orchestration
+- maîtrise de Blazor au-delà d’une simple page de démonstration
+- capacité à construire un design system et des composants réutilisables
+- sens de la sobriété UI/UX dans un cadre métier
+- pragmatisme dans les arbitrages techniques
+- qualité de base sur les tests unitaires et la lisibilité du code
+
+Autrement dit, le projet ne cherche pas à impressionner par le volume, mais par la cohérence technique, la lisibilité et la crédibilité de ses choix.
