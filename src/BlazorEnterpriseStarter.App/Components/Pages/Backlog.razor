@@ -1,0 +1,245 @@
+@page "/backlog"
+
+<PageTitle>Backlog produit</PageTitle>
+
+<AppPageHeader Eyebrow="Module métier"
+               Title="Backlog produit"
+               Description="Une page démonstrative crédible pour piloter des éléments de backlog avec recherche, filtres, tri, pagination et opérations CRUD.">
+    <Badges>
+        <AppBadge Tone="AppTone.Accent">@NombreTotalLibelle</AppBadge>
+        @if (FiltreStatutActif is not null)
+        {
+            <AppBadge Tone="@ObtenirTonaliteStatut(FiltreStatutActif.Value)">@ObtenirLibelleStatut(FiltreStatutActif.Value)</AppBadge>
+        }
+        @if (FiltrePrioriteActif is not null)
+        {
+            <AppBadge Tone="@ObtenirTonalitePriorite(FiltrePrioriteActif.Value)">@ObtenirLibellePriorite(FiltrePrioriteActif.Value)</AppBadge>
+        }
+    </Badges>
+    <Actions>
+        <AppButton Variant="AppButtonVariant.Secondary" OnClick="ActualiserAsync">Actualiser</AppButton>
+        <AppButton OnClick="OuvrirCreationAsync">Créer un élément</AppButton>
+    </Actions>
+    <ChildContent>
+        <p>
+            Le front ne porte aucune logique HTTP directe : la page dialogue avec un client dédié, tandis que
+            l’API s’appuie sur un service applicatif et une persistence mémoire prête à être remplacée.
+        </p>
+    </ChildContent>
+</AppPageHeader>
+
+<AppCard Eyebrow="Pilotage"
+         Title="Recherche, filtres et tri"
+         Description="Les critères sont traités côté API pour préparer une montée en charge réaliste.">
+    <ChildContent>
+        <div class="backlog-filters">
+            <AppInput Label="Recherche"
+                      Placeholder="Titre, description, besoin métier..."
+                      Description="La recherche inspecte le titre et la description."
+                      @bind-Value="_recherche" />
+
+            <AppSelect Label="Statut"
+                       Placeholder="Tous les statuts"
+                       Options="_statutOptions"
+                       @bind-Value="_statutSelectionne" />
+
+            <AppSelect Label="Priorité"
+                       Placeholder="Toutes les priorités"
+                       Options="_prioriteOptions"
+                       @bind-Value="_prioriteSelectionnee" />
+
+            <AppSelect Label="Tri"
+                       Placeholder=""
+                       Options="_triOptions"
+                       @bind-Value="_triSelectionne" />
+
+            <AppSelect Label="Direction"
+                       Placeholder=""
+                       Options="_directionOptions"
+                       @bind-Value="_directionSelectionnee" />
+        </div>
+    </ChildContent>
+    <Footer>
+        <AppButton Variant="AppButtonVariant.Ghost" OnClick="ReinitialiserFiltresAsync">Réinitialiser</AppButton>
+        <AppButton Variant="AppButtonVariant.Secondary" OnClick="AppliquerFiltresAsync">Appliquer les filtres</AppButton>
+    </Footer>
+</AppCard>
+
+@if (_chargementInitial)
+{
+    <AppCard Eyebrow="Chargement" Title="Lecture du backlog en cours" Description="La page récupère les éléments depuis l’API backend.">
+        <ChildContent>
+            <div class="backlog-state">
+                <AppLoader Label="Chargement du backlog produit" />
+            </div>
+        </ChildContent>
+    </AppCard>
+}
+else if (!string.IsNullOrWhiteSpace(_erreurChargement))
+{
+    <AppCard Eyebrow="Erreur" Title="Le backlog n’a pas pu être chargé" Description="@_erreurChargement" Tone="AppTone.Danger">
+        <ChildContent>
+            <div class="backlog-state">
+                <AppButton Variant="AppButtonVariant.Secondary" OnClick="ActualiserAsync">Réessayer</AppButton>
+            </div>
+        </ChildContent>
+    </AppCard>
+}
+else
+{
+    <div class="backlog-summary-grid">
+        <AppCard Title="Total filtré" Description="Nombre d’éléments correspondant aux critères en cours." IsCompact="true">
+            <ChildContent>
+                <div class="backlog-metric">
+                    <strong>@(_resultat?.NombreTotal ?? 0)</strong>
+                    <span>éléments backlog</span>
+                </div>
+            </ChildContent>
+        </AppCard>
+
+        <AppCard Title="Page courante" Description="Position dans la pagination serveur." IsCompact="true">
+            <ChildContent>
+                <div class="backlog-metric">
+                    <strong>@(_resultat?.NumeroPage ?? 1)</strong>
+                    <span>sur @(_resultat?.NombrePages ?? 1)</span>
+                </div>
+            </ChildContent>
+        </AppCard>
+
+        <AppCard Title="Taille de page" Description="Nombre d’éléments renvoyés par la requête." IsCompact="true">
+            <ChildContent>
+                <div class="backlog-metric">
+                    <strong>@(_resultat?.Elements.Count ?? 0)</strong>
+                    <span>éléments affichés</span>
+                </div>
+            </ChildContent>
+        </AppCard>
+    </div>
+
+    @if (Elements.Count == 0)
+    {
+        <AppEmptyState Eyebrow="Backlog"
+                       Title="Aucun élément ne correspond aux critères"
+                       Description="Réinitialisez les filtres ou créez un nouvel élément pour enrichir la démonstration."
+                       Tone="AppTone.Warning">
+            <Actions>
+                <AppButton Variant="AppButtonVariant.Secondary" OnClick="ReinitialiserFiltresAsync">Réinitialiser</AppButton>
+                <AppButton OnClick="OuvrirCreationAsync">Créer un élément</AppButton>
+            </Actions>
+            <ChildContent>
+                La persistence est volontairement en mémoire pour accélérer la démonstration, sans figer l’architecture.
+            </ChildContent>
+        </AppEmptyState>
+    }
+    else
+    {
+        <div class="backlog-list">
+            @foreach (var item in Elements)
+            {
+                <AppCard Title="@item.Titre"
+                         Description="@item.Description"
+                         Tone="@ObtenirTonalitePriorite(item.Priorite)">
+                    <Actions>
+                        <AppButton Variant="AppButtonVariant.Ghost" Size="AppControlSize.Small" OnClick="@((MouseEventArgs args) => OuvrirEditionAsync(item, args))">
+                            Modifier
+                        </AppButton>
+                        <AppButton Variant="AppButtonVariant.Danger" Size="AppControlSize.Small" OnClick="@((MouseEventArgs args) => OuvrirSuppressionAsync(item, args))">
+                            Supprimer
+                        </AppButton>
+                    </Actions>
+                    <ChildContent>
+                        <div class="backlog-item__meta">
+                            <AppBadge Tone="@ObtenirTonaliteStatut(item.Statut)">@ObtenirLibelleStatut(item.Statut)</AppBadge>
+                            <AppBadge Tone="@ObtenirTonalitePriorite(item.Priorite)">@ObtenirLibellePriorite(item.Priorite)</AppBadge>
+                            <span class="backlog-item__date">Créé le @item.DateCreation.ToLocalTime().ToString("dd/MM/yyyy")</span>
+                        </div>
+                    </ChildContent>
+                </AppCard>
+            }
+        </div>
+
+        <div class="backlog-pagination">
+            <AppButton Variant="AppButtonVariant.Secondary"
+                       Size="AppControlSize.Small"
+                       Disabled="@(!PeutAllerPagePrecedente)"
+                       OnClick="AllerPagePrecedenteAsync">
+                Page précédente
+            </AppButton>
+
+            <span class="backlog-pagination__summary">
+                Page @(_resultat?.NumeroPage ?? 1) sur @(_resultat?.NombrePages ?? 1)
+            </span>
+
+            <AppButton Variant="AppButtonVariant.Secondary"
+                       Size="AppControlSize.Small"
+                       Disabled="@(!PeutAllerPageSuivante)"
+                       OnClick="AllerPageSuivanteAsync">
+                Page suivante
+            </AppButton>
+        </div>
+    }
+}
+
+<AppModal IsOpen="_modaleEditionOuverte"
+          Title="@TitreModaleEdition"
+          Description="Le formulaire reste volontairement simple pour mettre en avant le flux principal de gestion."
+          OnClose="FermerEditionAsync">
+    <ChildContent>
+        <div class="backlog-form">
+            <AppInput Label="Titre"
+                      Placeholder="Exemple : Préparer la feuille de route Q3"
+                      ErrorMessage="@ObtenirErreurChamp(nameof(BacklogItemFormModel.Titre))"
+                      @bind-Value="_formulaire.Titre" />
+
+            <AppTextarea Label="Description"
+                         Rows="6"
+                         Description="Une description claire facilite la lecture et la priorisation."
+                         ErrorMessage="@ObtenirErreurChamp(nameof(BacklogItemFormModel.Description))"
+                         @bind-Value="_formulaire.Description" />
+
+            <div class="backlog-form__grid">
+                <AppSelect Label="Statut"
+                           Placeholder=""
+                           Options="_statutFormulaireOptions"
+                           @bind-Value="_statutFormulaireSelectionne" />
+
+                <AppSelect Label="Priorité"
+                           Placeholder=""
+                           Options="_prioriteFormulaireOptions"
+                           @bind-Value="_prioriteFormulaireSelectionnee" />
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(_erreurFormulaireGlobale))
+            {
+                <p class="backlog-form__error" role="alert">@_erreurFormulaireGlobale</p>
+            }
+        </div>
+    </ChildContent>
+    <FooterContent>
+        <AppButton Variant="AppButtonVariant.Secondary" OnClick="AnnulerEditionAsync">Annuler</AppButton>
+        <AppButton IsLoading="_enregistrementEnCours" OnClick="EnregistrerAsync">
+            @LibelleActionEdition
+        </AppButton>
+    </FooterContent>
+</AppModal>
+
+<AppModal IsOpen="_modaleSuppressionOuverte"
+          Title="Supprimer un élément de backlog"
+          Description="Cette action retire l’élément de la persistence mémoire de démonstration."
+          OnClose="FermerSuppressionAsync">
+    <ChildContent>
+        <div class="backlog-delete">
+            <p>
+                Voulez-vous vraiment supprimer
+                <strong>@(_itemEnSuppression?.Titre ?? "cet élément")</strong>
+                du backlog produit ?
+            </p>
+        </div>
+    </ChildContent>
+    <FooterContent>
+        <AppButton Variant="AppButtonVariant.Secondary" OnClick="AnnulerSuppressionAsync">Annuler</AppButton>
+        <AppButton Variant="AppButtonVariant.Danger" IsLoading="_suppressionEnCours" OnClick="ConfirmerSuppressionAsync">
+            Supprimer
+        </AppButton>
+    </FooterContent>
+</AppModal>

@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\BlazorEnterpriseStarter.Shared\BlazorEnterpriseStarter.Shared.csproj" />
+    <ProjectReference Include="..\..\src\BlazorEnterpriseStarter.Server\BlazorEnterpriseStarter.Server.csproj" />
   </ItemGroup>
 
 </Project>

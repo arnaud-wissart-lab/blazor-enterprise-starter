@@ -6,4 +6,9 @@ public static class ApiRoutes
     {
         public const string Status = "/api/system/status";
     }
+
+    public static class Backlog
+    {
+        public const string Base = "/api/backlog-items";
+    }
 }

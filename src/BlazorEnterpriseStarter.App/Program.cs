@@ -14,13 +14,16 @@ public class Program
         builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents();
 
-        var platformApiBaseUrl = builder.Configuration["PlatformApi:BaseUrl"];
+        var apiBaseAddress = ResolveApiBaseAddress(builder.Configuration);
 
         builder.Services.AddHttpClient<PlatformApiClient>(client =>
         {
-            client.BaseAddress = Uri.TryCreate(platformApiBaseUrl, UriKind.Absolute, out var configuredBaseAddress)
-                ? configuredBaseAddress
-                : new Uri("https+http://server");
+            client.BaseAddress = apiBaseAddress;
+        });
+
+        builder.Services.AddHttpClient<BacklogApiClient>(client =>
+        {
+            client.BaseAddress = apiBaseAddress;
         });
 
         var app = builder.Build();
@@ -51,4 +54,13 @@ public class Program
     private static bool IsRunningInContainer() =>
         bool.TryParse(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), out var isRunningInContainer)
         && isRunningInContainer;
+
+    private static Uri ResolveApiBaseAddress(ConfigurationManager configuration)
+    {
+        var configuredBaseUrl = configuration["PlatformApi:BaseUrl"];
+
+        return Uri.TryCreate(configuredBaseUrl, UriKind.Absolute, out var configuredBaseAddress)
+            ? configuredBaseAddress
+            : new Uri("https+http://server");
+    }
 }

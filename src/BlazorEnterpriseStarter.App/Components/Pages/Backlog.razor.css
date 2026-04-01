@@ -1,0 +1,113 @@
+.backlog-filters {
+    display: grid;
+    gap: var(--bes-space-4);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.backlog-state {
+    display: grid;
+    place-items: start;
+    gap: var(--bes-space-3);
+}
+
+.backlog-summary-grid {
+    display: grid;
+    gap: var(--bes-space-5);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.backlog-metric {
+    display: grid;
+    gap: var(--bes-space-1);
+}
+
+.backlog-metric strong {
+    font-size: var(--bes-font-size-3xl);
+    color: var(--bes-color-text-primary);
+}
+
+.backlog-metric span {
+    color: var(--bes-color-text-secondary);
+}
+
+.backlog-list {
+    display: grid;
+    gap: var(--bes-space-5);
+}
+
+.backlog-item__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--bes-space-3);
+    align-items: center;
+}
+
+.backlog-item__date {
+    color: var(--bes-color-text-secondary);
+    font-size: var(--bes-font-size-sm);
+}
+
+.backlog-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--bes-space-3);
+    flex-wrap: wrap;
+    padding: var(--bes-space-4) var(--bes-space-5);
+    border: 1px solid var(--bes-color-border-subtle);
+    border-radius: var(--bes-radius-lg);
+    background: var(--bes-color-surface-primary);
+    box-shadow: var(--bes-shadow-xs);
+}
+
+.backlog-pagination__summary {
+    color: var(--bes-color-text-secondary);
+    font-size: var(--bes-font-size-sm);
+}
+
+.backlog-form {
+    display: grid;
+    gap: var(--bes-space-4);
+}
+
+.backlog-form__grid {
+    display: grid;
+    gap: var(--bes-space-4);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.backlog-form__error {
+    margin: 0;
+    color: var(--bes-color-danger-text);
+}
+
+.backlog-delete p {
+    margin: 0;
+    color: var(--bes-color-text-secondary);
+}
+
+@media (max-width: 64rem) {
+    .backlog-filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .backlog-summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 48rem) {
+    .backlog-filters,
+    .backlog-form__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .backlog-pagination {
+        align-items: stretch;
+    }
+
+    .backlog-pagination__summary {
+        width: 100%;
+        text-align: center;
+    }
+}

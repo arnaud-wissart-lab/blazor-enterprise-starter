@@ -1,4 +1,6 @@
+using BlazorEnterpriseStarter.Server.Application.Backlog;
 using BlazorEnterpriseStarter.Server.Endpoints;
+using BlazorEnterpriseStarter.Server.Infrastructure.Backlog;
 
 namespace BlazorEnterpriseStarter.Server;
 
@@ -10,6 +12,8 @@ public class Program
 
         builder.AddServiceDefaults();
         builder.Services.AddProblemDetails();
+        builder.Services.AddSingleton<IBacklogRepository, InMemoryBacklogRepository>();
+        builder.Services.AddScoped<IBacklogService, BacklogService>();
 
         var app = builder.Build();
 
@@ -30,6 +34,7 @@ public class Program
         });
 
         app.MapSystemStatusEndpoints();
+        app.MapBacklogEndpoints();
         app.MapDefaultEndpoints();
 
         app.Run();

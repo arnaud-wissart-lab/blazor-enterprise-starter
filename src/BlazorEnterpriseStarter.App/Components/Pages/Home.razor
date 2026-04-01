@@ -12,8 +12,9 @@
         <AppBadge Tone="AppTone.Info">Architecture propre</AppBadge>
     </Badges>
     <Actions>
+        <AppButton Variant="AppButtonVariant.Secondary" Href="/backlog">Ouvrir le backlog produit</AppButton>
         <AppButton Href="/composants">Explorer la vitrine UI</AppButton>
-        <AppButton Variant="AppButtonVariant.Secondary" Href="/health">Vérifier la santé</AppButton>
+        <AppButton Variant="AppButtonVariant.Ghost" Href="/health">Vérifier la santé</AppButton>
     </Actions>
     <ChildContent>
         <div class="home-header-stats">
@@ -82,6 +83,17 @@
     </div>
 
     <div class="home-quick-grid">
+        <AppCard Title="Backlog produit"
+                 Description="Explorer un module métier démonstratif avec liste, recherche, filtres, pagination et opérations CRUD."
+                 IsCompact="true">
+            <ChildContent>
+                <p>Cette page montre comment les composants réutilisables soutiennent un cas d’usage crédible de produit.</p>
+            </ChildContent>
+            <Footer>
+                <AppButton Href="/backlog" Size="AppControlSize.Small">Ouvrir le module</AppButton>
+            </Footer>
+        </AppCard>
+
         <AppCard Title="Fondations visuelles"
                  Description="Parcourir les tokens, les surfaces, la hiérarchie typographique et les partis pris responsive."
                  IsCompact="true">
