@@ -4,7 +4,7 @@
 
 <AppPageHeader Eyebrow="Module métier"
                Title="Backlog produit"
-               Description="Une vue backlog compacte et crédible pour évaluer la recherche, la priorisation et les opérations de base d’un module produit.">
+               Description="Exemple de module métier avec liste, recherche, filtres, pagination serveur et opérations CRUD.">
     <Badges>
         <AppBadge Tone="AppTone.Accent">@NombreTotalLibelle</AppBadge>
         @if (FiltreStatutActif is not null)
@@ -17,6 +17,7 @@
         }
     </Badges>
     <Actions>
+        <AppButton Variant="AppButtonVariant.Ghost" Href="/">Retour à l’accueil</AppButton>
         <AppButton Variant="AppButtonVariant.Secondary"
                    IsLoading="@(State.ListStatus == BacklogRequestStatus.Loading && State.HasLoadedOnce)"
                    OnClick="ActualiserAsync">
@@ -25,9 +26,7 @@
         <AppButton OnClick="OuvrirCreationAsync">Créer un élément</AppButton>
     </Actions>
     <ChildContent>
-        <p>
-            Cette page illustre un flux backlog complet : consultation, filtrage, tri, création, modification et suppression.
-        </p>
+        <p>La navigation latérale permet de revenir vers les autres sections sans perdre le contexte courant.</p>
     </ChildContent>
 </AppPageHeader>
 
@@ -65,8 +64,8 @@
 }
 
 <AppCard Eyebrow="Pilotage"
-         Title="Recherche, filtres et tri"
-         Description="Ajustez les critères pour explorer la liste comme sur un écran métier réel.">
+         Title="Filtres et tri"
+         Description="Ajustez les critères pour explorer la liste et faire varier les résultats.">
     <ChildContent>
         <div class="backlog-filters">
             <AppInput Label="Recherche"

@@ -12,7 +12,7 @@
 
 .backlog-summary-grid {
     display: grid;
-    gap: var(--bes-space-5);
+    gap: var(--bes-space-4);
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
@@ -21,13 +21,9 @@
     align-items: center;
     gap: var(--bes-space-3);
     padding: var(--bes-space-3) var(--bes-space-4);
-    border: 1px solid color-mix(in srgb, var(--bes-color-border-subtle) 72%, transparent);
-    border-radius: var(--bes-radius-pill);
-    background:
-        linear-gradient(
-            135deg,
-            color-mix(in srgb, var(--bes-color-accent-soft) 52%, white) 0%,
-            color-mix(in srgb, var(--bes-color-surface-primary) 88%, white) 100%);
+    border: 1px solid var(--bes-color-border-subtle);
+    border-radius: var(--bes-radius-md);
+    background: var(--bes-color-surface-secondary);
     color: var(--bes-color-text-secondary);
     box-shadow: var(--bes-shadow-xs);
 }
@@ -55,7 +51,7 @@
 }
 
 .backlog-metric strong {
-    font-size: var(--bes-font-size-3xl);
+    font-size: var(--bes-font-size-2xl);
     color: var(--bes-color-text-primary);
 }
 
@@ -65,7 +61,7 @@
 
 .backlog-list {
     display: grid;
-    gap: var(--bes-space-5);
+    gap: var(--bes-space-4);
 }
 
 .backlog-list__item {
@@ -73,7 +69,7 @@
 }
 
 .backlog-list__item:hover {
-    transform: translateY(-1px);
+    transform: none;
 }
 
 .backlog-item__meta {
@@ -96,7 +92,7 @@
     flex-wrap: wrap;
     padding: var(--bes-space-4) var(--bes-space-5);
     border: 1px solid var(--bes-color-border-subtle);
-    border-radius: var(--bes-radius-lg);
+    border-radius: var(--bes-radius-md);
     background: var(--bes-color-surface-primary);
     box-shadow: var(--bes-shadow-xs);
 }

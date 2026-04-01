@@ -2,9 +2,9 @@
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.45rem 0.8rem;
+    padding: 0.35rem 0.7rem;
     border: 1px solid transparent;
-    border-radius: var(--bes-radius-pill);
+    border-radius: var(--bes-radius-md);
     font-size: var(--bes-font-size-xs);
     font-weight: var(--bes-font-weight-semibold);
     letter-spacing: 0.01em;
@@ -27,43 +27,43 @@
 }
 
 .app-badge--neutral {
-    background: rgba(104, 96, 87, 0.12);
-    border-color: rgba(104, 96, 87, 0.18);
+    background: var(--bes-color-surface-tertiary);
+    border-color: var(--bes-color-border-subtle);
     color: var(--bes-color-text-primary);
 }
 
 .app-badge--accent {
-    background: rgba(47, 127, 120, 0.16);
-    border-color: rgba(47, 127, 120, 0.22);
+    background: var(--bes-color-accent-surface);
+    border-color: rgba(37, 99, 235, 0.22);
     color: var(--bes-color-accent-strong);
 }
 
 .app-badge--success {
-    background: rgba(51, 122, 87, 0.16);
-    border-color: rgba(51, 122, 87, 0.24);
-    color: #236243;
+    background: rgba(22, 101, 52, 0.12);
+    border-color: rgba(22, 101, 52, 0.18);
+    color: #166534;
 }
 
 .app-badge--warning {
-    background: rgba(201, 141, 43, 0.16);
-    border-color: rgba(201, 141, 43, 0.24);
-    color: #8d6113;
+    background: rgba(180, 83, 9, 0.12);
+    border-color: rgba(180, 83, 9, 0.18);
+    color: #b45309;
 }
 
 .app-badge--danger {
-    background: rgba(181, 59, 56, 0.16);
-    border-color: rgba(181, 59, 56, 0.24);
+    background: rgba(180, 35, 24, 0.12);
+    border-color: rgba(180, 35, 24, 0.18);
     color: var(--bes-color-danger-text);
 }
 
 .app-badge--info {
-    background: rgba(62, 108, 181, 0.14);
-    border-color: rgba(62, 108, 181, 0.22);
-    color: #2e5f99;
+    background: rgba(29, 78, 216, 0.12);
+    border-color: rgba(29, 78, 216, 0.18);
+    color: #1d4ed8;
 }
 
 .app-badge--subtle {
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    box-shadow: none;
 }
 
 @media (prefers-color-scheme: dark) {

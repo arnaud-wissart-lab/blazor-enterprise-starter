@@ -38,12 +38,11 @@
 .app-field__control {
     width: 100%;
     min-height: 3rem;
-    padding: 0.8rem 1rem;
+    padding: 0.75rem 0.95rem;
     border: 1px solid var(--bes-color-border-strong);
     border-radius: var(--bes-radius-md);
-    background: rgba(255, 255, 255, 0.72);
+    background: var(--bes-color-surface-primary);
     color: var(--bes-color-text-primary);
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.45);
     transition:
         border-color 140ms ease,
         box-shadow 140ms ease,
@@ -55,31 +54,27 @@
 }
 
 .app-field__control:hover {
-    border-color: var(--bes-color-border-accent);
+    border-color: var(--bes-color-accent-primary);
 }
 
 .app-field__control:focus {
     outline: none;
     border-color: var(--bes-color-accent-primary);
-    box-shadow:
-        0 0 0 4px rgba(47, 127, 120, 0.12),
-        inset 0 1px 1px rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0 0 4px var(--bes-color-focus-ring);
 }
 
 .app-field__control:disabled,
 .app-field__control[readonly] {
     cursor: not-allowed;
-    background: rgba(244, 239, 231, 0.92);
+    background: var(--bes-color-surface-secondary);
 }
 
 .app-field--invalid .app-field__control {
-    border-color: rgba(181, 59, 56, 0.42);
+    border-color: rgba(180, 35, 24, 0.5);
 }
 
 .app-field--invalid .app-field__control:focus {
-    box-shadow:
-        0 0 0 4px rgba(181, 59, 56, 0.12),
-        inset 0 1px 1px rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0 0 4px rgba(180, 35, 24, 0.14);
 }
 
 .app-field__control--loading {
@@ -106,12 +101,11 @@
 
 @media (prefers-color-scheme: dark) {
     .app-field__control {
-        background: rgba(33, 30, 27, 0.86);
-        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.03);
+        background: var(--bes-color-surface-primary);
     }
 
     .app-field__control:disabled,
     .app-field__control[readonly] {
-        background: rgba(27, 24, 22, 0.96);
+        background: var(--bes-color-surface-secondary);
     }
 }

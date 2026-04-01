@@ -6,13 +6,12 @@
     min-height: 2.9rem;
     padding: 0.75rem 1.15rem;
     border: 1px solid transparent;
-    border-radius: var(--bes-radius-pill);
+    border-radius: var(--bes-radius-md);
     font-size: var(--bes-font-size-sm);
     font-weight: var(--bes-font-weight-semibold);
     line-height: 1;
     text-decoration: none;
     transition:
-        transform 140ms ease,
         box-shadow 140ms ease,
         border-color 140ms ease,
         background-color 140ms ease,
@@ -21,12 +20,11 @@
 }
 
 .app-button:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--bes-shadow-sm);
+    box-shadow: var(--bes-shadow-xs);
 }
 
 .app-button:focus-visible {
-    outline: 3px solid rgba(47, 127, 120, 0.24);
+    outline: 3px solid var(--bes-color-focus-ring);
     outline-offset: 3px;
 }
 
@@ -70,39 +68,48 @@
 }
 
 .app-button--primary {
-    background: linear-gradient(135deg, var(--bes-color-accent-primary), var(--bes-color-accent-strong));
+    background: var(--bes-color-accent-primary);
     color: var(--bes-color-text-inverse);
 }
 
 .app-button--primary:hover {
+    background: var(--bes-color-accent-strong);
     color: var(--bes-color-text-inverse);
 }
 
 .app-button--secondary {
     border-color: var(--bes-color-border-strong);
-    background: rgba(255, 255, 255, 0.62);
+    background: var(--bes-color-surface-primary);
     color: var(--bes-color-text-primary);
+}
+
+.app-button--secondary:hover {
+    border-color: var(--bes-color-accent-primary);
 }
 
 .app-button--ghost {
     background: transparent;
     color: var(--bes-color-accent-strong);
-    border-color: rgba(47, 127, 120, 0.18);
+    border-color: var(--bes-color-border-subtle);
 }
 
 .app-button--danger {
-    background: linear-gradient(135deg, #bf4a45, #9f3531);
+    background: #b42318;
     color: var(--bes-color-text-inverse);
+}
+
+.app-button--danger:hover {
+    background: #991b1b;
 }
 
 @media (prefers-color-scheme: dark) {
     .app-button--secondary {
-        background: rgba(255, 255, 255, 0.04);
+        background: var(--bes-color-surface-primary);
         color: var(--bes-color-text-primary);
     }
 
     .app-button--ghost {
-        border-color: rgba(176, 221, 216, 0.18);
+        border-color: var(--bes-color-border-subtle);
         color: var(--bes-color-accent-strong);
     }
 }

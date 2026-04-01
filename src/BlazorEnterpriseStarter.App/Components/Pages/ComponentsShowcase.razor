@@ -3,77 +3,74 @@
 <PageTitle>Design system et composants</PageTitle>
 
 <AppPageHeader Eyebrow="Bibliothèque UI"
-               Title="Design system et composants réutilisables"
-               Description="Cette page présente les fondations visuelles et les composants employés dans l’application pour donner une lecture rapide de la cohérence UI.">
+               Title="Design system et composants"
+               Description="Cette page sert de référence visuelle pour les styles globaux, les composants réutilisables et leurs états principaux.">
     <Badges>
-        <AppBadge Tone="AppTone.Accent">Thème clair premium</AppBadge>
+        <AppBadge Tone="AppTone.Accent">Tokens CSS</AppBadge>
+        <AppBadge Tone="AppTone.Info">Composants Blazor</AppBadge>
         <AppBadge Tone="AppTone.Success">Responsive</AppBadge>
-        <AppBadge Tone="AppTone.Info">Blazor réutilisable</AppBadge>
     </Badges>
     <Actions>
         <AppButton Variant="AppButtonVariant.Secondary" Href="/">Retour à l’accueil</AppButton>
-        <AppButton Href="#composants">Aller aux composants</AppButton>
+        <AppButton Href="/backlog">Voir le backlog</AppButton>
     </Actions>
     <ChildContent>
-        <p>
-            Cette vue permet d’évaluer le langage visuel du projet, la qualité des états et la lisibilité des composants
-            sans passer immédiatement par le code ou un scénario métier complet.
-        </p>
+        <p>La navigation latérale permet de revenir facilement au parcours principal à tout moment.</p>
     </ChildContent>
 </AppPageHeader>
 
 <section id="fondations" class="showcase-section">
     <div class="showcase-section__header">
         <p class="showcase-section__eyebrow">Fondations visuelles</p>
-        <h3>Les partis pris de design</h3>
-        <p>Une palette chaude et maîtrisée, des surfaces élégantes, une typographie lisible et un rythme d’espacements constant.</p>
+        <h3>Les bases du langage visuel</h3>
+        <p>Les fondations privilégient la lisibilité, la hiérarchie et la stabilité plutôt qu’un habillage démonstratif.</p>
     </div>
 
     <div class="showcase-foundation-grid">
         <AppCard Title="Palette et surfaces"
-                 Description="Les couleurs privilégient la stabilité, la lisibilité et un rendu professionnel plutôt qu’un style démonstratif agressif."
+                 Description="La palette s’appuie sur des neutres froids et un accent principal unique pour garder des écrans lisibles."
                  Tone="AppTone.Accent">
             <div class="showcase-swatches">
                 <div class="showcase-swatch showcase-swatch--canvas">
-                    <strong>Canvas</strong>
-                    <span>Fond général apaisé</span>
+                    <strong>Fond</strong>
+                    <span>Arrière-plan principal</span>
                 </div>
                 <div class="showcase-swatch showcase-swatch--surface">
                     <strong>Surface</strong>
                     <span>Cartes et panneaux</span>
                 </div>
                 <div class="showcase-swatch showcase-swatch--brand">
-                    <strong>Accent</strong>
-                    <span>Actions et focalisation</span>
+                    <strong>Accent principal</strong>
+                    <span>Actions et navigation active</span>
                 </div>
                 <div class="showcase-swatch showcase-swatch--highlight">
-                    <strong>Accent doux</strong>
-                    <span>Relief éditorial</span>
+                    <strong>Accent secondaire</strong>
+                    <span>Indicateurs complémentaires</span>
                 </div>
             </div>
         </AppCard>
 
         <AppCard Title="Hiérarchie typographique"
-                 Description="Le projet assume une dualité entre titres éditoriaux et texte d’interface pour donner de la personnalité sans nuire à la lecture."
+                 Description="Les tailles et les contrastes sont calibrés pour des écrans de travail et des captures de projet."
                  Tone="AppTone.Info">
             <div class="showcase-type-scale">
                 <div>
                     <p class="showcase-type-scale__eyebrow">Eyebrow</p>
-                    <span class="showcase-type-scale__meta">Repères rapides, navigation, surligne</span>
+                    <span class="showcase-type-scale__meta">Repères de section et de navigation</span>
                 </div>
                 <div>
-                    <h2>Un titre expressif pour structurer les écrans importants</h2>
-                    <span class="showcase-type-scale__meta">Titres structurants de page ou de section</span>
+                    <h2>Un titre net pour annoncer clairement la section affichée</h2>
+                    <span class="showcase-type-scale__meta">Titres de page, cartes importantes et panneaux</span>
                 </div>
                 <div>
-                    <p>Le texte courant reste sobre, aéré et pensé pour des contenus métier, des diagnostics ou des explications techniques.</p>
-                    <span class="showcase-type-scale__meta">Texte de lecture et contenu applicatif</span>
+                    <p>Le texte courant reste compact et lisible pour des filtres, des formulaires, des résumés et des écrans métier.</p>
+                    <span class="showcase-type-scale__meta">Texte descriptif et contenu applicatif</span>
                 </div>
             </div>
         </AppCard>
 
         <AppCard Title="Rythme et responsive"
-                 Description="L’interface repose sur quelques primitives d’espacement et de grille pour garder une maintenance simple et des transitions propres entre mobile et desktop."
+                 Description="Les grilles et espacements sont limités à quelques règles simples pour conserver une maintenance directe."
                  Tone="AppTone.Success">
             <div class="showcase-rhythm">
                 <div class="showcase-rhythm__bars">
@@ -82,9 +79,9 @@
                     <span></span>
                 </div>
                 <ul class="showcase-list">
-                    <li>Espacements cohérents autour des sections, cartes et contrôles</li>
-                    <li>Grilles simples qui se replient naturellement sur tablette et mobile</li>
-                    <li>Priorité donnée à la lisibilité et à la compréhension des parcours</li>
+                    <li>Espacements réguliers autour des sections, cartes et contrôles</li>
+                    <li>Repli simple des grilles sur tablette et mobile</li>
+                    <li>Navigation et titres conçus pour rester compréhensibles sur chaque format</li>
                 </ul>
             </div>
         </AppCard>
@@ -95,11 +92,11 @@
     <div class="showcase-section__header">
         <p class="showcase-section__eyebrow">Composants réutilisables</p>
         <h3>Les briques prêtes à l’emploi</h3>
-        <p>Les composants privilégient une API simple, des états explicites et des usages directement réutilisables dans une interface métier.</p>
+        <p>Les composants privilégient une API simple, des états explicites et des usages directement réemployables dans une interface métier.</p>
     </div>
 
     <div class="showcase-grid">
-        <AppCard Eyebrow="Actions" Title="AppButton" Description="Quatre variantes visuelles, plusieurs tailles et un état de chargement compatible avec les usages applicatifs.">
+        <AppCard Eyebrow="Actions" Title="AppButton" Description="Variantes principales, tailles et état de chargement pour les actions d’écran.">
             <div class="showcase-stack">
                 <div class="showcase-inline">
                     <AppButton>Action principale</AppButton>
@@ -120,7 +117,7 @@
             </div>
         </AppCard>
 
-        <AppCard Eyebrow="Formulaires" Title="AppInput, AppSelect et AppTextarea" Description="Les contrôles de saisie partagent une même base de comportement et de lisibilité.">
+        <AppCard Eyebrow="Formulaires" Title="AppInput, AppSelect et AppTextarea" Description="Les champs partagent les mêmes conventions de lisibilité, de validation et de focus.">
             <div class="showcase-form-grid">
                 <AppInput Label="Nom du contact"
                           Placeholder="Claire Martin"
@@ -146,7 +143,7 @@
             </div>
         </AppCard>
 
-        <AppCard Eyebrow="Feedback" Title="AppBadge et AppLoader" Description="Des éléments légers pour signaler des statuts, des niveaux ou des attentes côté interface.">
+        <AppCard Eyebrow="Feedback" Title="AppBadge et AppLoader" Description="Des éléments légers pour signaler des statuts, des niveaux ou une attente côté interface.">
             <div class="showcase-stack">
                 <div class="showcase-inline">
                     <AppBadge Tone="AppTone.Neutral">Brouillon</AppBadge>
@@ -164,7 +161,7 @@
             </div>
         </AppCard>
 
-        <AppCard Eyebrow="Composition" Title="AppCard et AppPageHeader" Description="Des briques de composition pour construire des pages métier avec une hiérarchie visuelle stable.">
+        <AppCard Eyebrow="Composition" Title="AppCard et AppPageHeader" Description="Des briques de composition pour construire des écrans métier avec une hiérarchie stable.">
             <div class="showcase-stack">
                 <AppPageHeader Title="Tableau de bord régional"
                                Description="Exemple d’en-tête réutilisable pour une page métier ou un onglet fonctionnel."
@@ -197,7 +194,7 @@
             </div>
         </AppCard>
 
-        <AppCard Eyebrow="États" Title="AppEmptyState et AppModal" Description="Des composants pensés pour les situations fréquentes : absence de données et confirmation d’action.">
+        <AppCard Eyebrow="États" Title="AppEmptyState et AppModal" Description="Des composants pensés pour l’absence de données et les confirmations courtes.">
             <div class="showcase-stack">
                 <AppEmptyState Eyebrow="Données"
                                Title="Aucun rapport n’est encore disponible"

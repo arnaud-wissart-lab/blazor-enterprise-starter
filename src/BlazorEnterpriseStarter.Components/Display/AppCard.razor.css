@@ -1,37 +1,36 @@
 .app-card {
     display: grid;
-    gap: var(--bes-space-5);
-    padding: var(--bes-space-6);
+    gap: var(--bes-space-4);
+    padding: var(--bes-space-5);
     border: 1px solid var(--bes-color-border-subtle);
-    border-radius: var(--bes-radius-xl);
-    background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(251, 248, 243, 0.9));
-    box-shadow: var(--bes-shadow-md);
+    border-radius: var(--bes-radius-lg);
+    background: var(--bes-color-surface-primary);
+    box-shadow: var(--bes-shadow-sm);
 }
 
 .app-card--compact {
-    gap: var(--bes-space-4);
-    padding: var(--bes-space-5);
+    gap: var(--bes-space-3);
+    padding: var(--bes-space-4);
 }
 
 .app-card--accent {
-    border-color: rgba(47, 127, 120, 0.24);
+    border-color: rgba(37, 99, 235, 0.2);
 }
 
 .app-card--success {
-    border-color: rgba(51, 122, 87, 0.24);
+    border-color: rgba(22, 101, 52, 0.2);
 }
 
 .app-card--warning {
-    border-color: rgba(201, 141, 43, 0.24);
+    border-color: rgba(180, 83, 9, 0.2);
 }
 
 .app-card--danger {
-    border-color: rgba(181, 59, 56, 0.24);
+    border-color: rgba(180, 35, 24, 0.2);
 }
 
 .app-card--info {
-    border-color: rgba(62, 108, 181, 0.22);
+    border-color: rgba(29, 78, 216, 0.2);
 }
 
 .app-card__header {
@@ -44,7 +43,7 @@
 
 .app-card__header-copy {
     display: grid;
-    gap: var(--bes-space-2);
+    gap: var(--bes-space-1);
 }
 
 .app-card__eyebrow {
@@ -58,6 +57,7 @@
 
 .app-card__title {
     margin: 0;
+    font-size: var(--bes-font-size-xl);
 }
 
 .app-card__description {
@@ -82,15 +82,8 @@
     border-top: 1px solid var(--bes-color-border-subtle);
 }
 
-@media (prefers-color-scheme: dark) {
-    .app-card {
-        background:
-            linear-gradient(180deg, rgba(33, 30, 27, 0.88), rgba(28, 25, 23, 0.96));
-    }
-}
-
 @media (max-width: 48rem) {
     .app-card {
-        padding: var(--bes-space-5);
+        padding: var(--bes-space-4);
     }
 }

@@ -3,69 +3,56 @@
 
 <PageTitle>Accueil</PageTitle>
 
-<AppPageHeader Eyebrow="Démonstration .NET"
-               Title="Une application Blazor pensée pour un contexte produit réel"
-               Description="BlazorEnterpriseStarter réunit une interface soignée, une API dédiée, un design system réutilisable et une exécution locale lisible pour offrir une lecture rapide de la qualité du projet.">
+<AppPageHeader Eyebrow="Accueil"
+               Title="Vue d’ensemble du projet"
+               Description="BlazorEnterpriseStarter est une application de démonstration conçue pour montrer une architecture .NET claire, une interface maîtrisée et un module métier crédible.">
     <Badges>
-        <AppBadge Tone="AppTone.Accent">Design system dédié</AppBadge>
-        <AppBadge Tone="AppTone.Success">Aspire + Docker</AppBadge>
-        <AppBadge Tone="AppTone.Info">Architecture propre</AppBadge>
+        <AppBadge Tone="AppTone.Accent">Blazor</AppBadge>
+        <AppBadge Tone="AppTone.Info">ASP.NET Core</AppBadge>
+        <AppBadge Tone="AppTone.Success">.NET Aspire</AppBadge>
     </Badges>
     <Actions>
-        <AppButton Variant="AppButtonVariant.Secondary" Href="/backlog">Ouvrir le backlog produit</AppButton>
-        <AppButton Href="/composants">Explorer les composants</AppButton>
-        <AppButton Variant="AppButtonVariant.Ghost" Href="/health">Vérifier la santé</AppButton>
+        <AppButton Href="/backlog">Ouvrir le backlog</AppButton>
+        <AppButton Variant="AppButtonVariant.Secondary" Href="/composants">Voir la bibliothèque UI</AppButton>
     </Actions>
     <ChildContent>
         <div class="home-header-stats">
             <div>
                 <strong>8</strong>
-                <span>projets structurés dans la solution</span>
+                <span>projets dans la solution</span>
             </div>
             <div>
                 <strong>3</strong>
-                <span>parcours de visite : projet, UI et module métier</span>
+                <span>sections principales à parcourir</span>
             </div>
             <div>
                 <strong>2</strong>
-                <span>modes d’exécution : Aspire et Docker</span>
+                <span>modes de lancement : Aspire et Docker</span>
             </div>
         </div>
     </ChildContent>
 </AppPageHeader>
 
-<div class="home-hero-grid">
-    <AppCard Eyebrow="Lecture rapide"
-             Title="Un projet conçu pour être évalué en quelques minutes"
-             Description="L’application rend visibles dès l’accueil les choix d’architecture, la qualité de composition UI et le niveau de finition général."
-             Tone="AppTone.Accent">
+<div class="home-overview-grid">
+    <AppCard Eyebrow="Projet"
+             Title="Ce que montre cette application"
+             Description="Le dépôt a été structuré pour être compris rapidement par un recruteur technique ou un lead développeur.">
         <ChildContent>
-            <p>
-                Cette page sert de point d’entrée pour comprendre rapidement ce que le projet propose et où regarder
-                pour évaluer le fond technique comme l’exécution visuelle.
-            </p>
-
             <ul class="home-list">
-                <li>Interface Blazor lisible, modulaire et adaptée à un usage métier</li>
-                <li>Backend ASP.NET Core distinct pour porter les cas d’usage et la supervision</li>
-                <li>Design system et composants réutilisables séparés pour préserver une évolution saine</li>
-                <li>Exécution locale claire grâce à Aspire, avec une voie Docker simple en complément</li>
+                <li>Une application Blazor structurée autour d’un backend ASP.NET Core séparé</li>
+                <li>Un design system clair, réutilisable et aligné sur des usages métier</li>
+                <li>Un module backlog avec recherche, filtres, pagination et opérations CRUD</li>
+                <li>Une exécution locale lisible via Aspire, avec un lancement Docker simple</li>
             </ul>
         </ChildContent>
-
-        <Footer>
-            <AppBadge Tone="AppTone.Neutral">Lisibilité</AppBadge>
-            <AppBadge Tone="AppTone.Accent">Cohérence</AppBadge>
-            <AppBadge Tone="AppTone.Success">Maintenabilité</AppBadge>
-        </Footer>
     </AppCard>
 
     @if (_isLoading)
     {
-        <AppCard Eyebrow="Supervision" Title="Vérification de la plateforme" Description="Le diagnostic du backend apparaît ici dès que la connexion à l’API est établie.">
+        <AppCard Eyebrow="Supervision" Title="État de la plateforme" Description="Le diagnostic du backend apparaît ici après la première vérification.">
             <div class="home-loading-state">
-                <AppLoader Label="Vérification de l’état du backend" />
-                <p>Le retour s’affiche automatiquement, sans interrompre la lecture du reste de la page.</p>
+                <AppLoader Label="Vérification du backend" />
+                <p>Le contrôle est effectué automatiquement au chargement.</p>
             </div>
         </AppCard>
     }
@@ -77,53 +64,42 @@
 
 <section class="home-section">
     <div class="home-section__heading">
-        <p class="home-section__eyebrow">Parcours de visite</p>
-        <h3>Les pages à consulter en priorité</h3>
-        <p>Ces entrées couvrent l’essentiel de ce qu’un visiteur peut évaluer rapidement : structure du projet, qualité UI et crédibilité d’un module métier.</p>
+        <p class="home-section__eyebrow">Parcours</p>
+        <h3>Les trois entrées principales</h3>
+        <p>Chaque page a un rôle précis pour comprendre rapidement le projet et son niveau de finition.</p>
     </div>
 
     <div class="home-quick-grid">
+        <AppCard Title="Accueil"
+                 Description="Présente le périmètre, l’architecture et les accès utiles."
+                 IsCompact="true">
+            <ChildContent>
+                <p>Cette vue sert de point d’entrée pour comprendre le dépôt sans passer immédiatement par le code.</p>
+            </ChildContent>
+            <Footer>
+                <AppButton Href="/" Size="AppControlSize.Small">Rester sur l’accueil</AppButton>
+            </Footer>
+        </AppCard>
+
+        <AppCard Title="Bibliothèque UI"
+                 Description="Expose les fondations visuelles et les composants réutilisables."
+                 IsCompact="true">
+            <ChildContent>
+                <p>La page montre les styles, les champs, les boutons et les états d’interface utilisés dans l’application.</p>
+            </ChildContent>
+            <Footer>
+                <AppButton Href="/composants" Size="AppControlSize.Small">Ouvrir la bibliothèque</AppButton>
+            </Footer>
+        </AppCard>
+
         <AppCard Title="Backlog produit"
-                 Description="Explorer une vue backlog avec recherche, filtres, pagination et opérations de gestion."
+                 Description="Démontre un cas d’usage métier complet avec état local et API dédiée."
                  IsCompact="true">
             <ChildContent>
-                <p>Cette page montre comment les composants et l’état local soutiennent un cas d’usage produit lisible et cohérent.</p>
+                <p>Cette vue concentre la liste, les filtres, la pagination serveur et les opérations de création, mise à jour et suppression.</p>
             </ChildContent>
             <Footer>
-                <AppButton Href="/backlog" Size="AppControlSize.Small">Ouvrir le module</AppButton>
-            </Footer>
-        </AppCard>
-
-        <AppCard Title="Fondations visuelles"
-                 Description="Parcourir les tokens, les surfaces, la hiérarchie typographique et les partis pris responsive."
-                 IsCompact="true">
-            <ChildContent>
-                <p>Cette section donne une lecture directe du langage visuel, des surfaces et des conventions d’interface.</p>
-            </ChildContent>
-            <Footer>
-                <AppButton Href="/composants#fondations" Size="AppControlSize.Small">Voir le design system</AppButton>
-            </Footer>
-        </AppCard>
-
-        <AppCard Title="Composants applicatifs"
-                 Description="Inspecter les composants réutilisables, leurs états et leur rendu dans des exemples concrets."
-                 IsCompact="true">
-            <ChildContent>
-                <p>Les exemples couvrent les actions, les champs, les états vides, les loaders et les interactions de base.</p>
-            </ChildContent>
-            <Footer>
-                <AppButton Href="/composants#composants" Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small">Voir les composants</AppButton>
-            </Footer>
-        </AppCard>
-
-        <AppCard Title="Santé de l’application"
-                 Description="Valider rapidement que l’application front-end répond correctement grâce aux endpoints de supervision."
-                 IsCompact="true">
-            <ChildContent>
-                <p>Le point de santé permet de vérifier rapidement la disponibilité de l’application et de l’API.</p>
-            </ChildContent>
-            <Footer>
-                <AppButton Href="/health" Variant="AppButtonVariant.Ghost" Size="AppControlSize.Small">Ouvrir /health</AppButton>
+                <AppButton Href="/backlog" Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small">Ouvrir le module</AppButton>
             </Footer>
         </AppCard>
     </div>
@@ -131,53 +107,29 @@
 
 <section class="home-section">
     <div class="home-section__heading">
-        <p class="home-section__eyebrow">Points forts techniques</p>
-        <h3>Ce que vous pouvez évaluer ici</h3>
-        <p>Chaque zone de l’application rend visibles des choix structurants sans exiger de parcourir immédiatement l’ensemble du dépôt.</p>
+        <p class="home-section__eyebrow">Lecture technique</p>
+        <h3>Ce que le dépôt met en évidence</h3>
+        <p>Les choix ci-dessous sont visibles dans l’application et lisibles dans la solution.</p>
     </div>
 
     <div class="home-strengths-grid">
-        <AppCard Eyebrow="Architecture" Title="Front-end, backend et contrats clairement séparés" IsCompact="true">
-            <p>La solution rend explicites les frontières entre l’interface, l’API, les contrats partagés et l’orchestration.</p>
+        <AppCard Eyebrow="Architecture" Title="Front-end, backend et contrats séparés" IsCompact="true">
+            <p>Les responsabilités sont réparties entre l’interface Blazor, l’API, les contrats partagés et l’orchestration locale.</p>
         </AppCard>
 
-        <AppCard Eyebrow="UI" Title="Design system et composants pensés pour la réutilisation" IsCompact="true">
-            <p>Les primitives visuelles vivent à part, puis les composants applicatifs viennent les composer sans logique métier embarquée.</p>
+        <AppCard Eyebrow="UI" Title="Design system et composants réutilisables" IsCompact="true">
+            <p>Les styles globaux et les composants applicatifs restent distincts pour préserver la cohérence et la maintenabilité.</p>
         </AppCard>
 
-        <AppCard Eyebrow="Opérations" Title="Lancement local lisible et supervision prête" IsCompact="true">
-            <p>Aspire structure l’exécution locale, tandis que Docker conserve un chemin simple pour reproduire la démonstration dans un autre contexte.</p>
+        <AppCard Eyebrow="Exécution" Title="Lancement local simple avec Aspire et Docker" IsCompact="true">
+            <p>L’application peut être lancée dans un parcours orchestré ou dans un contexte conteneurisé minimal.</p>
         </AppCard>
 
-        <AppCard Eyebrow="Évolution" Title="Base saine pour des cas métier réels" IsCompact="true">
-            <p>La structure actuelle peut accueillir de la persistence, des workflows métier et une couverture de tests plus large sans refonte majeure.</p>
+        <AppCard Eyebrow="Backlog" Title="État local et flux métier démonstratifs" IsCompact="true">
+            <p>Le module backlog montre la séparation entre client API, gestion d’état locale, logique de page et backend applicatif.</p>
         </AppCard>
     </div>
 </section>
-
-<AppCard Eyebrow="Lecture d’ensemble"
-         Title="Ce que cette vitrine donne à voir dès les premiers écrans"
-         Description="L’ensemble cherche un équilibre entre sérieux visuel, compréhension rapide et lisibilité des choix de conception.">
-    <div class="home-delivery-grid">
-        <div>
-            <h3>Ce que vous pouvez observer</h3>
-            <ul class="home-list">
-                <li>Une structure d’interface crédible pour une application métier moderne</li>
-                <li>Une hiérarchie visuelle nette, utile autant en navigation qu’en capture d’écran</li>
-                <li>Des composants réutilisables déjà alignés sur un langage visuel cohérent</li>
-            </ul>
-        </div>
-
-        <div>
-            <h3>Ce qui reste hors du périmètre</h3>
-            <ul class="home-list">
-                <li>Les gabarits génériques sans personnalité ni priorités de lecture</li>
-                <li>Les effets décoratifs qui nuisent à la sobriété d’un contexte professionnel</li>
-                <li>La complexité d’infrastructure ajoutée trop tôt au regard du périmètre actuel</li>
-            </ul>
-        </div>
-    </div>
-</AppCard>
 
 @code {
     private ApplicationStatusDto _status = ApplicationStatusDto.CreateUnavailable(
