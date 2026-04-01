@@ -1,10 +1,10 @@
 @namespace BlazorEnterpriseStarter.DesignSystem.Layout
 
 <div class="app-shell">
-    <header class="app-shell__hero">
-        <p class="app-shell__eyebrow">BlazorEnterpriseStarter</p>
-        <div class="app-shell__heading">
-            <div class="app-shell__titles">
+    <aside class="app-shell__sidebar">
+        <div class="app-shell__brand">
+            <p class="app-shell__eyebrow">@ProductName</p>
+            <div class="app-shell__brand-copy">
                 <h1>@Title</h1>
 
                 @if (!string.IsNullOrWhiteSpace(Subtitle))
@@ -12,27 +12,84 @@
                     <p>@Subtitle</p>
                 }
             </div>
-
-            <div class="app-shell__tech-stack" aria-label="Stack technique">
-                <span>Blazor</span>
-                <span>ASP.NET Core</span>
-                <span>.NET Aspire</span>
-            </div>
         </div>
-    </header>
 
-    <main class="app-shell__body">
-        @ChildContent
-    </main>
+        @if (NavigationContent is not null)
+        {
+            <nav class="app-shell__navigation" aria-label="Navigation principale">
+                @NavigationContent
+            </nav>
+        }
+
+        @if (SidebarContent is not null)
+        {
+            <div class="app-shell__sidebar-content">
+                @SidebarContent
+            </div>
+        }
+    </aside>
+
+    <div class="app-shell__main">
+        <header class="app-shell__topbar">
+            <div class="app-shell__topbar-copy">
+                @if (!string.IsNullOrWhiteSpace(TopBarEyebrow))
+                {
+                    <p class="app-shell__topbar-eyebrow">@TopBarEyebrow</p>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(TopBarTitle))
+                {
+                    <h2>@TopBarTitle</h2>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(TopBarDescription))
+                {
+                    <p>@TopBarDescription</p>
+                }
+            </div>
+
+            @if (TopBarMetaContent is not null)
+            {
+                <div class="app-shell__topbar-meta">
+                    @TopBarMetaContent
+                </div>
+            }
+        </header>
+
+        <main class="app-shell__body">
+            @ChildContent
+        </main>
+    </div>
 </div>
 
 @code {
+    [Parameter]
+    public string ProductName { get; set; } = "BlazorEnterpriseStarter";
+
     [Parameter]
     [EditorRequired]
     public string Title { get; set; } = string.Empty;
 
     [Parameter]
     public string? Subtitle { get; set; }
+
+    [Parameter]
+    public string? TopBarEyebrow { get; set; } = "Plateforme";
+
+    [Parameter]
+    public string? TopBarTitle { get; set; }
+
+    [Parameter]
+    public string? TopBarDescription { get; set; }
+
+    [Parameter]
+    public RenderFragment? NavigationContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? SidebarContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? TopBarMetaContent { get; set; }
 
     [Parameter]
     [EditorRequired]

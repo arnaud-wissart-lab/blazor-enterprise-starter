@@ -1,17 +1,27 @@
 .app-shell {
     position: relative;
-    max-width: 82rem;
+    display: grid;
+    grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr);
+    gap: var(--bes-space-6);
+    max-width: 90rem;
     margin: 0 auto;
-    padding: var(--bes-space-12) var(--bes-space-5) var(--bes-space-16);
+    padding: var(--bes-space-8) var(--bes-space-5) var(--bes-space-12);
 }
 
-.app-shell__hero {
+.app-shell__sidebar {
+    position: sticky;
+    top: var(--bes-space-5);
+    align-self: start;
+    display: grid;
+    gap: var(--bes-space-5);
+}
+
+.app-shell__brand {
     position: relative;
     overflow: hidden;
     display: grid;
     gap: var(--bes-space-4);
-    margin-bottom: var(--bes-space-8);
-    padding: var(--bes-space-8);
+    padding: var(--bes-space-6);
     border: 1px solid var(--bes-color-border-accent);
     border-radius: var(--bes-radius-xl);
     background:
@@ -31,45 +41,76 @@
     color: var(--bes-color-accent-primary);
 }
 
-.app-shell__heading {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: var(--bes-space-6);
-    flex-wrap: wrap;
-}
-
-.app-shell__titles {
+.app-shell__brand-copy {
     display: grid;
     gap: var(--bes-space-3);
-    max-width: 48rem;
 }
 
-.app-shell__titles h1 {
-    max-width: 12ch;
-    font-size: var(--bes-font-size-4xl);
+.app-shell__brand-copy h1 {
+    margin: 0;
+    font-size: var(--bes-font-size-3xl);
+    line-height: var(--bes-line-height-snug);
 }
 
-.app-shell__titles p {
-    max-width: 58ch;
-    font-size: var(--bes-font-size-lg);
+.app-shell__brand-copy p {
+    margin: 0;
+    font-size: var(--bes-font-size-md);
     color: var(--bes-color-text-secondary);
 }
 
-.app-shell__tech-stack {
+.app-shell__navigation,
+.app-shell__sidebar-content,
+.app-shell__topbar {
+    padding: var(--bes-space-5);
+    border: 1px solid var(--bes-color-border-subtle);
+    border-radius: var(--bes-radius-xl);
+    background: var(--bes-color-surface-primary);
+    box-shadow: var(--bes-shadow-sm);
+    backdrop-filter: blur(10px);
+}
+
+.app-shell__main {
+    display: grid;
+    gap: var(--bes-space-6);
+    min-width: 0;
+}
+
+.app-shell__topbar {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: var(--bes-space-5);
+    flex-wrap: wrap;
+}
+
+.app-shell__topbar-copy {
+    display: grid;
+    gap: var(--bes-space-2);
+    max-width: 46rem;
+}
+
+.app-shell__topbar-eyebrow {
+    margin: 0;
+    font-size: var(--bes-font-size-xs);
+    font-weight: var(--bes-font-weight-bold);
+    letter-spacing: var(--bes-letter-spacing-caps);
+    text-transform: uppercase;
+    color: var(--bes-color-accent-primary);
+}
+
+.app-shell__topbar-copy h2,
+.app-shell__topbar-copy p {
+    margin: 0;
+}
+
+.app-shell__topbar-copy p {
+    color: var(--bes-color-text-secondary);
+}
+
+.app-shell__topbar-meta {
     display: flex;
     flex-wrap: wrap;
     gap: var(--bes-space-2);
-}
-
-.app-shell__tech-stack span {
-    padding: 0.5rem 0.9rem;
-    border: 1px solid var(--bes-color-border-subtle);
-    border-radius: var(--bes-radius-pill);
-    background: rgba(255, 255, 255, 0.52);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
-    font-size: var(--bes-font-size-sm);
-    color: var(--bes-color-text-secondary);
 }
 
 .app-shell__body {
@@ -78,32 +119,39 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    .app-shell__hero {
+    .app-shell__brand {
         background:
             radial-gradient(circle at top left, rgba(47, 127, 120, 0.18), transparent 34%),
             radial-gradient(circle at bottom right, rgba(201, 141, 43, 0.16), transparent 24%),
             linear-gradient(135deg, rgba(32, 29, 26, 0.86), rgba(27, 24, 22, 0.92));
     }
-
-    .app-shell__tech-stack span {
-        background: rgba(28, 25, 23, 0.62);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    }
 }
 
 @media (max-width: 64rem) {
     .app-shell {
+        grid-template-columns: 1fr;
         padding-inline: var(--bes-space-4);
         padding-block: var(--bes-space-8) var(--bes-space-12);
     }
 
-    .app-shell__hero {
+    .app-shell__sidebar {
+        position: static;
+    }
+
+    .app-shell__brand {
         padding: var(--bes-space-6);
     }
 }
 
 @media (max-width: 48rem) {
-    .app-shell__titles p {
+    .app-shell__brand-copy p,
+    .app-shell__topbar-copy p {
         font-size: var(--bes-font-size-md);
+    }
+
+    .app-shell__navigation,
+    .app-shell__sidebar-content,
+    .app-shell__topbar {
+        padding: var(--bes-space-4);
     }
 }

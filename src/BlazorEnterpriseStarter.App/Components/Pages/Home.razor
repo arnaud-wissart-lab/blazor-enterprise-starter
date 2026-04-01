@@ -3,31 +3,70 @@
 
 <PageTitle>Accueil</PageTitle>
 
-<div class="bes-grid bes-grid--content home-grid">
-    <section class="home-intro">
-        <p class="home-intro__eyebrow">Premier incrément</p>
-        <h2>Une base crédible pour démontrer Blazor, ASP.NET Core, un design system et .NET Aspire.</h2>
-        <p>
-            Ce socle pose une séparation claire entre l’interface, l’API, les composants réutilisables et les contrats partagés.
-            L’objectif n’est pas encore de couvrir tout le métier, mais de fournir une fondation propre, maintenable et prête à évoluer.
-        </p>
-        <ul class="home-intro__list">
-            <li>Blazor Web App pour une interface moderne et démontrable</li>
-            <li>Web API dédiée aux futurs cas métier et à la supervision</li>
-            <li>Design system isolé pour standardiser la couche visuelle</li>
-            <li>Composants réutilisables séparés des primitives UI</li>
-            <li>Orchestration Aspire pour le développement local et l’observabilité</li>
-        </ul>
-        <div class="home-intro__actions">
-            <AppButton Href="/composants" TrailingContent="HomeDemoArrow">
-                Explorer la vitrine de composants
-            </AppButton>
+<AppPageHeader Eyebrow="Projet vitrine"
+               Title="Un socle Blazor crédible pour une application métier moderne"
+               Description="BlazorEnterpriseStarter met en avant une architecture claire, un design system réutilisable, une API dédiée, une orchestration locale lisible et une base prête pour le déploiement.">
+    <Badges>
+        <AppBadge Tone="AppTone.Accent">Design system dédié</AppBadge>
+        <AppBadge Tone="AppTone.Success">Aspire + Docker</AppBadge>
+        <AppBadge Tone="AppTone.Info">Architecture propre</AppBadge>
+    </Badges>
+    <Actions>
+        <AppButton Href="/composants">Explorer la vitrine UI</AppButton>
+        <AppButton Variant="AppButtonVariant.Secondary" Href="/health">Vérifier la santé</AppButton>
+    </Actions>
+    <ChildContent>
+        <div class="home-header-stats">
+            <div>
+                <strong>8</strong>
+                <span>projets structurés dans la solution</span>
+            </div>
+            <div>
+                <strong>2</strong>
+                <span>modes de lancement : Aspire et Docker</span>
+            </div>
+            <div>
+                <strong>1</strong>
+                <span>base cohérente pour évoluer vers un vrai produit</span>
+            </div>
         </div>
-    </section>
+    </ChildContent>
+</AppPageHeader>
+
+<div class="home-hero-grid">
+    <AppCard Eyebrow="Positionnement"
+             Title="Un starter pensé pour démontrer de vraies qualités d’ingénierie"
+             Description="Le projet évite la sur-ingénierie tout en posant dès le départ des frontières propres entre UI, composants, backend et orchestration."
+             Tone="AppTone.Accent">
+        <ChildContent>
+            <p>
+                L’accueil sert ici de porte d’entrée produit : il explique la valeur du socle, donne des points de repère
+                techniques et oriente vers les pages réellement utiles pour une démonstration locale ou GitHub.
+            </p>
+
+            <ul class="home-list">
+                <li>Interface Blazor lisible, modulaire et crédible pour un contexte professionnel</li>
+                <li>API ASP.NET Core distincte pour préparer la montée en charge fonctionnelle</li>
+                <li>Design system et composants réutilisables séparés pour garder une évolution saine</li>
+                <li>Exécution locale claire grâce à Aspire, avec une voie Docker simple pour la démonstration</li>
+            </ul>
+        </ChildContent>
+
+        <Footer>
+            <AppBadge Tone="AppTone.Neutral">Lisibilité</AppBadge>
+            <AppBadge Tone="AppTone.Accent">Cohérence</AppBadge>
+            <AppBadge Tone="AppTone.Success">Maintenabilité</AppBadge>
+        </Footer>
+    </AppCard>
 
     @if (_isLoading)
     {
-        <div class="home-loading">Vérification de l’état du backend en cours...</div>
+        <AppCard Eyebrow="Supervision" Title="Lecture de la plateforme" Description="Le front vérifie l’état du backend au chargement de la page.">
+            <div class="home-loading-state">
+                <AppLoader Label="Vérification de l’état du backend" />
+                <p>Une fois la réponse disponible, la carte de supervision se met à jour automatiquement.</p>
+            </div>
+        </AppCard>
     }
     else
     {
@@ -35,26 +74,98 @@
     }
 </div>
 
-<div class="bes-grid bes-grid--cards home-panels">
-    <SurfaceCard Eyebrow="Architecture" Title="Découpage initial" Description="Les frontières techniques sont volontairement explicites dès ce premier incrément.">
-        <ul class="home-panel-list">
-            <li><strong>App</strong> : expérience utilisateur Blazor et orchestration front-end.</li>
-            <li><strong>Server</strong> : backend HTTP prêt à accueillir la logique métier.</li>
-            <li><strong>Shared</strong> : contrats stables entre front-end, API et tests.</li>
-            <li><strong>Components</strong> : assemblages réutilisables au-dessus du design system.</li>
-            <li><strong>DesignSystem</strong> : layout, tokens et briques d’interface.</li>
-        </ul>
-    </SurfaceCard>
+<section class="home-section">
+    <div class="home-section__heading">
+        <p class="home-section__eyebrow">Accès rapides</p>
+        <h3>Les points d’entrée les plus utiles</h3>
+        <p>La navigation reste courte et volontaire. L’idée est d’orienter rapidement vers ce qui montre le mieux la qualité du socle.</p>
+    </div>
 
-    <SurfaceCard Eyebrow="Suite logique" Title="Prochaines extensions" Description="Le socle est prêt pour accueillir de la valeur métier sans réorganisation lourde.">
-        <ul class="home-panel-list">
-            <li>Ajout d’une couche application et d’une persistance si le domaine l’exige.</li>
-            <li>Enrichissement du design system avec formulaires, tableaux et navigation.</li>
-            <li>Préparation des Dockerfiles et du pipeline de déploiement.</li>
-            <li>Ajout de tests d’intégration et de scénarios de résilience.</li>
-        </ul>
-    </SurfaceCard>
-</div>
+    <div class="home-quick-grid">
+        <AppCard Title="Fondations visuelles"
+                 Description="Parcourir les tokens, les surfaces, la hiérarchie typographique et les partis pris responsive."
+                 IsCompact="true">
+            <ChildContent>
+                <p>La page de démonstration expose le langage visuel du projet avant même les composants métier.</p>
+            </ChildContent>
+            <Footer>
+                <AppButton Href="/composants#fondations" Size="AppControlSize.Small">Voir le design system</AppButton>
+            </Footer>
+        </AppCard>
+
+        <AppCard Title="Composants applicatifs"
+                 Description="Inspecter les composants réutilisables, leurs états et leur rendu dans une page de démonstration structurée."
+                 IsCompact="true">
+            <ChildContent>
+                <p>Les exemples couvrent les actions, les champs, les états vides, les loaders et la modale.</p>
+            </ChildContent>
+            <Footer>
+                <AppButton Href="/composants#composants" Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small">Voir les composants</AppButton>
+            </Footer>
+        </AppCard>
+
+        <AppCard Title="Santé de l’application"
+                 Description="Valider rapidement que l’application front-end répond correctement grâce aux endpoints de supervision."
+                 IsCompact="true">
+            <ChildContent>
+                <p>L’endpoint de santé permet une vérification simple du socle sans dépendre d’un parcours d’interface complet.</p>
+            </ChildContent>
+            <Footer>
+                <AppButton Href="/health" Variant="AppButtonVariant.Ghost" Size="AppControlSize.Small">Ouvrir /health</AppButton>
+            </Footer>
+        </AppCard>
+    </div>
+</section>
+
+<section class="home-section">
+    <div class="home-section__heading">
+        <p class="home-section__eyebrow">Points forts techniques</p>
+        <h3>Ce que le projet met en valeur</h3>
+        <p>Chaque bloc de la solution a un rôle clair, ce qui facilite la lecture du dépôt et prépare les évolutions sans refonte lourde.</p>
+    </div>
+
+    <div class="home-strengths-grid">
+        <AppCard Eyebrow="Architecture" Title="Front-end, backend et contrats clairement séparés" IsCompact="true">
+            <p>La solution rend explicites les frontières entre l’interface, l’API, les contrats partagés et l’orchestration.</p>
+        </AppCard>
+
+        <AppCard Eyebrow="UI" Title="Design system et composants pensés pour la réutilisation" IsCompact="true">
+            <p>Les primitives visuelles vivent à part, puis les composants applicatifs viennent les composer sans logique métier embarquée.</p>
+        </AppCard>
+
+        <AppCard Eyebrow="Opérations" Title="Lancement local lisible et supervision prête" IsCompact="true">
+            <p>Aspire structure l’expérience de développement, tandis que Docker garde un chemin de démonstration simple et prévisible.</p>
+        </AppCard>
+
+        <AppCard Eyebrow="Évolution" Title="Base saine pour des cas métier réels" IsCompact="true">
+            <p>Le socle peut accueillir de la persistance, des workflows métier et des tests plus poussés sans casser l’organisation initiale.</p>
+        </AppCard>
+    </div>
+</section>
+
+<AppCard Eyebrow="Valeur GitHub"
+         Title="Pourquoi ce layout fonctionne bien comme vitrine technique"
+         Description="L’ensemble cherche un bon équilibre entre sérieux visuel, compréhension immédiate et maintenabilité du code.">
+    <div class="home-delivery-grid">
+        <div>
+            <h3>Ce que la vitrine montre</h3>
+            <ul class="home-list">
+                <li>Une structure d’interface crédible pour une future application métier</li>
+                <li>Une hiérarchie visuelle suffisamment forte pour les captures d’écran et les démonstrations</li>
+                <li>Des composants réutilisables déjà alignés sur les conventions visuelles du projet</li>
+            </ul>
+        </div>
+
+        <div>
+            <h3>Ce qu’elle évite volontairement</h3>
+            <ul class="home-list">
+                <li>Les gabarits génériques sans personnalité ni priorités de lecture</li>
+                <li>Les effets décoratifs qui nuisent à la sobriété d’un contexte professionnel</li>
+                <li>Les abstractions d’interface prématurées difficiles à maintenir ensuite</li>
+            </ul>
+        </div>
+    </div>
+</AppCard>
 
 @code {
     private ApplicationStatusDto _status = ApplicationStatusDto.CreateUnavailable(
@@ -63,11 +174,6 @@
         "Aucune vérification n’a encore été effectuée.");
 
     private bool _isLoading = true;
-
-    private RenderFragment HomeDemoArrow => __builder =>
-    {
-        __builder.AddContent(0, "->");
-    };
 
     protected override async Task OnInitializedAsync()
     {

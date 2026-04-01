@@ -1,7 +1,55 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 
-<AppShell Title="Socle Blazor Enterprise" Subtitle="Architecture propre, composants réutilisables et orchestration .NET Aspire.">
-    @Body
+<AppShell ProductName="BlazorEnterpriseStarter"
+          Title="Starter professionnel pour Blazor et .NET Aspire"
+          Subtitle="Un socle démontrable, maintenable et prêt à évoluer vers une vraie application métier."
+          TopBarEyebrow="Expérience"
+          TopBarTitle="Interface moderne, architecture claire et exécution locale lisible"
+          TopBarDescription="Le layout privilégie la compréhension rapide, la qualité visuelle et des parcours simples à explorer en local comme sur GitHub.">
+    <NavigationContent>
+        <div class="layout-nav">
+            <NavLink href="/" Match="NavLinkMatch.All" class="layout-nav__link">
+                <span class="layout-nav__index">01</span>
+                <span class="layout-nav__copy">
+                    <strong>Accueil</strong>
+                    <small>Présentation du projet, de ses objectifs et des accès rapides.</small>
+                </span>
+            </NavLink>
+
+            <NavLink href="/composants" class="layout-nav__link">
+                <span class="layout-nav__index">02</span>
+                <span class="layout-nav__copy">
+                    <strong>Design system</strong>
+                    <small>Fondations visuelles, composants et comportements de référence.</small>
+                </span>
+            </NavLink>
+        </div>
+    </NavigationContent>
+
+    <SidebarContent>
+        <div class="layout-sidebar-panel">
+            <p class="layout-sidebar-panel__eyebrow">Repères</p>
+            <ul class="layout-sidebar-panel__list">
+                <li>Application Blazor Web App avec backend ASP.NET Core séparé</li>
+                <li>Design system dédié pour les fondations visuelles réutilisables</li>
+                <li>Librairie de composants applicatifs maintenable et documentée</li>
+                <li>Exécution locale via Aspire et conteneurisation Docker minimale</li>
+            </ul>
+        </div>
+    </SidebarContent>
+
+    <TopBarMetaContent>
+        <div class="layout-meta">
+            <span class="layout-meta__item">Blazor</span>
+            <span class="layout-meta__item">ASP.NET Core</span>
+            <span class="layout-meta__item">Docker</span>
+            <span class="layout-meta__item">.NET Aspire</span>
+        </div>
+    </TopBarMetaContent>
+
+    <ChildContent>
+        @Body
+    </ChildContent>
 </AppShell>
 
 <div id="blazor-error-ui" data-nosnippet>
