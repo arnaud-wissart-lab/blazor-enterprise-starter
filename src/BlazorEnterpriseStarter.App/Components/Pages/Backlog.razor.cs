@@ -338,7 +338,7 @@ public partial class Backlog : ComponentBase, IDisposable
             await Task.Delay(DelaiRechercheDebounceEnMillisecondes, cts.Token);
             await State.ApplyFiltersAsync(CreerRequeteDepuisSaisie(resetPage: true), cts.Token);
         }
-        catch (OperationCanceledException) when (cts.IsCancellationRequested)
+        catch (OperationCanceledException)
         {
         }
         finally

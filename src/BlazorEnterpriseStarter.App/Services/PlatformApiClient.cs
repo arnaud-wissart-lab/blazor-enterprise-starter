@@ -16,6 +16,13 @@ public sealed class PlatformApiClient(HttpClient httpClient, ILogger<PlatformApi
                 "Indéterminé",
                 "L’API a répondu sans fournir de contenu exploitable.");
         }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            return ApplicationStatusDto.CreateUnavailable(
+                "BlazorEnterpriseStarter.Server",
+                "Interrompu",
+                "La vérification de l’état a été interrompue avant la fin de l’appel.");
+        }
         catch (Exception exception)
         {
             logger.LogWarning(exception, "Impossible de récupérer l’état de la plateforme.");

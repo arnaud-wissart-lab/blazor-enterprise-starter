@@ -136,6 +136,7 @@ public sealed class BacklogState
 
     private async Task LoadAsync(CancellationToken cancellationToken)
     {
+        var previousStatus = ListStatus;
         ListStatus = BacklogRequestStatus.Loading;
         ListErrorMessage = null;
         NotifyChanged();
@@ -154,6 +155,12 @@ public sealed class BacklogState
 
             ListStatus = BacklogRequestStatus.Error;
             ListErrorMessage = exception.Message;
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            ListStatus = HasLoadedOnce && Result is not null
+                ? previousStatus == BacklogRequestStatus.Error ? BacklogRequestStatus.Error : BacklogRequestStatus.Success
+                : BacklogRequestStatus.Idle;
         }
         finally
         {

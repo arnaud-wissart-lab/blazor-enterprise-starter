@@ -140,4 +140,22 @@ public class BacklogStateTests
         Assert.Equal(2, state.Items.Count);
         Assert.True(state.HasResult);
     }
+
+    [Fact]
+    public async Task RefreshAsync_annule_apres_un_succes_ne_devrait_pas_laisser_l_etat_en_chargement()
+    {
+        var apiClient = new FakeBacklogApiClient();
+        var state = new BacklogState(apiClient);
+
+        await state.InitializeAsync(CancellationToken.None);
+
+        using var cancellation = new CancellationTokenSource();
+        await cancellation.CancelAsync();
+
+        await state.RefreshAsync(cancellation.Token);
+
+        Assert.Equal(BacklogRequestStatus.Success, state.ListStatus);
+        Assert.Equal(2, state.Items.Count);
+        Assert.Null(state.ListErrorMessage);
+    }
 }

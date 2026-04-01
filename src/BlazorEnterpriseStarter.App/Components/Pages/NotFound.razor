@@ -3,10 +3,15 @@
 
 <PageTitle>Page introuvable</PageTitle>
 
-<h1>Page introuvable</h1>
-<p>
-    Le contenu demandé n’existe pas encore ou l’adresse saisie n’est pas valide.
-</p>
-<p>
-    <a href="/">Revenir à l’accueil</a>
-</p>
+<AppEmptyState Eyebrow="Navigation"
+               Title="Page introuvable"
+               Description="Le contenu demandé n’existe pas encore ou l’adresse saisie n’est pas valide."
+               Tone="AppTone.Warning">
+    <Actions>
+        <AppButton Href="/" Variant="AppButtonVariant.Secondary">Revenir à l’accueil</AppButton>
+        <AppButton Href="/backlog">Ouvrir le backlog produit</AppButton>
+    </Actions>
+    <ChildContent>
+        Vérifiez l’URL ou reprenez la navigation depuis les entrées principales de l’application.
+    </ChildContent>
+</AppEmptyState>

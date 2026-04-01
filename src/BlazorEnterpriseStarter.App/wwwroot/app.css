@@ -103,15 +103,15 @@
 }
 
 .valid.modified:not([type=checkbox]) {
-    outline: 1px solid #26b050;
+    outline: 1px solid var(--bes-color-success-text);
 }
 
 .invalid {
-    outline: 1px solid #d62839;
+    outline: 1px solid var(--bes-color-danger-text);
 }
 
 .validation-message {
-    color: #d62839;
+    color: var(--bes-color-danger-text);
 }
 
 @media (prefers-color-scheme: dark) {
