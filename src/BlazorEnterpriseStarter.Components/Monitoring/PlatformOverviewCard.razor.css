@@ -1,0 +1,40 @@
+.platform-status__header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.platform-status__environment {
+    font-size: 0.9rem;
+    color: var(--bes-color-text-secondary);
+}
+
+.platform-status__details {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+}
+
+.platform-status__details div {
+    display: grid;
+    gap: 0.2rem;
+}
+
+.platform-status__details dt {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bes-color-text-secondary);
+}
+
+.platform-status__details dd {
+    margin: 0;
+    color: var(--bes-color-text-primary);
+}
+
+.platform-status__message {
+    padding-top: 0.35rem;
+    border-top: 1px solid rgba(31, 41, 55, 0.08);
+}

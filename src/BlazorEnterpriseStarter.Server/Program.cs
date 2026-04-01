@@ -1,0 +1,33 @@
+using BlazorEnterpriseStarter.Server.Endpoints;
+
+namespace BlazorEnterpriseStarter.Server;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        builder.AddServiceDefaults();
+        builder.Services.AddProblemDetails();
+
+        var app = builder.Build();
+
+        app.UseExceptionHandler();
+        app.UseHttpsRedirection();
+
+        app.MapGet("/", () =>
+        {
+            return Results.Ok(new
+            {
+                service = "BlazorEnterpriseStarter.Server",
+                message = "Le backend est démarré. Utilisez l’endpoint de statut pour vérifier sa disponibilité."
+            });
+        });
+
+        app.MapSystemStatusEndpoints();
+        app.MapDefaultEndpoints();
+
+        app.Run();
+    }
+}

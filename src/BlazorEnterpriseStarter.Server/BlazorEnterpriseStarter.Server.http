@@ -1,0 +1,6 @@
+@BlazorEnterpriseStarter.Server_HostAddress = http://localhost:5036
+
+GET {{BlazorEnterpriseStarter.Server_HostAddress}}/api/system/status
+Accept: application/json
+
+###

@@ -1,0 +1,40 @@
+@namespace BlazorEnterpriseStarter.DesignSystem.Layout
+
+<div class="app-shell">
+    <header class="app-shell__hero">
+        <p class="app-shell__eyebrow">BlazorEnterpriseStarter</p>
+        <div class="app-shell__heading">
+            <div class="app-shell__titles">
+                <h1>@Title</h1>
+
+                @if (!string.IsNullOrWhiteSpace(Subtitle))
+                {
+                    <p>@Subtitle</p>
+                }
+            </div>
+
+            <div class="app-shell__tech-stack" aria-label="Stack technique">
+                <span>Blazor</span>
+                <span>ASP.NET Core</span>
+                <span>.NET Aspire</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-shell__body">
+        @ChildContent
+    </main>
+</div>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string? Subtitle { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public RenderFragment ChildContent { get; set; } = default!;
+}

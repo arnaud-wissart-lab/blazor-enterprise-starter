@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorEnterpriseStarter.ServiceDefaults\BlazorEnterpriseStarter.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\BlazorEnterpriseStarter.Shared\BlazorEnterpriseStarter.Shared.csproj" />
+    <ProjectReference Include="..\BlazorEnterpriseStarter.Components\BlazorEnterpriseStarter.Components.csproj" />
+    <ProjectReference Include="..\BlazorEnterpriseStarter.DesignSystem\BlazorEnterpriseStarter.DesignSystem.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+  </PropertyGroup>
+
+</Project>

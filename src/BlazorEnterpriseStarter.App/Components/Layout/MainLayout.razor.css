@@ -1,0 +1,25 @@
+#blazor-error-ui {
+    color-scheme: light only;
+    background: rgba(37, 47, 63, 0.96);
+    bottom: 0;
+    box-shadow: 0 -1px 14px rgba(15, 23, 42, 0.28);
+    box-sizing: border-box;
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    color: #f8fafc;
+}
+
+#blazor-error-ui .reload {
+    color: #f7b267;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}

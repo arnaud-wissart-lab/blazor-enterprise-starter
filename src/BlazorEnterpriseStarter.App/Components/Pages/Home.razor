@@ -1,0 +1,67 @@
+@page "/"
+@inject PlatformApiClient PlatformApiClient
+
+<PageTitle>Accueil</PageTitle>
+
+<div class="home-grid">
+    <section class="home-intro">
+        <p class="home-intro__eyebrow">Premier incrément</p>
+        <h2>Une base crédible pour démontrer Blazor, ASP.NET Core, un design system et .NET Aspire.</h2>
+        <p>
+            Ce socle pose une séparation claire entre l’interface, l’API, les composants réutilisables et les contrats partagés.
+            L’objectif n’est pas encore de couvrir tout le métier, mais de fournir une fondation propre, maintenable et prête à évoluer.
+        </p>
+        <ul class="home-intro__list">
+            <li>Blazor Web App pour une interface moderne et démontrable</li>
+            <li>Web API dédiée aux futurs cas métier et à la supervision</li>
+            <li>Design system isolé pour standardiser la couche visuelle</li>
+            <li>Composants réutilisables séparés des primitives UI</li>
+            <li>Orchestration Aspire pour le développement local et l’observabilité</li>
+        </ul>
+    </section>
+
+    @if (_isLoading)
+    {
+        <div class="home-loading">Vérification de l’état du backend en cours...</div>
+    }
+    else
+    {
+        <PlatformOverviewCard Status="_status" />
+    }
+</div>
+
+<div class="home-panels">
+    <SurfaceCard Eyebrow="Architecture" Title="Découpage initial" Description="Les frontières techniques sont volontairement explicites dès ce premier incrément.">
+        <ul class="home-panel-list">
+            <li><strong>App</strong> : expérience utilisateur Blazor et orchestration front-end.</li>
+            <li><strong>Server</strong> : backend HTTP prêt à accueillir la logique métier.</li>
+            <li><strong>Shared</strong> : contrats stables entre front-end, API et tests.</li>
+            <li><strong>Components</strong> : assemblages réutilisables au-dessus du design system.</li>
+            <li><strong>DesignSystem</strong> : layout, tokens et briques d’interface.</li>
+        </ul>
+    </SurfaceCard>
+
+    <SurfaceCard Eyebrow="Suite logique" Title="Prochaines extensions" Description="Le socle est prêt pour accueillir de la valeur métier sans réorganisation lourde.">
+        <ul class="home-panel-list">
+            <li>Ajout d’une couche application et d’une persistance si le domaine l’exige.</li>
+            <li>Enrichissement du design system avec formulaires, tableaux et navigation.</li>
+            <li>Préparation des Dockerfiles et du pipeline de déploiement.</li>
+            <li>Ajout de tests d’intégration et de scénarios de résilience.</li>
+        </ul>
+    </SurfaceCard>
+</div>
+
+@code {
+    private ApplicationStatusDto _status = ApplicationStatusDto.CreateUnavailable(
+        "BlazorEnterpriseStarter.Server",
+        "Indéterminé",
+        "Aucune vérification n’a encore été effectuée.");
+
+    private bool _isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _status = await PlatformApiClient.GetApplicationStatusAsync(CancellationToken.None);
+        _isLoading = false;
+    }
+}

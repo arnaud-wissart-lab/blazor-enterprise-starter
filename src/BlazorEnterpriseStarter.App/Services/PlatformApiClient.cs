@@ -1,0 +1,29 @@
+using System.Net.Http.Json;
+using BlazorEnterpriseStarter.Shared.Contracts;
+
+namespace BlazorEnterpriseStarter.App.Services;
+
+public sealed class PlatformApiClient(HttpClient httpClient, ILogger<PlatformApiClient> logger)
+{
+    public async Task<ApplicationStatusDto> GetApplicationStatusAsync(CancellationToken cancellationToken)
+    {
+        try
+        {
+            var status = await httpClient.GetFromJsonAsync<ApplicationStatusDto>(ApiRoutes.System.Status, cancellationToken);
+
+            return status ?? ApplicationStatusDto.CreateUnavailable(
+                "BlazorEnterpriseStarter.Server",
+                "Indéterminé",
+                "L’API a répondu sans fournir de contenu exploitable.");
+        }
+        catch (Exception exception)
+        {
+            logger.LogWarning(exception, "Impossible de récupérer l’état de la plateforme.");
+
+            return ApplicationStatusDto.CreateUnavailable(
+                "BlazorEnterpriseStarter.Server",
+                "Indisponible",
+                "Impossible de joindre l’API backend pour le moment.");
+        }
+    }
+}

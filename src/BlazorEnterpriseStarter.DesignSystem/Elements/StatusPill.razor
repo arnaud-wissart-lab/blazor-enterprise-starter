@@ -1,0 +1,14 @@
+@namespace BlazorEnterpriseStarter.DesignSystem.Elements
+
+<span class="status-pill @(IsHealthy ? "status-pill--healthy" : "status-pill--warning")">
+    @Label
+</span>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public string Label { get; set; } = string.Empty;
+
+    [Parameter]
+    public bool IsHealthy { get; set; }
+}

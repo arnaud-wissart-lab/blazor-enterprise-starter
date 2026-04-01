@@ -1,0 +1,29 @@
+@namespace BlazorEnterpriseStarter.Components.Monitoring
+
+<SurfaceCard Eyebrow="Supervision" Title="État de la plateforme" Description="Lecture d’un endpoint backend partagé entre le front-end et l’API.">
+    <div class="platform-status__header">
+        <StatusPill IsHealthy="Status.IsHealthy" Label="@(Status.IsHealthy ? "Disponible" : "Dégradé")" />
+        <span class="platform-status__environment">@Status.EnvironmentName</span>
+    </div>
+
+    <dl class="platform-status__details">
+        <div>
+            <dt>Application</dt>
+            <dd>@Status.ApplicationName</dd>
+        </div>
+        <div>
+            <dt>Vérifié à</dt>
+            <dd>@Status.CheckedAtUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss")</dd>
+        </div>
+        <div class="platform-status__message">
+            <dt>Diagnostic</dt>
+            <dd>@Status.Message</dd>
+        </div>
+    </dl>
+</SurfaceCard>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public ApplicationStatusDto Status { get; set; } = null!;
+}

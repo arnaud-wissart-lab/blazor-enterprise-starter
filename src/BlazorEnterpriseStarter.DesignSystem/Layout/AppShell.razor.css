@@ -1,0 +1,73 @@
+.app-shell {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.25rem 4rem;
+}
+
+.app-shell__hero {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    border: 1px solid rgba(29, 120, 116, 0.12);
+    border-radius: 2rem;
+    background:
+        radial-gradient(circle at top left, rgba(29, 120, 116, 0.22), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(247, 178, 103, 0.3), transparent 28%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 249, 240, 0.88));
+    box-shadow: 0 24px 70px rgba(96, 74, 56, 0.1);
+}
+
+.app-shell__eyebrow {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--bes-color-accent-strong);
+}
+
+.app-shell__heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.app-shell__titles {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 760px;
+}
+
+.app-shell__titles h1 {
+    font-size: clamp(2.4rem, 4.5vw, 4rem);
+}
+
+.app-shell__titles p {
+    font-size: 1.05rem;
+    color: var(--bes-color-text-secondary);
+}
+
+.app-shell__tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.app-shell__tech-stack span {
+    padding: 0.45rem 0.8rem;
+    border: 1px solid rgba(31, 41, 55, 0.1);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.78);
+    font-size: 0.9rem;
+    color: var(--bes-color-text-secondary);
+}
+
+.app-shell__body {
+    display: grid;
+    gap: 1.5rem;
+}

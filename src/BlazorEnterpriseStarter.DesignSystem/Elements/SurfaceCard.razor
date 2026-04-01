@@ -1,0 +1,42 @@
+@namespace BlazorEnterpriseStarter.DesignSystem.Elements
+
+<article class="surface-card">
+    @if (!string.IsNullOrWhiteSpace(Eyebrow) || !string.IsNullOrWhiteSpace(Title) || !string.IsNullOrWhiteSpace(Description))
+    {
+        <header class="surface-card__header">
+            @if (!string.IsNullOrWhiteSpace(Eyebrow))
+            {
+                <p class="surface-card__eyebrow">@Eyebrow</p>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Title))
+            {
+                <h3>@Title</h3>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Description))
+            {
+                <p class="surface-card__description">@Description</p>
+            }
+        </header>
+    }
+
+    <div class="surface-card__content">
+        @ChildContent
+    </div>
+</article>
+
+@code {
+    [Parameter]
+    public string? Eyebrow { get; set; }
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Description { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public RenderFragment ChildContent { get; set; } = default!;
+}

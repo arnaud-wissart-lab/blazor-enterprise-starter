@@ -1,0 +1,38 @@
+@page "/error"
+@using System.Diagnostics
+
+<PageTitle>Erreur</PageTitle>
+
+<h1>Une erreur est survenue.</h1>
+<p>
+    Une exception non gérée a interrompu le traitement de la requête. Cette page constitue un point d’entrée minimal en attendant
+    la mise en place d’une gestion d’erreur plus avancée.
+</p>
+
+@if (ShowRequestId)
+{
+    <p>
+        <strong>Identifiant de requête :</strong> <code>@RequestId</code>
+    </p>
+}
+
+<h2>Mode développement</h2>
+<p>
+    En environnement <strong>Development</strong>, l’application affichera davantage de détails sur l’erreur rencontrée.
+</p>
+<p>
+    <strong>Ce mode ne doit pas être activé sur une application déployée.</strong>
+    Il peut exposer des informations sensibles aux utilisateurs finaux. Pour le débogage local, définissez la variable
+    d’environnement <strong>ASPNETCORE_ENVIRONMENT</strong> sur <strong>Development</strong>, puis redémarrez l’application.
+</p>
+
+@code {
+    [CascadingParameter]
+    private HttpContext? HttpContext { get; set; }
+
+    private string? RequestId { get; set; }
+    private bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+
+    protected override void OnInitialized() =>
+        RequestId = Activity.Current?.Id ?? HttpContext?.TraceIdentifier;
+}
