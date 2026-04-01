@@ -2,19 +2,32 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.42rem 0.9rem;
-    border-radius: 999px;
-    font-size: 0.85rem;
-    font-weight: 700;
+    gap: var(--bes-space-2);
+    padding: 0.45rem 0.9rem;
+    border: 1px solid transparent;
+    border-radius: var(--bes-radius-pill);
+    font-size: var(--bes-font-size-sm);
+    font-weight: var(--bes-font-weight-bold);
     letter-spacing: 0.03em;
 }
 
+.status-pill::before {
+    content: "";
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.8;
+}
+
 .status-pill--healthy {
-    background: rgba(29, 120, 116, 0.12);
-    color: #0f5d59;
+    border-color: rgba(35, 122, 82, 0.16);
+    background: var(--bes-color-success-surface);
+    color: var(--bes-color-success-text);
 }
 
 .status-pill--warning {
-    background: rgba(214, 40, 57, 0.12);
-    color: #a61b2b;
+    border-color: rgba(181, 59, 56, 0.16);
+    background: var(--bes-color-danger-surface);
+    color: var(--bes-color-danger-text);
 }

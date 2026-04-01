@@ -1,0 +1,104 @@
+:root {
+    /* Palette neutre */
+    --bes-ref-neutral-0: #ffffff;
+    --bes-ref-neutral-50: #f7f5f1;
+    --bes-ref-neutral-100: #efebe4;
+    --bes-ref-neutral-150: #e4ddd2;
+    --bes-ref-neutral-200: #d5ccbd;
+    --bes-ref-neutral-300: #b7ac9b;
+    --bes-ref-neutral-500: #7b7368;
+    --bes-ref-neutral-700: #423d37;
+    --bes-ref-neutral-800: #2c2926;
+    --bes-ref-neutral-900: #171614;
+
+    /* Palette accent */
+    --bes-ref-brand-50: #eef8f7;
+    --bes-ref-brand-100: #d6efeb;
+    --bes-ref-brand-200: #a7d8d1;
+    --bes-ref-brand-500: #2f7f78;
+    --bes-ref-brand-600: #246a64;
+    --bes-ref-brand-700: #1d5651;
+
+    --bes-ref-highlight-100: #f9efdf;
+    --bes-ref-highlight-200: #f4debb;
+    --bes-ref-highlight-500: #c98d2b;
+
+    /* Couleurs sémantiques */
+    --bes-ref-success-100: #e3f4ea;
+    --bes-ref-success-600: #237a52;
+    --bes-ref-warning-100: #fff1da;
+    --bes-ref-warning-600: #9a5c0a;
+    --bes-ref-danger-100: #fde7e6;
+    --bes-ref-danger-600: #b53b38;
+    --bes-ref-info-100: #e4f0fb;
+    --bes-ref-info-600: #2d6da3;
+
+    /* Typographie */
+    --bes-font-family-heading: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    --bes-font-family-body: "Aptos", "Segoe UI Variable", "Segoe UI", sans-serif;
+    --bes-font-family-mono: "Cascadia Code", "Consolas", "SFMono-Regular", monospace;
+
+    --bes-font-size-2xs: 0.75rem;
+    --bes-font-size-xs: 0.8125rem;
+    --bes-font-size-sm: 0.875rem;
+    --bes-font-size-md: 1rem;
+    --bes-font-size-lg: 1.125rem;
+    --bes-font-size-xl: 1.25rem;
+    --bes-font-size-2xl: 1.5rem;
+    --bes-font-size-3xl: clamp(1.9rem, 3vw, 2.6rem);
+    --bes-font-size-4xl: clamp(2.6rem, 5vw, 4.4rem);
+
+    --bes-font-weight-regular: 400;
+    --bes-font-weight-medium: 500;
+    --bes-font-weight-semibold: 600;
+    --bes-font-weight-bold: 700;
+
+    --bes-line-height-tight: 1.08;
+    --bes-line-height-snug: 1.25;
+    --bes-line-height-normal: 1.6;
+    --bes-line-height-relaxed: 1.75;
+
+    --bes-letter-spacing-caps: 0.14em;
+    --bes-letter-spacing-tight: -0.02em;
+
+    /* Espacements */
+    --bes-space-0: 0;
+    --bes-space-1: 0.25rem;
+    --bes-space-2: 0.5rem;
+    --bes-space-3: 0.75rem;
+    --bes-space-4: 1rem;
+    --bes-space-5: 1.25rem;
+    --bes-space-6: 1.5rem;
+    --bes-space-8: 2rem;
+    --bes-space-10: 2.5rem;
+    --bes-space-12: 3rem;
+    --bes-space-16: 4rem;
+    --bes-space-20: 5rem;
+
+    /* Rayons */
+    --bes-radius-sm: 0.75rem;
+    --bes-radius-md: 1rem;
+    --bes-radius-lg: 1.5rem;
+    --bes-radius-xl: 2rem;
+    --bes-radius-pill: 999px;
+
+    /* Ombres */
+    --bes-shadow-xs: 0 4px 12px rgba(18, 24, 32, 0.05);
+    --bes-shadow-sm: 0 10px 24px rgba(18, 24, 32, 0.08);
+    --bes-shadow-md: 0 18px 48px rgba(18, 24, 32, 0.12);
+    --bes-shadow-lg: 0 28px 72px rgba(18, 24, 32, 0.16);
+
+    /* Z-index */
+    --bes-z-base: 1;
+    --bes-z-floating: 10;
+    --bes-z-sticky: 100;
+    --bes-z-overlay: 1000;
+
+    /* Breakpoints
+       Note : les variables CSS ne sont pas exploitables directement dans les media queries.
+       Les valeurs sont conservées ici comme source documentaire et cohérente pour les conventions. */
+    --bes-breakpoint-xs: 30rem;
+    --bes-breakpoint-sm: 48rem;
+    --bes-breakpoint-md: 64rem;
+    --bes-breakpoint-lg: 80rem;
+}

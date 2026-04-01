@@ -1,0 +1,108 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background: var(--bes-color-background-hero);
+    color: var(--bes-color-text-primary);
+    font-family: var(--bes-font-family-body);
+    font-size: var(--bes-font-size-md);
+    line-height: var(--bes-line-height-normal);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    background: rgba(47, 127, 120, 0.18);
+    color: var(--bes-color-text-primary);
+}
+
+img,
+picture,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+a {
+    color: var(--bes-color-accent-strong);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+}
+
+a:hover {
+    color: var(--bes-color-accent-primary);
+}
+
+:focus-visible {
+    outline: 3px solid rgba(47, 127, 120, 0.3);
+    outline-offset: 3px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    color: var(--bes-color-text-primary);
+    font-family: var(--bes-font-family-heading);
+    font-weight: var(--bes-font-weight-semibold);
+    letter-spacing: var(--bes-letter-spacing-tight);
+    line-height: var(--bes-line-height-tight);
+}
+
+h1 {
+    font-size: var(--bes-font-size-4xl);
+}
+
+h2 {
+    font-size: var(--bes-font-size-3xl);
+}
+
+h3 {
+    font-size: var(--bes-font-size-2xl);
+}
+
+p,
+ul,
+ol,
+dl,
+blockquote,
+figure {
+    margin: 0;
+}
+
+ul,
+ol {
+    padding-left: 1.2rem;
+}
+
+code,
+pre {
+    font-family: var(--bes-font-family-mono);
+}
+
+pre,
+code {
+    color: var(--bes-color-text-primary);
+}

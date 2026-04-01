@@ -1,0 +1,34 @@
+.bes-text-muted {
+    color: var(--bes-color-text-muted);
+}
+
+.bes-text-secondary {
+    color: var(--bes-color-text-secondary);
+}
+
+.bes-surface {
+    background: var(--bes-color-surface-primary);
+    border: 1px solid var(--bes-color-border-subtle);
+    border-radius: var(--bes-radius-lg);
+    box-shadow: var(--bes-shadow-sm);
+}
+
+.bes-eyebrow {
+    font-size: var(--bes-font-size-xs);
+    font-weight: var(--bes-font-weight-bold);
+    letter-spacing: var(--bes-letter-spacing-caps);
+    text-transform: uppercase;
+    color: var(--bes-color-accent-strong);
+}
+
+.bes-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
