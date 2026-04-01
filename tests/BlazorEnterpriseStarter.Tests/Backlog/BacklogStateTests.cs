@@ -1,7 +1,7 @@
 using BlazorEnterpriseStarter.App.Services;
 using BlazorEnterpriseStarter.App.State.Backlog;
-using BlazorEnterpriseStarter.Shared.Contracts;
 using BlazorEnterpriseStarter.Shared.Contracts.Backlog;
+using BlazorEnterpriseStarter.Tests.Backlog.Fakes;
 
 namespace BlazorEnterpriseStarter.Tests.Backlog;
 
@@ -22,6 +22,18 @@ public class BacklogStateTests
         Assert.Equal(BacklogRequestStatus.Success, state.ListStatus);
         Assert.Equal(2, state.TotalCount);
         Assert.True(notifications >= 2);
+    }
+
+    [Fact]
+    public async Task InitializeAsync_ne_devrait_pas_recharger_si_un_resultat_est_deja_disponible()
+    {
+        var apiClient = new FakeBacklogApiClient();
+        var state = new BacklogState(apiClient);
+
+        await state.InitializeAsync(CancellationToken.None);
+        await state.InitializeAsync(CancellationToken.None);
+
+        Assert.Equal(1, apiClient.NombreAppelsListe);
     }
 
     [Fact]
@@ -82,6 +94,36 @@ public class BacklogStateTests
     }
 
     [Fact]
+    public async Task ResetMutationFeedback_devrait_effacer_les_messages_et_revenir_a_idle()
+    {
+        var apiClient = new FakeBacklogApiClient
+        {
+            ExceptionCreation = new BacklogApiException(
+                "La validation a échoué.",
+                new Dictionary<string, string[]>
+                {
+                    [nameof(BacklogItemUpsertRequest.Titre)] = ["Le titre est obligatoire."]
+                })
+        };
+        var state = new BacklogState(apiClient);
+
+        await Assert.ThrowsAsync<BacklogApiException>(() =>
+            state.CreateAsync(
+                new BacklogItemUpsertRequest
+                {
+                    Titre = string.Empty,
+                    Description = "Description invalide pour le test."
+                },
+                CancellationToken.None));
+
+        state.ResetMutationFeedback();
+
+        Assert.Equal(BacklogRequestStatus.Idle, state.MutationStatus);
+        Assert.Null(state.MutationErrorMessage);
+        Assert.Empty(state.MutationErrors);
+    }
+
+    [Fact]
     public async Task RefreshAsync_en_cas_derreur_apres_un_succes_devrait_conserver_les_donnees_existantes()
     {
         var apiClient = new FakeBacklogApiClient();
@@ -97,77 +139,5 @@ public class BacklogStateTests
         Assert.Equal("Le backend est momentanément indisponible.", state.ListErrorMessage);
         Assert.Equal(2, state.Items.Count);
         Assert.True(state.HasResult);
-    }
-
-    private sealed class FakeBacklogApiClient : IBacklogApiClient
-    {
-        private readonly PagedResultDto<BacklogItemDto> _result =
-            new(
-                [
-                    new BacklogItemDto(
-                        Guid.NewGuid(),
-                        "Créer le tableau de bord",
-                        "Préparer la première vue produit.",
-                        BacklogItemStatus.EnCours,
-                        BacklogItemPriority.Haute,
-                        DateTimeOffset.UtcNow.AddDays(-3)),
-                    new BacklogItemDto(
-                        Guid.NewGuid(),
-                        "Structurer la feuille de route",
-                        "Définir les prochains jalons métier.",
-                        BacklogItemStatus.Pret,
-                        BacklogItemPriority.Moyenne,
-                        DateTimeOffset.UtcNow.AddDays(-8))
-                ],
-                2,
-                1,
-                6);
-
-        public BacklogItemsQueryDto? DerniereRequete { get; private set; }
-
-        public BacklogApiException? ExceptionCreation { get; init; }
-
-        public BacklogApiException? ExceptionListe { get; set; }
-
-        public Task<PagedResultDto<BacklogItemDto>> ListerAsync(BacklogItemsQueryDto requete, CancellationToken cancellationToken)
-        {
-            DerniereRequete = requete;
-
-            if (ExceptionListe is not null)
-            {
-                throw ExceptionListe;
-            }
-
-            return Task.FromResult(_result);
-        }
-
-        public Task<BacklogItemDto> CreerAsync(BacklogItemUpsertRequest commande, CancellationToken cancellationToken)
-        {
-            if (ExceptionCreation is not null)
-            {
-                throw ExceptionCreation;
-            }
-
-            return Task.FromResult(
-                new BacklogItemDto(
-                    Guid.NewGuid(),
-                    commande.Titre,
-                    commande.Description,
-                    commande.Statut,
-                    commande.Priorite,
-                    DateTimeOffset.UtcNow));
-        }
-
-        public Task<BacklogItemDto> ModifierAsync(Guid id, BacklogItemUpsertRequest commande, CancellationToken cancellationToken) =>
-            Task.FromResult(
-                new BacklogItemDto(
-                    id,
-                    commande.Titre,
-                    commande.Description,
-                    commande.Statut,
-                    commande.Priorite,
-                    DateTimeOffset.UtcNow));
-
-        public Task SupprimerAsync(Guid id, CancellationToken cancellationToken) => Task.CompletedTask;
     }
 }
