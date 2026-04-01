@@ -35,6 +35,10 @@ public sealed class BacklogState
 
     public bool HasLoadedOnce { get; private set; }
 
+    public bool HasResult => Result is not null;
+
+    public bool IsRefreshing => HasLoadedOnce && ListStatus == BacklogRequestStatus.Loading;
+
     public IReadOnlyList<BacklogItemDto> Items => Result?.Elements ?? [];
 
     public int TotalCount => Result?.NombreTotal ?? 0;
@@ -143,7 +147,11 @@ public sealed class BacklogState
         }
         catch (BacklogApiException exception)
         {
-            Result = null;
+            if (!HasLoadedOnce || Result is null)
+            {
+                Result = null;
+            }
+
             ListStatus = BacklogRequestStatus.Error;
             ListErrorMessage = exception.Message;
         }

@@ -72,8 +72,9 @@
         <div class="backlog-filters">
             <AppInput Label="Recherche"
                       Placeholder="Titre, description, besoin métier..."
-                      Description="La recherche inspecte le titre et la description."
-                      @bind-Value="_recherche" />
+                      Description="La recherche inspecte le titre et la description, avec application automatique après une courte pause."
+                      IsLoading="@AfficherIndicateurRafraichissement"
+                      @bind-Value="Recherche" />
 
             <AppSelect Label="Statut"
                        Placeholder="Tous les statuts"
@@ -102,7 +103,7 @@
     </Footer>
 </AppCard>
 
-@if (!State.HasLoadedOnce)
+@if (AfficherEtatChargementInitial)
 {
     <AppCard Eyebrow="Chargement" Title="Lecture du backlog en cours" Description="La page récupère les éléments depuis l’API backend.">
         <ChildContent>
@@ -112,7 +113,7 @@
         </ChildContent>
     </AppCard>
 }
-else if (State.ListStatus == BacklogRequestStatus.Error && !string.IsNullOrWhiteSpace(State.ListErrorMessage))
+else if (AfficherErreurPleinePage)
 {
     <AppCard Eyebrow="Erreur" Title="Le backlog n’a pas pu être chargé" Description="@State.ListErrorMessage" Tone="AppTone.Danger">
         <ChildContent>
@@ -124,7 +125,30 @@ else if (State.ListStatus == BacklogRequestStatus.Error && !string.IsNullOrWhite
 }
 else
 {
-    <div class="backlog-summary-grid">
+    @if (AfficherErreurNonBloquante)
+    {
+        <AppCard Eyebrow="Connexion"
+                 Title="Le dernier rafraîchissement n’a pas abouti"
+                 Description="@State.ListErrorMessage"
+                 Tone="AppTone.Danger"
+                 IsCompact="true">
+            <ChildContent>
+                <div class="backlog-state">
+                    <AppButton Variant="AppButtonVariant.Secondary" OnClick="ActualiserAsync">Réessayer</AppButton>
+                </div>
+            </ChildContent>
+        </AppCard>
+    }
+
+    @if (AfficherIndicateurRafraichissement)
+    {
+        <div class="backlog-refresh-indicator" role="status" aria-live="polite">
+            <AppLoader Size="AppControlSize.Small" Inline="true" Label="Rafraîchissement des résultats" />
+            <span>Mise à jour des résultats en arrière-plan…</span>
+        </div>
+    }
+
+    <div class="backlog-summary-grid @(AfficherIndicateurRafraichissement ? "backlog-region--busy" : null)">
         <AppCard Title="Total filtré" Description="Nombre d’éléments correspondant aux critères en cours." IsCompact="true">
             <ChildContent>
                 <div class="backlog-metric">
@@ -170,35 +194,37 @@ else
     }
     else
     {
-        <div class="backlog-list">
+        <div class="backlog-list @(AfficherIndicateurRafraichissement ? "backlog-region--busy" : null)">
             @foreach (var item in Elements)
             {
-                <AppCard Title="@item.Titre"
-                         Description="@item.Description"
-                         Tone="@ObtenirTonalitePriorite(item.Priorite)">
-                    <Actions>
-                        <AppButton Variant="AppButtonVariant.Ghost" Size="AppControlSize.Small" OnClick="@((MouseEventArgs args) => OuvrirEditionAsync(item, args))">
-                            Modifier
-                        </AppButton>
-                        <AppButton Variant="AppButtonVariant.Danger" Size="AppControlSize.Small" OnClick="@((MouseEventArgs args) => OuvrirSuppressionAsync(item, args))">
-                            Supprimer
-                        </AppButton>
-                    </Actions>
-                    <ChildContent>
-                        <div class="backlog-item__meta">
-                            <AppBadge Tone="@ObtenirTonaliteStatut(item.Statut)">@ObtenirLibelleStatut(item.Statut)</AppBadge>
-                            <AppBadge Tone="@ObtenirTonalitePriorite(item.Priorite)">@ObtenirLibellePriorite(item.Priorite)</AppBadge>
-                            <span class="backlog-item__date">Créé le @item.DateCreation.ToLocalTime().ToString("dd/MM/yyyy")</span>
-                        </div>
-                    </ChildContent>
-                </AppCard>
+                <div @key="item.Id" class="backlog-list__item">
+                    <AppCard Title="@item.Titre"
+                             Description="@item.Description"
+                             Tone="@ObtenirTonalitePriorite(item.Priorite)">
+                        <Actions>
+                            <AppButton Variant="AppButtonVariant.Ghost" Size="AppControlSize.Small" OnClick="@((MouseEventArgs args) => OuvrirEditionAsync(item, args))">
+                                Modifier
+                            </AppButton>
+                            <AppButton Variant="AppButtonVariant.Danger" Size="AppControlSize.Small" OnClick="@((MouseEventArgs args) => OuvrirSuppressionAsync(item, args))">
+                                Supprimer
+                            </AppButton>
+                        </Actions>
+                        <ChildContent>
+                            <div class="backlog-item__meta">
+                                <AppBadge Tone="@ObtenirTonaliteStatut(item.Statut)">@ObtenirLibelleStatut(item.Statut)</AppBadge>
+                                <AppBadge Tone="@ObtenirTonalitePriorite(item.Priorite)">@ObtenirLibellePriorite(item.Priorite)</AppBadge>
+                                <span class="backlog-item__date">Créé le @item.DateCreation.ToLocalTime().ToString("dd/MM/yyyy")</span>
+                            </div>
+                        </ChildContent>
+                    </AppCard>
+                </div>
             }
         </div>
 
-        <div class="backlog-pagination">
+        <div class="backlog-pagination @(AfficherIndicateurRafraichissement ? "backlog-region--busy" : null)">
             <AppButton Variant="AppButtonVariant.Secondary"
                        Size="AppControlSize.Small"
-                       Disabled="@(!PeutAllerPagePrecedente)"
+                       Disabled="@(!PeutAllerPagePrecedente || AfficherIndicateurRafraichissement)"
                        OnClick="AllerPagePrecedenteAsync">
                 Page précédente
             </AppButton>
@@ -209,7 +235,7 @@ else
 
             <AppButton Variant="AppButtonVariant.Secondary"
                        Size="AppControlSize.Small"
-                       Disabled="@(!PeutAllerPageSuivante)"
+                       Disabled="@(!PeutAllerPageSuivante || AfficherIndicateurRafraichissement)"
                        OnClick="AllerPageSuivanteAsync">
                 Page suivante
             </AppButton>

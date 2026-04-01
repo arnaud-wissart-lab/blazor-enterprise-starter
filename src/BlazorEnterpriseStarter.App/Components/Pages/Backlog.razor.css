@@ -16,6 +16,39 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.backlog-refresh-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--bes-space-3);
+    padding: var(--bes-space-3) var(--bes-space-4);
+    border: 1px solid color-mix(in srgb, var(--bes-color-border-subtle) 72%, transparent);
+    border-radius: var(--bes-radius-pill);
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(in srgb, var(--bes-color-accent-soft) 52%, white) 0%,
+            color-mix(in srgb, var(--bes-color-surface-primary) 88%, white) 100%);
+    color: var(--bes-color-text-secondary);
+    box-shadow: var(--bes-shadow-xs);
+}
+
+.backlog-refresh-indicator span {
+    font-size: var(--bes-font-size-sm);
+}
+
+.backlog-region--busy {
+    opacity: 0.78;
+}
+
+.backlog-region--busy,
+.backlog-list__item,
+.backlog-pagination {
+    transition:
+        opacity 160ms ease,
+        transform 180ms ease,
+        box-shadow 180ms ease;
+}
+
 .backlog-metric {
     display: grid;
     gap: var(--bes-space-1);
@@ -33,6 +66,14 @@
 .backlog-list {
     display: grid;
     gap: var(--bes-space-5);
+}
+
+.backlog-list__item {
+    min-width: 0;
+}
+
+.backlog-list__item:hover {
+    transform: translateY(-1px);
 }
 
 .backlog-item__meta {
@@ -100,6 +141,11 @@
     .backlog-filters,
     .backlog-form__grid {
         grid-template-columns: 1fr;
+    }
+
+    .backlog-refresh-indicator {
+        width: 100%;
+        justify-content: flex-start;
     }
 
     .backlog-pagination {

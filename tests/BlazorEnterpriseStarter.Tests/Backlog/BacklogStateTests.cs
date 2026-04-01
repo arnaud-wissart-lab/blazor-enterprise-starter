@@ -81,6 +81,24 @@ public class BacklogStateTests
         Assert.True(state.MutationErrors.ContainsKey(nameof(BacklogItemUpsertRequest.Titre)));
     }
 
+    [Fact]
+    public async Task RefreshAsync_en_cas_derreur_apres_un_succes_devrait_conserver_les_donnees_existantes()
+    {
+        var apiClient = new FakeBacklogApiClient();
+        var state = new BacklogState(apiClient);
+
+        await state.InitializeAsync(CancellationToken.None);
+
+        apiClient.ExceptionListe = new BacklogApiException("Le backend est momentanément indisponible.");
+
+        await state.RefreshAsync(CancellationToken.None);
+
+        Assert.Equal(BacklogRequestStatus.Error, state.ListStatus);
+        Assert.Equal("Le backend est momentanément indisponible.", state.ListErrorMessage);
+        Assert.Equal(2, state.Items.Count);
+        Assert.True(state.HasResult);
+    }
+
     private sealed class FakeBacklogApiClient : IBacklogApiClient
     {
         private readonly PagedResultDto<BacklogItemDto> _result =
@@ -109,9 +127,17 @@ public class BacklogStateTests
 
         public BacklogApiException? ExceptionCreation { get; init; }
 
+        public BacklogApiException? ExceptionListe { get; set; }
+
         public Task<PagedResultDto<BacklogItemDto>> ListerAsync(BacklogItemsQueryDto requete, CancellationToken cancellationToken)
         {
             DerniereRequete = requete;
+
+            if (ExceptionListe is not null)
+            {
+                throw ExceptionListe;
+            }
+
             return Task.FromResult(_result);
         }
 

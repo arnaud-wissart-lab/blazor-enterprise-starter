@@ -12,6 +12,8 @@ namespace BlazorEnterpriseStarter.App.Components.Pages;
 /// </summary>
 public partial class Backlog : ComponentBase, IDisposable
 {
+    private const int DelaiRechercheDebounceEnMillisecondes = 350;
+
     private readonly BacklogItemFormModel _formulaire = new();
 
     private readonly IReadOnlyList<AppSelectOption> _statutOptions =
@@ -50,6 +52,7 @@ public partial class Backlog : ComponentBase, IDisposable
     private string _directionSelectionnee = nameof(DirectionTri.Decroissante);
     private string _statutFormulaireSelectionne = nameof(BacklogItemStatus.Nouveau);
     private string _prioriteFormulaireSelectionnee = nameof(BacklogItemPriority.Moyenne);
+    private CancellationTokenSource? _rechercheDebounceCts;
     private Guid? _idEdition;
     private bool _modaleEditionOuverte;
     private bool _modaleSuppressionOuverte;
@@ -60,6 +63,22 @@ public partial class Backlog : ComponentBase, IDisposable
 
     private IReadOnlyList<BacklogItemDto> Elements => State.Items;
 
+    private string? Recherche
+    {
+        get => _recherche;
+        set
+        {
+            if (string.Equals(_recherche, value, StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            _recherche = value;
+            _messageSucces = null;
+            _ = PlanifierRechercheDebounceeAsync();
+        }
+    }
+
     private string NombreTotalLibelle => $"{State.TotalCount} éléments";
 
     private BacklogItemStatus? FiltreStatutActif => ConvertirEnumNullable<BacklogItemStatus>(_statutSelectionne);
@@ -69,6 +88,20 @@ public partial class Backlog : ComponentBase, IDisposable
     private bool PeutAllerPagePrecedente => State.CanGoPrevious;
 
     private bool PeutAllerPageSuivante => State.CanGoNext;
+
+    private bool AfficherEtatChargementInitial => !State.HasLoadedOnce;
+
+    private bool AfficherIndicateurRafraichissement => State.IsRefreshing;
+
+    private bool AfficherErreurPleinePage =>
+        State.ListStatus == BacklogRequestStatus.Error
+        && !State.HasResult
+        && !string.IsNullOrWhiteSpace(State.ListErrorMessage);
+
+    private bool AfficherErreurNonBloquante =>
+        State.ListStatus == BacklogRequestStatus.Error
+        && State.HasResult
+        && !string.IsNullOrWhiteSpace(State.ListErrorMessage);
 
     private string TitreModaleEdition => _idEdition is null ? "Créer un élément de backlog" : "Modifier l’élément de backlog";
 
@@ -83,6 +116,7 @@ public partial class Backlog : ComponentBase, IDisposable
 
     public void Dispose()
     {
+        AnnulerRechercheDebouncee();
         State.Changed -= HandleStateChanged;
     }
 
@@ -93,18 +127,21 @@ public partial class Backlog : ComponentBase, IDisposable
 
     private async Task ActualiserAsync(MouseEventArgs _)
     {
+        AnnulerRechercheDebouncee();
         _messageSucces = null;
         await State.RefreshAsync(CancellationToken.None);
     }
 
     private async Task AppliquerFiltresAsync(MouseEventArgs _)
     {
+        AnnulerRechercheDebouncee();
         _messageSucces = null;
         await State.ApplyFiltersAsync(CreerRequeteDepuisSaisie(resetPage: true), CancellationToken.None);
     }
 
     private async Task ReinitialiserFiltresAsync(MouseEventArgs _)
     {
+        AnnulerRechercheDebouncee();
         _messageSucces = null;
         _recherche = null;
         _statutSelectionne = null;
@@ -117,12 +154,14 @@ public partial class Backlog : ComponentBase, IDisposable
 
     private async Task AllerPagePrecedenteAsync(MouseEventArgs _)
     {
+        AnnulerRechercheDebouncee();
         _messageSucces = null;
         await State.GoToPreviousPageAsync(CancellationToken.None);
     }
 
     private async Task AllerPageSuivanteAsync(MouseEventArgs _)
     {
+        AnnulerRechercheDebouncee();
         _messageSucces = null;
         await State.GoToNextPageAsync(CancellationToken.None);
     }
@@ -286,6 +325,37 @@ public partial class Backlog : ComponentBase, IDisposable
 
         _erreursFormulaire = erreurs;
         return erreurs.Count == 0;
+    }
+
+    private async Task PlanifierRechercheDebounceeAsync()
+    {
+        AnnulerRechercheDebouncee();
+        var cts = new CancellationTokenSource();
+        _rechercheDebounceCts = cts;
+
+        try
+        {
+            await Task.Delay(DelaiRechercheDebounceEnMillisecondes, cts.Token);
+            await State.ApplyFiltersAsync(CreerRequeteDepuisSaisie(resetPage: true), cts.Token);
+        }
+        catch (OperationCanceledException) when (cts.IsCancellationRequested)
+        {
+        }
+        finally
+        {
+            if (ReferenceEquals(_rechercheDebounceCts, cts))
+            {
+                _rechercheDebounceCts.Dispose();
+                _rechercheDebounceCts = null;
+            }
+        }
+    }
+
+    private void AnnulerRechercheDebouncee()
+    {
+        _rechercheDebounceCts?.Cancel();
+        _rechercheDebounceCts?.Dispose();
+        _rechercheDebounceCts = null;
     }
 
     private BacklogItemsQueryDto CreerRequeteDepuisSaisie(bool resetPage) =>
