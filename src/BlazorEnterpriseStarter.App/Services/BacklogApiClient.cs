@@ -10,7 +10,7 @@ namespace BlazorEnterpriseStarter.App.Services;
 /// <summary>
 /// Centralise l’accès HTTP au module backlog exposé par l’API.
 /// </summary>
-public sealed class BacklogApiClient(HttpClient httpClient)
+public sealed class BacklogApiClient(HttpClient httpClient) : IBacklogApiClient
 {
     public async Task<PagedResultDto<BacklogItemDto>> ListerAsync(BacklogItemsQueryDto requete, CancellationToken cancellationToken)
     {

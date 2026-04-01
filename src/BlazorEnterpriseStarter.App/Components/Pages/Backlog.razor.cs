@@ -1,6 +1,6 @@
 using BlazorEnterpriseStarter.App.Services;
+using BlazorEnterpriseStarter.App.State.Backlog;
 using BlazorEnterpriseStarter.Components.Common;
-using BlazorEnterpriseStarter.Shared.Contracts;
 using BlazorEnterpriseStarter.Shared.Contracts.Backlog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -10,16 +10,15 @@ namespace BlazorEnterpriseStarter.App.Components.Pages;
 /// <summary>
 /// Porte le cas d’usage démonstratif de gestion de backlog produit.
 /// </summary>
-public partial class Backlog : ComponentBase
+public partial class Backlog : ComponentBase, IDisposable
 {
-    private readonly BacklogItemsQueryDto _requete = new();
     private readonly BacklogItemFormModel _formulaire = new();
 
     private readonly IReadOnlyList<AppSelectOption> _statutOptions =
-        CreerOptionsAvecEnum<BacklogItemStatus>(static statut => ObtenirLibelleStatut(statut));
+        CreerOptionsAvecEnum<BacklogItemStatus>(static statut => ObtenirLibelleStatut(statut), inclureOptionVide: true, libelleOptionVide: "Tous les statuts");
 
     private readonly IReadOnlyList<AppSelectOption> _prioriteOptions =
-        CreerOptionsAvecEnum<BacklogItemPriority>(static priorite => ObtenirLibellePriorite(priorite));
+        CreerOptionsAvecEnum<BacklogItemPriority>(static priorite => ObtenirLibellePriorite(priorite), inclureOptionVide: true, libelleOptionVide: "Toutes les priorités");
 
     private readonly IReadOnlyList<AppSelectOption> _statutFormulaireOptions =
         CreerOptionsAvecEnum<BacklogItemStatus>(static statut => ObtenirLibelleStatut(statut));
@@ -41,13 +40,9 @@ public partial class Backlog : ComponentBase
         new(nameof(DirectionTri.Croissante), "Croissante")
     ];
 
-    private PagedResultDto<BacklogItemDto>? _resultat;
-    private bool _chargementInitial = true;
-    private bool _enregistrementEnCours;
-    private bool _suppressionEnCours;
-    private string? _erreurChargement;
-    private string? _erreurFormulaireGlobale;
     private Dictionary<string, string[]> _erreursFormulaire = [];
+    private string? _erreurFormulaireGlobale;
+    private string? _messageSucces;
     private string? _recherche;
     private string? _statutSelectionne;
     private string? _prioriteSelectionnee;
@@ -61,22 +56,19 @@ public partial class Backlog : ComponentBase
     private BacklogItemDto? _itemEnSuppression;
 
     [Inject]
-    public BacklogApiClient BacklogApiClient { get; set; } = default!;
+    public BacklogState State { get; set; } = default!;
 
-    [Inject]
-    public ILogger<Backlog> Logger { get; set; } = default!;
+    private IReadOnlyList<BacklogItemDto> Elements => State.Items;
 
-    private IReadOnlyList<BacklogItemDto> Elements => _resultat?.Elements ?? [];
-
-    private string NombreTotalLibelle => $"{(_resultat?.NombreTotal ?? 0)} éléments";
+    private string NombreTotalLibelle => $"{State.TotalCount} éléments";
 
     private BacklogItemStatus? FiltreStatutActif => ConvertirEnumNullable<BacklogItemStatus>(_statutSelectionne);
 
     private BacklogItemPriority? FiltrePrioriteActif => ConvertirEnumNullable<BacklogItemPriority>(_prioriteSelectionnee);
 
-    private bool PeutAllerPagePrecedente => (_resultat?.NumeroPage ?? 1) > 1;
+    private bool PeutAllerPagePrecedente => State.CanGoPrevious;
 
-    private bool PeutAllerPageSuivante => _resultat is not null && _resultat.NumeroPage < _resultat.NombrePages;
+    private bool PeutAllerPageSuivante => State.CanGoNext;
 
     private string TitreModaleEdition => _idEdition is null ? "Créer un élément de backlog" : "Modifier l’élément de backlog";
 
@@ -84,76 +76,55 @@ public partial class Backlog : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        await ChargerAsync(CancellationToken.None);
+        State.Changed += HandleStateChanged;
+        SynchroniserFiltresDepuisEtat();
+        await State.InitializeAsync(CancellationToken.None);
     }
 
-    private async Task ChargerAsync(CancellationToken cancellationToken)
+    public void Dispose()
     {
-        _erreurChargement = null;
-
-        try
-        {
-            _resultat = await BacklogApiClient.ListerAsync(CreerRequeteCourante(), cancellationToken);
-        }
-        catch (BacklogApiException exception)
-        {
-            _erreurChargement = exception.Message;
-        }
-        catch (Exception exception)
-        {
-            Logger.LogError(exception, "Impossible de charger le backlog produit.");
-            _erreurChargement = "Une erreur inattendue est survenue lors du chargement du backlog.";
-        }
-        finally
-        {
-            _chargementInitial = false;
-        }
+        State.Changed -= HandleStateChanged;
     }
 
-    private Task ActualiserAsync(MouseEventArgs _)
+    private void HandleStateChanged()
     {
-        _chargementInitial = true;
-        return ChargerAsync(CancellationToken.None);
+        _ = InvokeAsync(StateHasChanged);
     }
 
-    private Task AppliquerFiltresAsync(MouseEventArgs _)
+    private async Task ActualiserAsync(MouseEventArgs _)
     {
-        _requete.NumeroPage = 1;
-        return RechargerAvecFiltresAsync();
+        _messageSucces = null;
+        await State.RefreshAsync(CancellationToken.None);
     }
 
-    private Task ReinitialiserFiltresAsync(MouseEventArgs _)
+    private async Task AppliquerFiltresAsync(MouseEventArgs _)
     {
+        _messageSucces = null;
+        await State.ApplyFiltersAsync(CreerRequeteDepuisSaisie(resetPage: true), CancellationToken.None);
+    }
+
+    private async Task ReinitialiserFiltresAsync(MouseEventArgs _)
+    {
+        _messageSucces = null;
         _recherche = null;
         _statutSelectionne = null;
         _prioriteSelectionnee = null;
         _triSelectionne = nameof(BacklogItemSortField.DateCreation);
         _directionSelectionnee = nameof(DirectionTri.Decroissante);
-        _requete.NumeroPage = 1;
 
-        return RechargerAvecFiltresAsync();
+        await State.ApplyFiltersAsync(CreerRequeteDepuisSaisie(resetPage: true), CancellationToken.None);
     }
 
     private async Task AllerPagePrecedenteAsync(MouseEventArgs _)
     {
-        if (!PeutAllerPagePrecedente)
-        {
-            return;
-        }
-
-        _requete.NumeroPage--;
-        await RechargerAvecFiltresAsync();
+        _messageSucces = null;
+        await State.GoToPreviousPageAsync(CancellationToken.None);
     }
 
     private async Task AllerPageSuivanteAsync(MouseEventArgs _)
     {
-        if (!PeutAllerPageSuivante)
-        {
-            return;
-        }
-
-        _requete.NumeroPage++;
-        await RechargerAvecFiltresAsync();
+        _messageSucces = null;
+        await State.GoToNextPageAsync(CancellationToken.None);
     }
 
     private Task OuvrirCreationAsync(MouseEventArgs _)
@@ -165,6 +136,8 @@ public partial class Backlog : ComponentBase
         _prioriteFormulaireSelectionnee = nameof(BacklogItemPriority.Moyenne);
         _erreursFormulaire.Clear();
         _erreurFormulaireGlobale = null;
+        _messageSucces = null;
+        State.ResetMutationFeedback();
         _modaleEditionOuverte = true;
 
         return Task.CompletedTask;
@@ -179,6 +152,8 @@ public partial class Backlog : ComponentBase
         _prioriteFormulaireSelectionnee = item.Priorite.ToString();
         _erreursFormulaire.Clear();
         _erreurFormulaireGlobale = null;
+        _messageSucces = null;
+        State.ResetMutationFeedback();
         _modaleEditionOuverte = true;
 
         return Task.CompletedTask;
@@ -187,7 +162,6 @@ public partial class Backlog : ComponentBase
     private Task FermerEditionAsync()
     {
         _modaleEditionOuverte = false;
-        _enregistrementEnCours = false;
         _erreurFormulaireGlobale = null;
         _erreursFormulaire.Clear();
 
@@ -196,6 +170,7 @@ public partial class Backlog : ComponentBase
 
     private Task AnnulerEditionAsync(MouseEventArgs _)
     {
+        State.ResetMutationFeedback();
         return FermerEditionAsync();
     }
 
@@ -209,44 +184,41 @@ public partial class Backlog : ComponentBase
             return;
         }
 
-        _enregistrementEnCours = true;
-
         try
         {
             var commande = new BacklogItemUpsertRequest
             {
                 Titre = _formulaire.Titre,
                 Description = _formulaire.Description,
-                Statut = ConvertirEnum<BacklogItemStatus>(_statutFormulaireSelectionne, BacklogItemStatus.Nouveau),
-                Priorite = ConvertirEnum<BacklogItemPriority>(_prioriteFormulaireSelectionnee, BacklogItemPriority.Moyenne)
+                Statut = ConvertirEnum(_statutFormulaireSelectionne, BacklogItemStatus.Nouveau),
+                Priorite = ConvertirEnum(_prioriteFormulaireSelectionnee, BacklogItemPriority.Moyenne)
             };
 
             if (_idEdition is null)
             {
-                await BacklogApiClient.CreerAsync(commande, CancellationToken.None);
+                await State.CreateAsync(commande, CancellationToken.None);
+                _messageSucces = "L’élément de backlog a été créé avec succès.";
             }
             else
             {
-                await BacklogApiClient.ModifierAsync(_idEdition.Value, commande, CancellationToken.None);
+                await State.UpdateAsync(_idEdition.Value, commande, CancellationToken.None);
+                _messageSucces = "L’élément de backlog a été mis à jour.";
             }
 
             await FermerEditionAsync();
-            await ChargerAsync(CancellationToken.None);
         }
-        catch (BacklogApiException exception)
+        catch (BacklogApiException)
         {
-            _erreurFormulaireGlobale = exception.Message;
-            _erreursFormulaire = exception.Errors.ToDictionary(entry => entry.Key, entry => entry.Value);
-        }
-        finally
-        {
-            _enregistrementEnCours = false;
+            _erreurFormulaireGlobale = State.MutationErrorMessage;
+            _erreursFormulaire = State.MutationErrors.ToDictionary(entry => entry.Key, entry => entry.Value);
         }
     }
 
     private Task OuvrirSuppressionAsync(BacklogItemDto item, MouseEventArgs _)
     {
         _itemEnSuppression = item;
+        _messageSucces = null;
+        State.ResetMutationFeedback();
         _modaleSuppressionOuverte = true;
         return Task.CompletedTask;
     }
@@ -255,12 +227,12 @@ public partial class Backlog : ComponentBase
     {
         _itemEnSuppression = null;
         _modaleSuppressionOuverte = false;
-        _suppressionEnCours = false;
         return Task.CompletedTask;
     }
 
     private Task AnnulerSuppressionAsync(MouseEventArgs _)
     {
+        State.ResetMutationFeedback();
         return FermerSuppressionAsync();
     }
 
@@ -271,28 +243,15 @@ public partial class Backlog : ComponentBase
             return;
         }
 
-        _suppressionEnCours = true;
-
         try
         {
-            await BacklogApiClient.SupprimerAsync(_itemEnSuppression.Id, CancellationToken.None);
-
-            if (_resultat is not null && _resultat.Elements.Count == 1 && _resultat.NumeroPage > 1)
-            {
-                _requete.NumeroPage--;
-            }
-
-            await FermerSuppressionAsync();
-            await ChargerAsync(CancellationToken.None);
-        }
-        catch (BacklogApiException exception)
-        {
-            _erreurChargement = exception.Message;
+            await State.DeleteAsync(_itemEnSuppression.Id, CancellationToken.None);
+            _messageSucces = "L’élément de backlog a été supprimé.";
             await FermerSuppressionAsync();
         }
-        finally
+        catch (BacklogApiException)
         {
-            _suppressionEnCours = false;
+            await FermerSuppressionAsync();
         }
     }
 
@@ -300,29 +259,6 @@ public partial class Backlog : ComponentBase
         _erreursFormulaire.TryGetValue(nomChamp, out var erreurs)
             ? string.Join(" ", erreurs)
             : null;
-
-    private Task RechargerAvecFiltresAsync()
-    {
-        _requete.Recherche = string.IsNullOrWhiteSpace(_recherche) ? null : _recherche.Trim();
-        _requete.Statut = ConvertirEnumNullable<BacklogItemStatus>(_statutSelectionne);
-        _requete.Priorite = ConvertirEnumNullable<BacklogItemPriority>(_prioriteSelectionnee);
-        _requete.Tri = ConvertirEnum(_triSelectionne, BacklogItemSortField.DateCreation);
-        _requete.Direction = ConvertirEnum(_directionSelectionnee, DirectionTri.Decroissante);
-
-        return ChargerAsync(CancellationToken.None);
-    }
-
-    private BacklogItemsQueryDto CreerRequeteCourante() =>
-        new()
-        {
-            Recherche = _requete.Recherche,
-            Statut = _requete.Statut,
-            Priorite = _requete.Priorite,
-            Tri = _requete.Tri,
-            Direction = _requete.Direction,
-            NumeroPage = _requete.NumeroPage,
-            TaillePage = _requete.TaillePage
-        };
 
     private bool ValiderFormulaire()
     {
@@ -352,11 +288,44 @@ public partial class Backlog : ComponentBase
         return erreurs.Count == 0;
     }
 
-    private static IReadOnlyList<AppSelectOption> CreerOptionsAvecEnum<TEnum>(Func<TEnum, string> formatter)
-        where TEnum : struct, Enum =>
-        Enum.GetValues<TEnum>()
+    private BacklogItemsQueryDto CreerRequeteDepuisSaisie(bool resetPage) =>
+        new()
+        {
+            Recherche = string.IsNullOrWhiteSpace(_recherche) ? null : _recherche.Trim(),
+            Statut = ConvertirEnumNullable<BacklogItemStatus>(_statutSelectionne),
+            Priorite = ConvertirEnumNullable<BacklogItemPriority>(_prioriteSelectionnee),
+            Tri = ConvertirEnum(_triSelectionne, BacklogItemSortField.DateCreation),
+            Direction = ConvertirEnum(_directionSelectionnee, DirectionTri.Decroissante),
+            NumeroPage = resetPage ? 1 : State.Query.NumeroPage,
+            TaillePage = State.Query.TaillePage
+        };
+
+    private void SynchroniserFiltresDepuisEtat()
+    {
+        _recherche = State.Query.Recherche;
+        _statutSelectionne = State.Query.Statut?.ToString();
+        _prioriteSelectionnee = State.Query.Priorite?.ToString();
+        _triSelectionne = State.Query.Tri.ToString();
+        _directionSelectionnee = State.Query.Direction.ToString();
+    }
+
+    private static IReadOnlyList<AppSelectOption> CreerOptionsAvecEnum<TEnum>(
+        Func<TEnum, string> formatter,
+        bool inclureOptionVide = false,
+        string? libelleOptionVide = null)
+        where TEnum : struct, Enum
+    {
+        var options = Enum.GetValues<TEnum>()
             .Select(value => new AppSelectOption(value.ToString(), formatter(value)))
-            .ToArray();
+            .ToList();
+
+        if (inclureOptionVide)
+        {
+            options.Insert(0, new AppSelectOption(string.Empty, libelleOptionVide ?? "Tous"));
+        }
+
+        return options;
+    }
 
     private static TEnum ConvertirEnum<TEnum>(string? value, TEnum valeurParDefaut)
         where TEnum : struct, Enum =>

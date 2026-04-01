@@ -17,7 +17,11 @@
         }
     </Badges>
     <Actions>
-        <AppButton Variant="AppButtonVariant.Secondary" OnClick="ActualiserAsync">Actualiser</AppButton>
+        <AppButton Variant="AppButtonVariant.Secondary"
+                   IsLoading="@(State.ListStatus == BacklogRequestStatus.Loading && State.HasLoadedOnce)"
+                   OnClick="ActualiserAsync">
+            Actualiser
+        </AppButton>
         <AppButton OnClick="OuvrirCreationAsync">Créer un élément</AppButton>
     </Actions>
     <ChildContent>
@@ -27,6 +31,39 @@
         </p>
     </ChildContent>
 </AppPageHeader>
+
+@if (!string.IsNullOrWhiteSpace(_messageSucces))
+{
+    <AppCard Eyebrow="Dernière action"
+             Title="Opération réussie"
+             Description="@_messageSucces"
+             Tone="AppTone.Success"
+             IsCompact="true">
+        <ChildContent>
+            <div class="backlog-state">
+                <AppBadge Tone="AppTone.Success">Succès</AppBadge>
+            </div>
+        </ChildContent>
+    </AppCard>
+}
+
+@if (State.MutationStatus == BacklogRequestStatus.Error
+     && !_modaleEditionOuverte
+     && !_modaleSuppressionOuverte
+     && !string.IsNullOrWhiteSpace(State.MutationErrorMessage))
+{
+    <AppCard Eyebrow="Dernière action"
+             Title="Une opération backlog a échoué"
+             Description="@State.MutationErrorMessage"
+             Tone="AppTone.Danger"
+             IsCompact="true">
+        <ChildContent>
+            <div class="backlog-state">
+                <AppButton Variant="AppButtonVariant.Secondary" OnClick="ActualiserAsync">Recharger l’état</AppButton>
+            </div>
+        </ChildContent>
+    </AppCard>
+}
 
 <AppCard Eyebrow="Pilotage"
          Title="Recherche, filtres et tri"
@@ -65,7 +102,7 @@
     </Footer>
 </AppCard>
 
-@if (_chargementInitial)
+@if (!State.HasLoadedOnce)
 {
     <AppCard Eyebrow="Chargement" Title="Lecture du backlog en cours" Description="La page récupère les éléments depuis l’API backend.">
         <ChildContent>
@@ -75,9 +112,9 @@
         </ChildContent>
     </AppCard>
 }
-else if (!string.IsNullOrWhiteSpace(_erreurChargement))
+else if (State.ListStatus == BacklogRequestStatus.Error && !string.IsNullOrWhiteSpace(State.ListErrorMessage))
 {
-    <AppCard Eyebrow="Erreur" Title="Le backlog n’a pas pu être chargé" Description="@_erreurChargement" Tone="AppTone.Danger">
+    <AppCard Eyebrow="Erreur" Title="Le backlog n’a pas pu être chargé" Description="@State.ListErrorMessage" Tone="AppTone.Danger">
         <ChildContent>
             <div class="backlog-state">
                 <AppButton Variant="AppButtonVariant.Secondary" OnClick="ActualiserAsync">Réessayer</AppButton>
@@ -91,7 +128,7 @@ else
         <AppCard Title="Total filtré" Description="Nombre d’éléments correspondant aux critères en cours." IsCompact="true">
             <ChildContent>
                 <div class="backlog-metric">
-                    <strong>@(_resultat?.NombreTotal ?? 0)</strong>
+                    <strong>@State.TotalCount</strong>
                     <span>éléments backlog</span>
                 </div>
             </ChildContent>
@@ -100,8 +137,8 @@ else
         <AppCard Title="Page courante" Description="Position dans la pagination serveur." IsCompact="true">
             <ChildContent>
                 <div class="backlog-metric">
-                    <strong>@(_resultat?.NumeroPage ?? 1)</strong>
-                    <span>sur @(_resultat?.NombrePages ?? 1)</span>
+                    <strong>@State.CurrentPage</strong>
+                    <span>sur @(State.TotalPages == 0 ? 1 : State.TotalPages)</span>
                 </div>
             </ChildContent>
         </AppCard>
@@ -109,7 +146,7 @@ else
         <AppCard Title="Taille de page" Description="Nombre d’éléments renvoyés par la requête." IsCompact="true">
             <ChildContent>
                 <div class="backlog-metric">
-                    <strong>@(_resultat?.Elements.Count ?? 0)</strong>
+                    <strong>@State.Items.Count</strong>
                     <span>éléments affichés</span>
                 </div>
             </ChildContent>
@@ -167,7 +204,7 @@ else
             </AppButton>
 
             <span class="backlog-pagination__summary">
-                Page @(_resultat?.NumeroPage ?? 1) sur @(_resultat?.NombrePages ?? 1)
+                Page @State.CurrentPage sur @(State.TotalPages == 0 ? 1 : State.TotalPages)
             </span>
 
             <AppButton Variant="AppButtonVariant.Secondary"
@@ -217,7 +254,7 @@ else
     </ChildContent>
     <FooterContent>
         <AppButton Variant="AppButtonVariant.Secondary" OnClick="AnnulerEditionAsync">Annuler</AppButton>
-        <AppButton IsLoading="_enregistrementEnCours" OnClick="EnregistrerAsync">
+        <AppButton IsLoading="@(State.MutationStatus == BacklogRequestStatus.Loading)" OnClick="EnregistrerAsync">
             @LibelleActionEdition
         </AppButton>
     </FooterContent>
@@ -238,7 +275,7 @@ else
     </ChildContent>
     <FooterContent>
         <AppButton Variant="AppButtonVariant.Secondary" OnClick="AnnulerSuppressionAsync">Annuler</AppButton>
-        <AppButton Variant="AppButtonVariant.Danger" IsLoading="_suppressionEnCours" OnClick="ConfirmerSuppressionAsync">
+        <AppButton Variant="AppButtonVariant.Danger" IsLoading="@(State.MutationStatus == BacklogRequestStatus.Loading)" OnClick="ConfirmerSuppressionAsync">
             Supprimer
         </AppButton>
     </FooterContent>

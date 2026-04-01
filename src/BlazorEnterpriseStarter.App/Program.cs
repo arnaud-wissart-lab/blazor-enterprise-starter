@@ -1,5 +1,6 @@
 using BlazorEnterpriseStarter.App.Components;
 using BlazorEnterpriseStarter.App.Services;
+using BlazorEnterpriseStarter.App.State.Backlog;
 
 namespace BlazorEnterpriseStarter.App;
 
@@ -21,10 +22,11 @@ public class Program
             client.BaseAddress = apiBaseAddress;
         });
 
-        builder.Services.AddHttpClient<BacklogApiClient>(client =>
+        builder.Services.AddHttpClient<IBacklogApiClient, BacklogApiClient>(client =>
         {
             client.BaseAddress = apiBaseAddress;
         });
+        builder.Services.AddScoped<BacklogState>();
 
         var app = builder.Build();
 
