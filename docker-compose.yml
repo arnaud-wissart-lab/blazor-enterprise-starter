@@ -1,0 +1,23 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: src/BlazorEnterpriseStarter.Server/Dockerfile
+    container_name: blazor-enterprise-starter-server
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+    ports:
+      - "8081:8080"
+
+  app:
+    build:
+      context: .
+      dockerfile: src/BlazorEnterpriseStarter.App/Dockerfile
+    container_name: blazor-enterprise-starter-app
+    depends_on:
+      - server
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      PlatformApi__BaseUrl: http://server:8080
+    ports:
+      - "8080:8080"

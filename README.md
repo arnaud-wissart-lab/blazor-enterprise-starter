@@ -1,6 +1,6 @@
 # BlazorEnterpriseStarter
 
-Socle de démonstration pour une application Blazor moderne, structurée pour un contexte professionnel avec une API ASP.NET Core, un design system réutilisable et une orchestration .NET Aspire.
+Socle de démonstration pour une application Blazor moderne, structurée pour un contexte professionnel avec une API ASP.NET Core, un design system réutilisable, une conteneurisation Docker simple et une orchestration .NET Aspire.
 
 ## Objectif de ce premier incrément
 
@@ -95,7 +95,7 @@ L’AppHost et les Service Defaults sont introduits immédiatement pour rendre l
 
 - La solution cible `.NET 10`, cohérent avec le SDK et les templates Aspire installés localement.
 - Le premier incrément privilégie un socle démontrable plutôt qu’une logique métier complète.
-- La conteneurisation Docker n’est pas encore détaillée dans cette étape, mais la séparation `App` / `Server` / `AppHost` la prépare proprement.
+- Les conteneurs exécutent l’application en HTTP interne sur le port `8080`. En environnement déployé, la terminaison TLS a vocation à être assurée par le reverse proxy ou la plate-forme d’hébergement.
 
 ## Démarrage local
 
@@ -105,12 +105,63 @@ L’AppHost et les Service Defaults sont introduits immédiatement pour rendre l
 dotnet run --project src/BlazorEnterpriseStarter.AppHost
 ```
 
-### Sans Aspire
+Ports attendus en développement local :
+
+- application Blazor : `https://localhost:7196` et `http://localhost:5184`
+- API ASP.NET Core : `https://localhost:7005` et `http://localhost:5036`
+
+Ce mode est le chemin principal pour le développement local. `AppHost` orchestre `App` et `Server`, injecte les informations de service discovery et permet de visualiser l’ensemble via le tableau de bord Aspire.
+
+### Via Docker
+
+```bash
+docker compose up --build
+```
+
+Ports exposés :
+
+- application Blazor : `http://localhost:8080`
+- API ASP.NET Core : `http://localhost:8081`
+
+Dans ce mode, l’application front contacte l’API via l’URL interne `http://server:8080` grâce à la variable d’environnement `PlatformApi__BaseUrl` définie dans [docker-compose.yml](C:/Users/ArnaudW/source/repos/blazor-enterprise-starter/docker-compose.yml).
+
+Pour arrêter et nettoyer les conteneurs :
+
+```bash
+docker compose down
+```
+
+### Sans Aspire ni Docker
 
 ```bash
 dotnet run --project src/BlazorEnterpriseStarter.Server
 dotnet run --project src/BlazorEnterpriseStarter.App
 ```
+
+Ce mode reste utile pour un débogage ciblé, mais il est moins confortable que l’orchestration Aspire.
+
+## Conteneurisation
+
+Les fichiers suivants constituent la base Docker :
+
+- [src/BlazorEnterpriseStarter.App/Dockerfile](C:/Users/ArnaudW/source/repos/blazor-enterprise-starter/src/BlazorEnterpriseStarter.App/Dockerfile)
+- [src/BlazorEnterpriseStarter.Server/Dockerfile](C:/Users/ArnaudW/source/repos/blazor-enterprise-starter/src/BlazorEnterpriseStarter.Server/Dockerfile)
+- [docker-compose.yml](C:/Users/ArnaudW/source/repos/blazor-enterprise-starter/docker-compose.yml)
+- [.dockerignore](C:/Users/ArnaudW/source/repos/blazor-enterprise-starter/.dockerignore)
+
+Choix pragmatiques retenus :
+
+- Dockerfiles multi-étapes pour produire des images propres et compactes
+- pas de HTTPS à l’intérieur des conteneurs, afin d’éviter une complexité locale inutile
+- ports internes unifiés à `8080` pour simplifier le raisonnement
+- `docker-compose` minimal, limité au front et à l’API
+- conservation d’Aspire comme orchestrateur local principal
+
+## Cohérence des communications
+
+- En mode Aspire, `App` résout `server` via la découverte de services et l’instruction `.WithReference(...)` de l’AppHost.
+- En mode Docker, `App` bascule automatiquement sur la configuration `PlatformApi:BaseUrl`, injectée par `docker-compose`.
+- Les endpoints `/health` et `/alive` sont exposés en développement et en conteneur pour faciliter la supervision locale et préparer un futur déploiement.
 
 ## Validation
 
@@ -118,6 +169,7 @@ dotnet run --project src/BlazorEnterpriseStarter.App
 dotnet restore
 dotnet build BlazorEnterpriseStarter.sln
 dotnet test BlazorEnterpriseStarter.sln
+docker compose config
 ```
 
 ## Prochaines étapes naturelles
@@ -125,4 +177,4 @@ dotnet test BlazorEnterpriseStarter.sln
 - ajouter une vraie couche application et domaine si l’on introduit des cas métier
 - brancher une persistance ou un fournisseur externe
 - enrichir le design system avec formulaires, tableaux et navigation
-- préparer les Dockerfiles et la stratégie de déploiement
+- préparer un déploiement derrière un reverse proxy ou une plate-forme managée

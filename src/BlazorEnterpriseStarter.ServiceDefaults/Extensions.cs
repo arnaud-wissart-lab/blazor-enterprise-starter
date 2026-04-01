@@ -91,7 +91,7 @@ public static class Extensions
 
     public static WebApplication MapDefaultEndpoints(this WebApplication app)
     {
-        if (app.Environment.IsDevelopment())
+        if (app.Environment.IsDevelopment() || IsRunningInContainer())
         {
             // Tous les checks doivent être valides pour déclarer le service prêt.
             app.MapHealthChecks(HealthEndpointPath);
@@ -105,4 +105,8 @@ public static class Extensions
 
         return app;
     }
+
+    private static bool IsRunningInContainer() =>
+        bool.TryParse(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), out var isRunningInContainer)
+        && isRunningInContainer;
 }

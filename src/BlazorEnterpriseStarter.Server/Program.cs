@@ -14,7 +14,11 @@ public class Program
         var app = builder.Build();
 
         app.UseExceptionHandler();
-        app.UseHttpsRedirection();
+
+        if (!IsRunningInContainer())
+        {
+            app.UseHttpsRedirection();
+        }
 
         app.MapGet("/", () =>
         {
@@ -30,4 +34,8 @@ public class Program
 
         app.Run();
     }
+
+    private static bool IsRunningInContainer() =>
+        bool.TryParse(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), out var isRunningInContainer)
+        && isRunningInContainer;
 }

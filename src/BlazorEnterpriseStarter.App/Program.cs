@@ -14,9 +14,13 @@ public class Program
         builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents();
 
+        var platformApiBaseUrl = builder.Configuration["PlatformApi:BaseUrl"];
+
         builder.Services.AddHttpClient<PlatformApiClient>(client =>
         {
-            client.BaseAddress = new Uri("https+http://server");
+            client.BaseAddress = Uri.TryCreate(platformApiBaseUrl, UriKind.Absolute, out var configuredBaseAddress)
+                ? configuredBaseAddress
+                : new Uri("https+http://server");
         });
 
         var app = builder.Build();
@@ -28,7 +32,11 @@ public class Program
         }
 
         app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
-        app.UseHttpsRedirection();
+
+        if (!IsRunningInContainer())
+        {
+            app.UseHttpsRedirection();
+        }
 
         app.UseAntiforgery();
 
@@ -39,4 +47,8 @@ public class Program
 
         app.Run();
     }
+
+    private static bool IsRunningInContainer() =>
+        bool.TryParse(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), out var isRunningInContainer)
+        && isRunningInContainer;
 }
