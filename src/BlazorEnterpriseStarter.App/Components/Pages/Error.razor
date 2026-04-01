@@ -6,10 +6,11 @@
 <div class="bes-page">
     <AppEmptyState Eyebrow="Erreur"
                    Title="Une erreur inattendue est survenue"
-                   Description="Une exception non gérée a interrompu le traitement de la requête. La page d’erreur reste volontairement simple, mais alignée sur le reste de l’interface."
+                   Description="Le chargement de cette page a été interrompu avant son affichage complet."
                    Tone="AppTone.Danger">
         <Actions>
             <AppButton Href="/" Variant="AppButtonVariant.Secondary">Revenir à l’accueil</AppButton>
+            <AppButton Href="." Variant="AppButtonVariant.Ghost">Recharger</AppButton>
         </Actions>
         <ChildContent>
             @if (ShowRequestId)
@@ -21,8 +22,7 @@
             }
 
             <p>
-                En environnement <strong>Development</strong>, l’application affiche davantage de détails pour faciliter
-                le diagnostic local. Ce mode ne doit pas être utilisé sur une application déployée.
+                Si le problème persiste, revenez à l’accueil puis relancez la navigation depuis les entrées principales de l’application.
             </p>
         </ChildContent>
     </AppEmptyState>

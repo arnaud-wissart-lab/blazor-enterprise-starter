@@ -2,9 +2,9 @@
 
 <PageTitle>Design system et composants</PageTitle>
 
-<AppPageHeader Eyebrow="Vitrine UI"
-               Title="Design system et composants applicatifs"
-               Description="Cette page rassemble les fondations visuelles et les composants réutilisables du projet pour montrer une approche cohérente, sobre et directement exploitable.">
+<AppPageHeader Eyebrow="Bibliothèque UI"
+               Title="Design system et composants réutilisables"
+               Description="Cette page présente les fondations visuelles et les composants employés dans l’application pour donner une lecture rapide de la cohérence UI.">
     <Badges>
         <AppBadge Tone="AppTone.Accent">Thème clair premium</AppBadge>
         <AppBadge Tone="AppTone.Success">Responsive</AppBadge>
@@ -16,8 +16,8 @@
     </Actions>
     <ChildContent>
         <p>
-            Le design system fournit les fondations de ton, de rythme et de surfaces. La librairie de composants les
-            compose ensuite pour couvrir les besoins réels d’une interface métier sans surcharger l’API des composants.
+            Cette vue permet d’évaluer le langage visuel du projet, la qualité des états et la lisibilité des composants
+            sans passer immédiatement par le code ou un scénario métier complet.
         </p>
     </ChildContent>
 </AppPageHeader>
@@ -62,7 +62,7 @@
                     <span class="showcase-type-scale__meta">Repères rapides, navigation, surligne</span>
                 </div>
                 <div>
-                    <h2>Un titre expressif pour les zones à forte valeur de démonstration</h2>
+                    <h2>Un titre expressif pour structurer les écrans importants</h2>
                     <span class="showcase-type-scale__meta">Titres structurants de page ou de section</span>
                 </div>
                 <div>
@@ -95,7 +95,7 @@
     <div class="showcase-section__header">
         <p class="showcase-section__eyebrow">Composants réutilisables</p>
         <h3>Les briques prêtes à l’emploi</h3>
-        <p>Les composants restent volontairement simples, typés et orientés usages concrets : actions, saisies, états et structuration de pages.</p>
+        <p>Les composants privilégient une API simple, des états explicites et des usages directement réutilisables dans une interface métier.</p>
     </div>
 
     <div class="showcase-grid">
@@ -113,7 +113,7 @@
                     <AppButton Size="AppControlSize.Large">Grand</AppButton>
                     <AppButton Disabled="true">Désactivé</AppButton>
                     <AppButton Variant="AppButtonVariant.Secondary" OnClick="ToggleButtonLoadingAsync">
-                        @(_isButtonLoading ? "Arrêter le chargement" : "Simuler un chargement")
+                        @(_isButtonLoading ? "Désactiver l’état de chargement" : "Activer l’état de chargement")
                     </AppButton>
                     <AppButton IsLoading="_isButtonLoading">Action en cours</AppButton>
                 </div>
@@ -124,7 +124,7 @@
             <div class="showcase-form-grid">
                 <AppInput Label="Nom du contact"
                           Placeholder="Claire Martin"
-                          Description="Signature Value / ValueChanged classique de Blazor."
+                          Description="Binding simple et intégration naturelle dans un formulaire Blazor."
                           @bind-Value="_contactName" />
 
                 <AppInput Label="Adresse e-mail"
@@ -167,7 +167,7 @@
         <AppCard Eyebrow="Composition" Title="AppCard et AppPageHeader" Description="Des briques de composition pour construire des pages métier avec une hiérarchie visuelle stable.">
             <div class="showcase-stack">
                 <AppPageHeader Title="Tableau de bord régional"
-                               Description="Exemple d’en-tête interne réutilisable pour une page métier ou un onglet fonctionnel."
+                               Description="Exemple d’en-tête réutilisable pour une page métier ou un onglet fonctionnel."
                                Class="showcase-nested-header">
                     <Badges>
                         <AppBadge Tone="AppTone.Success">Synchronisé</AppBadge>
@@ -211,7 +211,7 @@
                         <AppButton Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small">Importer</AppButton>
                     </Actions>
                     <ChildContent>
-                        Les actions restent pilotées par l’écran appelant, sans logique métier dans le composant.
+                        Les actions restent pilotées par l’écran appelant, sans logique métier embarquée dans le composant.
                     </ChildContent>
                 </AppEmptyState>
 
@@ -225,16 +225,15 @@
 
 <AppModal IsOpen="_isModalOpen"
           Title="Exemple de modale"
-          Description="La modale reste simple : contenu court, fermeture explicite et gestion basique d’Échap et du clic de fond."
+          Description="La modale illustre un dialogue court, lisible et centré sur une action explicite."
           OnClose="CloseModalAsync">
     <ChildContent>
         <div class="showcase-modal-copy">
             <p>
-                Cette implémentation vise un usage pragmatique pour des confirmations, des aides contextuelles
-                ou des formulaires brefs. Elle n’embarque pas encore de piège de focus avancé.
+                Ce format fonctionne bien pour une confirmation, une action secondaire ou un court complément d’information.
             </p>
             <p>
-                Ce choix garde le composant lisible et maintenable tout en posant une base saine pour un raffinement ultérieur.
+                Le contenu reste volontairement bref pour préserver la lisibilité et mettre l’action principale au premier plan.
             </p>
         </div>
     </ChildContent>
@@ -255,7 +254,7 @@
     private string? _contactName = "Claire Martin";
     private string? _email = "claire.martin@entreprise.fr";
     private string? _selectedEnvironment = "integration";
-    private string? _message = "Bonjour, nous préparons la démonstration du socle applicatif et du design system.";
+    private string? _message = "Bonjour, je vous partage un premier aperçu du tableau de bord produit.";
     private bool _isButtonLoading;
     private bool _isModalOpen;
 

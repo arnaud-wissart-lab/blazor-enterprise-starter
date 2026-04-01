@@ -11,7 +11,7 @@ public static class SystemStatusEndpoints
             var status = ApplicationStatusDto.CreateHealthy(
                 "BlazorEnterpriseStarter.Server",
                 environment.EnvironmentName,
-                "Le backend est opérationnel et prêt à accueillir les futures fonctionnalités métier.");
+                "Le backend répond correctement et les services principaux sont disponibles.");
 
             return Results.Ok(status);
         })

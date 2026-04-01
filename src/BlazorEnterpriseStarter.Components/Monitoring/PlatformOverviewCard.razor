@@ -1,8 +1,8 @@
 @namespace BlazorEnterpriseStarter.Components.Monitoring
 
-<SurfaceCard Eyebrow="Supervision" Title="État de la plateforme" Description="Lecture d’un endpoint backend partagé entre le front-end et l’API.">
+<SurfaceCard Eyebrow="Supervision" Title="État de la plateforme" Description="Point de contrôle simple entre l’interface et l’API.">
     <div class="platform-status__header">
-        <StatusPill IsHealthy="Status.IsHealthy" Label="@(Status.IsHealthy ? "Disponible" : "Dégradé")" />
+        <StatusPill IsHealthy="Status.IsHealthy" Label="@(Status.IsHealthy ? "Disponible" : "Indisponible")" />
         <span class="platform-status__environment">@Status.EnvironmentName</span>
     </div>
 

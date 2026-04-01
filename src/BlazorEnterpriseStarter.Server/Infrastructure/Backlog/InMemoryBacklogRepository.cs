@@ -92,29 +92,29 @@ public sealed class InMemoryBacklogRepository : IBacklogRepository
             now.AddDays(-8));
 
         yield return BacklogItem.Create(
-            "Documenter les conventions UI",
-            "Clarifier les règles de composition entre design system et composants applicatifs.",
+            "Définir les règles de priorisation",
+            "Clarifier l’impact métier, l’urgence et la valeur attendue pour homogénéiser l’ordre du backlog.",
             BacklogItemStatus.Termine,
             BacklogItemPriority.Moyenne,
             now.AddDays(-18));
 
         yield return BacklogItem.Create(
-            "Ajouter la vue backlog produit",
-            "Mettre à disposition une page métier démonstrative avec recherche, filtre et CRUD.",
+            "Ajouter l’historique des changements",
+            "Permettre aux équipes de relire les évolutions d’un ticket directement depuis sa fiche.",
             BacklogItemStatus.Nouveau,
             BacklogItemPriority.Haute,
             now.AddDays(-4));
 
         yield return BacklogItem.Create(
-            "Préparer les scénarios de démonstration",
-            "Lister les parcours à montrer pour la vitrine GitHub et les démonstrations locales.",
+            "Préparer la revue hebdomadaire",
+            "Structurer les informations nécessaires pour arbitrer les éléments prêts en comité produit.",
             BacklogItemStatus.Pret,
             BacklogItemPriority.Moyenne,
             now.AddDays(-6));
 
         yield return BacklogItem.Create(
-            "Archiver l’ancien prototype de navigation",
-            "Conserver la trace de l’itération précédente avant la refonte du layout principal.",
+            "Archiver l’ancien workflow d’import",
+            "Retirer le flux historique devenu obsolète depuis la nouvelle expérience de saisie.",
             BacklogItemStatus.Archive,
             BacklogItemPriority.Basse,
             now.AddDays(-30));

@@ -4,7 +4,7 @@
 
 <AppPageHeader Eyebrow="Module métier"
                Title="Backlog produit"
-               Description="Une page démonstrative crédible pour piloter des éléments de backlog avec recherche, filtres, tri, pagination et opérations CRUD.">
+               Description="Une vue backlog compacte et crédible pour évaluer la recherche, la priorisation et les opérations de base d’un module produit.">
     <Badges>
         <AppBadge Tone="AppTone.Accent">@NombreTotalLibelle</AppBadge>
         @if (FiltreStatutActif is not null)
@@ -26,8 +26,7 @@
     </Actions>
     <ChildContent>
         <p>
-            Le front ne porte aucune logique HTTP directe : la page dialogue avec un client dédié, tandis que
-            l’API s’appuie sur un service applicatif et une persistence mémoire prête à être remplacée.
+            Cette page illustre un flux backlog complet : consultation, filtrage, tri, création, modification et suppression.
         </p>
     </ChildContent>
 </AppPageHeader>
@@ -53,13 +52,13 @@
      && !string.IsNullOrWhiteSpace(State.MutationErrorMessage))
 {
     <AppCard Eyebrow="Dernière action"
-             Title="Une opération backlog a échoué"
+             Title="Une action n’a pas pu être finalisée"
              Description="@State.MutationErrorMessage"
              Tone="AppTone.Danger"
              IsCompact="true">
         <ChildContent>
             <div class="backlog-state">
-                <AppButton Variant="AppButtonVariant.Secondary" OnClick="ActualiserAsync">Recharger l’état</AppButton>
+                <AppButton Variant="AppButtonVariant.Secondary" OnClick="ActualiserAsync">Réactualiser la liste</AppButton>
             </div>
         </ChildContent>
     </AppCard>
@@ -67,12 +66,12 @@
 
 <AppCard Eyebrow="Pilotage"
          Title="Recherche, filtres et tri"
-         Description="Les critères sont traités côté API pour préparer une montée en charge réaliste.">
+         Description="Ajustez les critères pour explorer la liste comme sur un écran métier réel.">
     <ChildContent>
         <div class="backlog-filters">
             <AppInput Label="Recherche"
                       Placeholder="Titre, description, besoin métier..."
-                      Description="La recherche inspecte le titre et la description, avec application automatique après une courte pause."
+                      Description="Recherchez par titre ou description. Les résultats se mettent à jour après une courte pause de saisie."
                       IsLoading="@AfficherIndicateurRafraichissement"
                       @bind-Value="Recherche" />
 
@@ -105,7 +104,7 @@
 
 @if (AfficherEtatChargementInitial)
 {
-    <AppCard Eyebrow="Chargement" Title="Lecture du backlog en cours" Description="La page récupère les éléments depuis l’API backend.">
+    <AppCard Eyebrow="Chargement" Title="Le backlog est en cours de chargement" Description="Les éléments sont récupérés et préparés avant affichage.">
         <ChildContent>
             <div class="backlog-state">
                 <AppLoader Label="Chargement du backlog produit" />
@@ -181,14 +180,14 @@ else
     {
         <AppEmptyState Eyebrow="Backlog"
                        Title="Aucun élément ne correspond aux critères"
-                       Description="Réinitialisez les filtres ou créez un nouvel élément pour enrichir la démonstration."
+                       Description="Modifiez les filtres ou créez un nouvel élément pour afficher un autre scénario produit."
                        Tone="AppTone.Warning">
             <Actions>
                 <AppButton Variant="AppButtonVariant.Secondary" OnClick="ReinitialiserFiltresAsync">Réinitialiser</AppButton>
                 <AppButton OnClick="OuvrirCreationAsync">Créer un élément</AppButton>
             </Actions>
             <ChildContent>
-                La persistence est volontairement en mémoire pour accélérer la démonstration, sans figer l’architecture.
+                Les critères actuels ne renvoient aucun résultat. Vous pouvez élargir la recherche ou ajouter un élément à la liste.
             </ChildContent>
         </AppEmptyState>
     }
@@ -245,7 +244,7 @@ else
 
 <AppModal IsOpen="_modaleEditionOuverte"
           Title="@TitreModaleEdition"
-          Description="Le formulaire reste volontairement simple pour mettre en avant le flux principal de gestion."
+          Description="Renseignez les informations clés pour créer ou mettre à jour un élément du backlog."
           OnClose="FermerEditionAsync">
     <ChildContent>
         <div class="backlog-form">
@@ -288,7 +287,7 @@ else
 
 <AppModal IsOpen="_modaleSuppressionOuverte"
           Title="Supprimer un élément de backlog"
-          Description="Cette action retire l’élément de la persistence mémoire de démonstration."
+          Description="Cette action retire immédiatement l’élément de la liste courante."
           OnClose="FermerSuppressionAsync">
     <ChildContent>
         <div class="backlog-delete">

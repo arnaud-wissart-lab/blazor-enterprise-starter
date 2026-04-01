@@ -1,18 +1,18 @@
 @inherits LayoutComponentBase
 
 <AppShell ProductName="BlazorEnterpriseStarter"
-          Title="Starter professionnel pour Blazor et .NET Aspire"
-          Subtitle="Un socle démontrable, maintenable et prêt à évoluer vers une vraie application métier."
-          TopBarEyebrow="Expérience"
-          TopBarTitle="Interface moderne, architecture claire et exécution locale lisible"
-          TopBarDescription="Le layout privilégie la compréhension rapide, la qualité visuelle et des parcours simples à explorer en local comme sur GitHub.">
+          Title="Blazor, architecture propre et expérience produit"
+          Subtitle="Une application de démonstration conçue pour donner un aperçu rapide de la qualité d’un socle .NET moderne."
+          TopBarEyebrow="Parcours"
+          TopBarTitle="Trois entrées pour lire le projet rapidement"
+          TopBarDescription="Explorez l’accueil, la bibliothèque UI et le backlog pour juger à la fois l’architecture, le niveau de finition et la cohérence de l’expérience.">
     <NavigationContent>
         <div class="layout-nav">
             <NavLink href="/" Match="NavLinkMatch.All" class="layout-nav__link">
                 <span class="layout-nav__index">01</span>
                 <span class="layout-nav__copy">
                     <strong>Accueil</strong>
-                    <small>Présentation du projet, de ses objectifs et des accès rapides.</small>
+                    <small>Vue d’ensemble du projet, de son positionnement et des accès essentiels.</small>
                 </span>
             </NavLink>
 
@@ -20,7 +20,7 @@
                 <span class="layout-nav__index">02</span>
                 <span class="layout-nav__copy">
                     <strong>Design system</strong>
-                    <small>Fondations visuelles, composants et comportements de référence.</small>
+                    <small>Fondations visuelles, composants réutilisables et exemples d’usage.</small>
                 </span>
             </NavLink>
 
@@ -28,7 +28,7 @@
                 <span class="layout-nav__index">03</span>
                 <span class="layout-nav__copy">
                     <strong>Backlog produit</strong>
-                    <small>Module métier démonstratif avec recherche, filtres, pagination et CRUD.</small>
+                    <small>Cas d’usage complet avec recherche, filtres, pagination et édition.</small>
                 </span>
             </NavLink>
         </div>
@@ -36,13 +36,13 @@
 
     <SidebarContent>
         <div class="layout-sidebar-panel">
-            <p class="layout-sidebar-panel__eyebrow">Repères</p>
+            <p class="layout-sidebar-panel__eyebrow">À retenir</p>
             <ul class="layout-sidebar-panel__list">
-                <li>Application Blazor Web App avec backend ASP.NET Core séparé</li>
-                <li>Design system dédié pour les fondations visuelles réutilisables</li>
-                <li>Librairie de composants applicatifs maintenable et documentée</li>
-                <li>Module backlog produit prêt à servir de vitrine métier</li>
-                <li>Exécution locale via Aspire et conteneurisation Docker minimale</li>
+                <li>Application Blazor structurée autour d’un backend ASP.NET Core séparé</li>
+                <li>Design system dédié pour les fondations visuelles et le rythme global</li>
+                <li>Composants applicatifs réutilisables, cohérents et facilement lisibles</li>
+                <li>Module backlog produit pensé comme un exemple métier crédible</li>
+                <li>Lancement local clair via Aspire et voie Docker simple en complément</li>
             </ul>
         </div>
     </SidebarContent>
