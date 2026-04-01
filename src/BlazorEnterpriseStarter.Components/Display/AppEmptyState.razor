@@ -1,0 +1,38 @@
+@namespace BlazorEnterpriseStarter.Components
+
+<section class="@CssClass">
+    @if (VisualContent is not null)
+    {
+        <div class="app-empty-state__visual" aria-hidden="true">
+            @VisualContent
+        </div>
+    }
+
+    <div class="app-empty-state__copy">
+        @if (!string.IsNullOrWhiteSpace(Eyebrow))
+        {
+            <p class="app-empty-state__eyebrow">@Eyebrow</p>
+        }
+
+        <h2 class="app-empty-state__title">@Title</h2>
+
+        @if (!string.IsNullOrWhiteSpace(Description))
+        {
+            <p class="app-empty-state__description">@Description</p>
+        }
+
+        @if (Actions is not null)
+        {
+            <div class="app-empty-state__actions">
+                @Actions
+            </div>
+        }
+
+        @if (ChildContent is not null)
+        {
+            <div class="app-empty-state__details">
+                @ChildContent
+            </div>
+        }
+    </div>
+</section>

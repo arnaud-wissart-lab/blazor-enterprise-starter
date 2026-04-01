@@ -1,0 +1,63 @@
+@namespace BlazorEnterpriseStarter.Components
+
+@if (IsLink)
+{
+    <a class="@CssClass"
+       href="@(CanInteract ? Href : null)"
+       target="@Target"
+       rel="@ComputedRel"
+       aria-disabled="@(!CanInteract)"
+       aria-busy="@IsLoading"
+       @onclick="HandleClickAsync"
+       @onclick:preventDefault="@(!CanInteract)">
+        <span class="app-button__content">
+            @if (IsLoading)
+            {
+                <AppLoader Size="Size" Inline="true" Label="@LoadingText" />
+            }
+            else
+            {
+                @if (LeadingContent is not null)
+                {
+                    <span class="app-button__slot">@LeadingContent</span>
+                }
+
+                <span>@ChildContent</span>
+
+                @if (TrailingContent is not null)
+                {
+                    <span class="app-button__slot">@TrailingContent</span>
+                }
+            }
+        </span>
+    </a>
+}
+else
+{
+    <button class="@CssClass"
+            type="@ButtonTypeValue"
+            disabled="@(!CanInteract)"
+            aria-busy="@IsLoading"
+            @onclick="HandleClickAsync">
+        <span class="app-button__content">
+            @if (IsLoading)
+            {
+                <AppLoader Size="Size" Inline="true" Label="@LoadingText" />
+            }
+            else
+            {
+                @if (LeadingContent is not null)
+                {
+                    <span class="app-button__slot">@LeadingContent</span>
+                }
+
+                <span>@ChildContent</span>
+
+                @if (TrailingContent is not null)
+                {
+                    <span class="app-button__slot">@TrailingContent</span>
+                }
+            }
+        </span>
+    </button>
+}

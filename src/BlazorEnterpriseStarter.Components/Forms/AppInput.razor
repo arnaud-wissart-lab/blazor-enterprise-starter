@@ -1,0 +1,45 @@
+@namespace BlazorEnterpriseStarter.Components
+
+<div class="@RootClass">
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <label class="app-field__label" for="@ResolvedId">@Label</label>
+    }
+
+    <div class="app-field__control-wrapper">
+        <input id="@ResolvedId"
+               name="@Name"
+               class="@InputClass"
+               type="@ResolvedInputType"
+               value="@Value"
+               placeholder="@Placeholder"
+               autocomplete="@Autocomplete"
+               inputmode="@InputMode"
+               maxlength="@MaxLength"
+               required="@Required"
+               readonly="@ReadOnly"
+               disabled="@Disabled"
+               aria-invalid="@HasError"
+               aria-describedby="@AriaDescribedBy"
+               aria-busy="@IsLoading"
+               @oninput="HandleInputAsync"
+               @attributes="AdditionalAttributes" />
+
+        @if (IsLoading)
+        {
+            <span class="app-field__loader">
+                <AppLoader Size="AppControlSize.Small" Inline="true" Label="Chargement du champ" />
+            </span>
+        }
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Description))
+    {
+        <p id="@DescriptionId" class="app-field__description">@Description</p>
+    }
+
+    @if (HasError)
+    {
+        <p id="@ErrorId" class="app-field__error" role="alert">@ErrorMessage</p>
+    }
+</div>

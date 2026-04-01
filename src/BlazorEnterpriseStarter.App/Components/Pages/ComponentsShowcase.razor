@@ -1,0 +1,215 @@
+@page "/composants"
+
+<PageTitle>Vitrine de composants</PageTitle>
+
+<AppPageHeader
+    Eyebrow="Bibliothèque UI"
+    Title="Vitrine technique des composants"
+    Description="Cette page présente les briques réutilisables de BlazorEnterpriseStarter, alignées sur le design system et prêtes à être composées dans des écrans métier.">
+    <Badges>
+        <AppBadge Tone="AppTone.Accent">Design system aligné</AppBadge>
+        <AppBadge Tone="AppTone.Success">Responsive</AppBadge>
+        <AppBadge Tone="AppTone.Info">Accessible de base</AppBadge>
+    </Badges>
+    <Actions>
+        <AppButton Variant="AppButtonVariant.Secondary" Href="/">Retour à l’accueil</AppButton>
+        <AppButton OnClick="OpenModalAsync">Ouvrir une modale</AppButton>
+    </Actions>
+    <ChildContent>
+        <p>
+            Les composants de <code>BlazorEnterpriseStarter.Components</code> encapsulent les usages applicatifs
+            tandis que <code>BlazorEnterpriseStarter.DesignSystem</code> reste la couche de fondation visuelle.
+        </p>
+    </ChildContent>
+</AppPageHeader>
+
+<div class="showcase-grid">
+    <AppCard Eyebrow="Actions" Title="AppButton" Description="Quatre variantes visuelles, état de chargement et rendu optionnel en lien.">
+        <div class="showcase-stack">
+            <div class="showcase-inline">
+                <AppButton>Action principale</AppButton>
+                <AppButton Variant="AppButtonVariant.Secondary">Secondaire</AppButton>
+                <AppButton Variant="AppButtonVariant.Ghost">Ghost</AppButton>
+                <AppButton Variant="AppButtonVariant.Danger">Danger</AppButton>
+            </div>
+
+            <div class="showcase-inline">
+                <AppButton Size="AppControlSize.Small">Petit</AppButton>
+                <AppButton Size="AppControlSize.Large">Grand</AppButton>
+                <AppButton Disabled="true">Désactivé</AppButton>
+                <AppButton Variant="AppButtonVariant.Secondary" OnClick="ToggleButtonLoadingAsync">
+                    @(_isButtonLoading ? "Arrêter le chargement" : "Simuler un chargement")
+                </AppButton>
+                <AppButton IsLoading="_isButtonLoading">Action en cours</AppButton>
+            </div>
+        </div>
+    </AppCard>
+
+    <AppCard Eyebrow="Champs" Title="AppInput, AppSelect et AppTextarea" Description="Des contrôles de formulaire simples, documentés et facilement réutilisables.">
+        <div class="showcase-form-grid">
+            <AppInput Label="Nom du contact"
+                      Placeholder="Claire Martin"
+                      Description="Utilise la signature Value / ValueChanged standard de Blazor."
+                      @bind-Value="_contactName" />
+
+            <AppInput Label="Adresse e-mail"
+                      Placeholder="claire.martin@entreprise.fr"
+                      InputType="AppInputType.Email"
+                      ErrorMessage="@EmailError"
+                      @bind-Value="_email" />
+
+            <AppSelect Label="Environnement"
+                       Description="Exemple de liste déroulante typée."
+                       Options="_environments"
+                       @bind-Value="_selectedEnvironment" />
+
+            <AppTextarea Label="Message d’introduction"
+                         Description="Le composant gère aussi l’état d’erreur et la lecture seule."
+                         Rows="5"
+                         MaxLength="280"
+                         @bind-Value="_message" />
+        </div>
+    </AppCard>
+
+    <AppCard Eyebrow="Affichage" Title="AppBadge et AppLoader" Description="Des indicateurs sobres pour signaler des statuts, des niveaux ou des attentes.">
+        <div class="showcase-stack">
+            <div class="showcase-inline">
+                <AppBadge Tone="AppTone.Neutral">Brouillon</AppBadge>
+                <AppBadge Tone="AppTone.Accent">En cours</AppBadge>
+                <AppBadge Tone="AppTone.Success">Conforme</AppBadge>
+                <AppBadge Tone="AppTone.Warning">À vérifier</AppBadge>
+                <AppBadge Tone="AppTone.Danger">Bloqué</AppBadge>
+            </div>
+
+            <div class="showcase-inline">
+                <AppLoader Label="Synchronisation" />
+                <AppLoader Size="AppControlSize.Small" Label="Chargement léger" />
+                <AppLoader Size="AppControlSize.Large" Label="Traitement étendu" />
+            </div>
+        </div>
+    </AppCard>
+
+    <AppCard Eyebrow="Structure" Title="AppCard et AppPageHeader" Description="Des composants de composition pour poser rapidement une hiérarchie visuelle cohérente.">
+        <div class="showcase-stack">
+            <AppPageHeader Title="Tableau de bord régional"
+                           Description="Exemple d’en-tête interne réutilisable pour une page métier ou un onglet fonctionnel."
+                           Class="showcase-nested-header">
+                <Badges>
+                    <AppBadge Tone="AppTone.Success">Synchronisé</AppBadge>
+                </Badges>
+                <Actions>
+                    <AppButton Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small">Exporter</AppButton>
+                    <AppButton Size="AppControlSize.Small">Créer</AppButton>
+                </Actions>
+            </AppPageHeader>
+
+            <AppCard Title="Carte imbriquée" Description="Une carte peut également encapsuler des sous-sections plus ciblées." IsCompact="true">
+                <div class="showcase-metrics">
+                    <div>
+                        <strong>98,4 %</strong>
+                        <span>Taux de disponibilité</span>
+                    </div>
+                    <div>
+                        <strong>24 min</strong>
+                        <span>Délai moyen de traitement</span>
+                    </div>
+                    <div>
+                        <strong>12</strong>
+                        <span>Alertes ouvertes</span>
+                    </div>
+                </div>
+            </AppCard>
+        </div>
+    </AppCard>
+
+    <AppCard Eyebrow="État vide" Title="AppEmptyState" Description="Une base simple pour guider l’utilisateur quand aucune donnée n’est encore disponible.">
+        <AppEmptyState
+            Eyebrow="Données"
+            Title="Aucun rapport n’est encore disponible"
+            Description="Ce composant évite les écrans vides et oriente immédiatement l’utilisateur vers l’action utile."
+            Tone="AppTone.Accent">
+            <VisualContent>
+                <span class="showcase-visual-token">0</span>
+            </VisualContent>
+            <Actions>
+                <AppButton Size="AppControlSize.Small">Créer un premier rapport</AppButton>
+                <AppButton Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small">Importer</AppButton>
+            </Actions>
+            <ChildContent>
+                Les composants restent volontairement sans logique métier. L’écran appelant décide des actions et des données.
+            </ChildContent>
+        </AppEmptyState>
+    </AppCard>
+</div>
+
+<AppModal IsOpen="_isModalOpen"
+          Title="Exemple de modale"
+          Description="La modale reste simple : contenu court, fermeture explicite et gestion basique d’Échap et du clic de fond."
+          OnClose="CloseModalAsync">
+    <ChildContent>
+        <div class="showcase-modal-copy">
+            <p>
+                Cette implémentation vise un usage pragmatique pour des confirmations, des aides contextuelles
+                ou des formulaires brefs. Elle n’embarque pas encore de piège de focus avancé.
+            </p>
+            <p>
+                Ce choix garde le composant lisible et maintenable tout en posant une base saine pour un raffinement ultérieur.
+            </p>
+        </div>
+    </ChildContent>
+    <FooterContent>
+        <AppButton Variant="AppButtonVariant.Secondary" OnClick="CloseFromButtonAsync">Annuler</AppButton>
+        <AppButton OnClick="ConfirmModalAsync">Confirmer</AppButton>
+    </FooterContent>
+</AppModal>
+
+@code {
+    private readonly IReadOnlyList<AppSelectOption> _environments =
+    [
+        new("local", "Local"),
+        new("integration", "Intégration"),
+        new("production", "Production")
+    ];
+
+    private string? _contactName = "Claire Martin";
+    private string? _email = "claire.martin@entreprise.fr";
+    private string? _selectedEnvironment = "integration";
+    private string? _message = "Bonjour, nous préparons la démonstration du socle applicatif et du design system.";
+    private bool _isButtonLoading;
+    private bool _isModalOpen;
+
+    private string? EmailError =>
+        string.IsNullOrWhiteSpace(_email) || _email.Contains('@', StringComparison.Ordinal)
+            ? null
+            : "Le format de l’adresse e-mail semble incorrect.";
+
+    private Task ToggleButtonLoadingAsync(MouseEventArgs _)
+    {
+        _isButtonLoading = !_isButtonLoading;
+        return Task.CompletedTask;
+    }
+
+    private Task OpenModalAsync(MouseEventArgs _)
+    {
+        _isModalOpen = true;
+        return Task.CompletedTask;
+    }
+
+    private Task CloseFromButtonAsync(MouseEventArgs _)
+    {
+        _isModalOpen = false;
+        return Task.CompletedTask;
+    }
+
+    private Task ConfirmModalAsync(MouseEventArgs _)
+    {
+        _isModalOpen = false;
+        return Task.CompletedTask;
+    }
+
+    private Task CloseModalAsync()
+    {
+        _isModalOpen = false;
+        return Task.CompletedTask;
+    }
+}

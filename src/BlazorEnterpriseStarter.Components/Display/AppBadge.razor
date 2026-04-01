@@ -1,0 +1,10 @@
+@namespace BlazorEnterpriseStarter.Components
+
+<span class="@CssClass">
+    @if (LeadingContent is not null)
+    {
+        <span class="app-badge__icon" aria-hidden="true">@LeadingContent</span>
+    }
+
+    <span>@ChildContent</span>
+</span>

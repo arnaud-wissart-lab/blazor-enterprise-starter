@@ -37,6 +37,13 @@
     padding-left: var(--bes-space-1);
 }
 
+.home-intro__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--bes-space-3);
+    margin-top: var(--bes-space-2);
+}
+
 .home-loading {
     padding: var(--bes-space-8);
     border: 1px dashed var(--bes-color-border-accent);

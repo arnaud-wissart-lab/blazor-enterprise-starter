@@ -1,0 +1,114 @@
+.app-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 9rem;
+    min-height: 2.9rem;
+    padding: 0.75rem 1.15rem;
+    border: 1px solid transparent;
+    border-radius: var(--bes-radius-pill);
+    font-size: var(--bes-font-size-sm);
+    font-weight: var(--bes-font-weight-semibold);
+    line-height: 1;
+    text-decoration: none;
+    transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        border-color 140ms ease,
+        background-color 140ms ease,
+        color 140ms ease;
+    cursor: pointer;
+}
+
+.app-button:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--bes-shadow-sm);
+}
+
+.app-button:focus-visible {
+    outline: 3px solid rgba(47, 127, 120, 0.24);
+    outline-offset: 3px;
+}
+
+.app-button[aria-disabled="True"],
+.app-button:disabled,
+.app-button--disabled {
+    opacity: 0.56;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.app-button__content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--bes-space-2);
+}
+
+.app-button__slot {
+    display: inline-flex;
+    align-items: center;
+}
+
+.app-button--block {
+    display: flex;
+    width: 100%;
+}
+
+.app-button--small {
+    min-width: 7.5rem;
+    min-height: 2.45rem;
+    padding: 0.6rem 0.95rem;
+}
+
+.app-button--large {
+    min-width: 10rem;
+    min-height: 3.2rem;
+    padding: 0.95rem 1.35rem;
+    font-size: var(--bes-font-size-md);
+}
+
+.app-button--primary {
+    background: linear-gradient(135deg, var(--bes-color-accent-primary), var(--bes-color-accent-strong));
+    color: var(--bes-color-text-inverse);
+}
+
+.app-button--primary:hover {
+    color: var(--bes-color-text-inverse);
+}
+
+.app-button--secondary {
+    border-color: var(--bes-color-border-strong);
+    background: rgba(255, 255, 255, 0.62);
+    color: var(--bes-color-text-primary);
+}
+
+.app-button--ghost {
+    background: transparent;
+    color: var(--bes-color-accent-strong);
+    border-color: rgba(47, 127, 120, 0.18);
+}
+
+.app-button--danger {
+    background: linear-gradient(135deg, #bf4a45, #9f3531);
+    color: var(--bes-color-text-inverse);
+}
+
+@media (prefers-color-scheme: dark) {
+    .app-button--secondary {
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--bes-color-text-primary);
+    }
+
+    .app-button--ghost {
+        border-color: rgba(176, 221, 216, 0.18);
+        color: var(--bes-color-accent-strong);
+    }
+}
+
+@media (max-width: 48rem) {
+    .app-button {
+        min-width: auto;
+    }
+}

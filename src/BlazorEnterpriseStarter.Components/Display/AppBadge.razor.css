@@ -1,0 +1,85 @@
+.app-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid transparent;
+    border-radius: var(--bes-radius-pill);
+    font-size: var(--bes-font-size-xs);
+    font-weight: var(--bes-font-weight-semibold);
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+.app-badge__icon {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.app-badge--small {
+    padding: 0.35rem 0.65rem;
+}
+
+.app-badge--large {
+    padding: 0.55rem 0.95rem;
+    font-size: var(--bes-font-size-sm);
+}
+
+.app-badge--neutral {
+    background: rgba(104, 96, 87, 0.12);
+    border-color: rgba(104, 96, 87, 0.18);
+    color: var(--bes-color-text-primary);
+}
+
+.app-badge--accent {
+    background: rgba(47, 127, 120, 0.16);
+    border-color: rgba(47, 127, 120, 0.22);
+    color: var(--bes-color-accent-strong);
+}
+
+.app-badge--success {
+    background: rgba(51, 122, 87, 0.16);
+    border-color: rgba(51, 122, 87, 0.24);
+    color: #236243;
+}
+
+.app-badge--warning {
+    background: rgba(201, 141, 43, 0.16);
+    border-color: rgba(201, 141, 43, 0.24);
+    color: #8d6113;
+}
+
+.app-badge--danger {
+    background: rgba(181, 59, 56, 0.16);
+    border-color: rgba(181, 59, 56, 0.24);
+    color: var(--bes-color-danger-text);
+}
+
+.app-badge--info {
+    background: rgba(62, 108, 181, 0.14);
+    border-color: rgba(62, 108, 181, 0.22);
+    color: #2e5f99;
+}
+
+.app-badge--subtle {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+    .app-badge--neutral {
+        color: var(--bes-color-text-secondary);
+    }
+
+    .app-badge--success {
+        color: #8fd0ac;
+    }
+
+    .app-badge--warning {
+        color: #e6c989;
+    }
+
+    .app-badge--info {
+        color: #9ec1f4;
+    }
+}

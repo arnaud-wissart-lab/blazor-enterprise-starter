@@ -1,0 +1,43 @@
+@namespace BlazorEnterpriseStarter.Components
+
+<article class="@CssClass">
+    @if (!string.IsNullOrWhiteSpace(Eyebrow) || !string.IsNullOrWhiteSpace(Title) || !string.IsNullOrWhiteSpace(Description) || Actions is not null)
+    {
+        <header class="app-card__header">
+            <div class="app-card__header-copy">
+                @if (!string.IsNullOrWhiteSpace(Eyebrow))
+                {
+                    <p class="app-card__eyebrow">@Eyebrow</p>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(Title))
+                {
+                    <h3 class="app-card__title">@Title</h3>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(Description))
+                {
+                    <p class="app-card__description">@Description</p>
+                }
+            </div>
+
+            @if (Actions is not null)
+            {
+                <div class="app-card__actions">
+                    @Actions
+                </div>
+            }
+        </header>
+    }
+
+    <div class="app-card__content">
+        @ChildContent
+    </div>
+
+    @if (Footer is not null)
+    {
+        <footer class="app-card__footer">
+            @Footer
+        </footer>
+    }
+</article>

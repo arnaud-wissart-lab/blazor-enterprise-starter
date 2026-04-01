@@ -1,0 +1,49 @@
+@namespace BlazorEnterpriseStarter.Components
+
+@if (IsOpen)
+{
+    <div class="app-modal__backdrop"
+         role="presentation"
+         @onclick="HandleBackdropClickAsync">
+        <div class="@CssClass"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="@TitleId"
+             aria-describedby="@AriaDescribedBy"
+             tabindex="0"
+             @onclick:stopPropagation="true"
+             @onkeydown="HandleKeyDownAsync">
+            <header class="app-modal__header">
+                <div class="app-modal__heading">
+                    <h2 id="@TitleId" class="app-modal__title">@Title</h2>
+
+                    @if (!string.IsNullOrWhiteSpace(Description))
+                    {
+                        <p id="@DescriptionId" class="app-modal__description">@Description</p>
+                    }
+                </div>
+
+                @if (ShowCloseButton)
+                {
+                    <button type="button"
+                            class="app-modal__close"
+                            aria-label="@CloseButtonLabel"
+                            @onclick="HandleCloseAsync">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                }
+            </header>
+
+            <div class="app-modal__content">
+                @ChildContent
+            </div>
+
+            @if (FooterContent is not null)
+            {
+                <footer class="app-modal__footer">
+                    @FooterContent
+                </footer>
+            }
+        </div>
+    </div>
+}

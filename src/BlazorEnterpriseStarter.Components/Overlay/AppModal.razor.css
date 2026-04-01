@@ -1,0 +1,117 @@
+.app-modal__backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--bes-z-overlay);
+    display: grid;
+    place-items: center;
+    padding: var(--bes-space-5);
+    background: rgba(20, 18, 17, 0.42);
+    backdrop-filter: blur(10px);
+}
+
+.app-modal {
+    width: min(100%, 38rem);
+    display: grid;
+    gap: var(--bes-space-5);
+    padding: var(--bes-space-6);
+    border: 1px solid var(--bes-color-border-subtle);
+    border-radius: var(--bes-radius-xl);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(251, 248, 243, 0.98));
+    box-shadow: var(--bes-shadow-lg);
+}
+
+.app-modal--small {
+    width: min(100%, 30rem);
+}
+
+.app-modal--large {
+    width: min(100%, 52rem);
+}
+
+.app-modal__header {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: var(--bes-space-4);
+}
+
+.app-modal__heading {
+    display: grid;
+    gap: var(--bes-space-2);
+}
+
+.app-modal__title,
+.app-modal__description {
+    margin: 0;
+}
+
+.app-modal__description {
+    color: var(--bes-color-text-secondary);
+}
+
+.app-modal__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--bes-color-border-subtle);
+    border-radius: var(--bes-radius-pill);
+    background: rgba(255, 255, 255, 0.65);
+    color: var(--bes-color-text-primary);
+    cursor: pointer;
+    transition:
+        background-color 140ms ease,
+        border-color 140ms ease,
+        transform 140ms ease;
+}
+
+.app-modal__close:hover {
+    transform: translateY(-1px);
+    border-color: var(--bes-color-border-accent);
+}
+
+.app-modal__close:focus-visible {
+    outline: 3px solid rgba(47, 127, 120, 0.22);
+    outline-offset: 3px;
+}
+
+.app-modal__content {
+    display: grid;
+    gap: var(--bes-space-4);
+}
+
+.app-modal__footer {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: var(--bes-space-3);
+    padding-top: var(--bes-space-4);
+    border-top: 1px solid var(--bes-color-border-subtle);
+}
+
+@media (prefers-color-scheme: dark) {
+    .app-modal {
+        background:
+            linear-gradient(180deg, rgba(34, 30, 27, 0.96), rgba(27, 24, 22, 0.99));
+    }
+
+    .app-modal__close {
+        background: rgba(255, 255, 255, 0.04);
+    }
+}
+
+@media (max-width: 48rem) {
+    .app-modal__backdrop {
+        padding: var(--bes-space-4);
+    }
+
+    .app-modal {
+        padding: var(--bes-space-5);
+    }
+
+    .app-modal__footer {
+        justify-content: stretch;
+    }
+}

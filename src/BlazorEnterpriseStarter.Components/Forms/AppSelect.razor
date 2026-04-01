@@ -1,0 +1,49 @@
+@namespace BlazorEnterpriseStarter.Components
+
+<div class="@RootClass">
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <label class="app-field__label" for="@ResolvedId">@Label</label>
+    }
+
+    <div class="app-field__control-wrapper">
+        <select id="@ResolvedId"
+                name="@Name"
+                class="@SelectClass"
+                value="@Value"
+                disabled="@Disabled"
+                required="@Required"
+                aria-invalid="@HasError"
+                aria-describedby="@AriaDescribedBy"
+                aria-busy="@IsLoading"
+                @onchange="HandleChangeAsync"
+                @attributes="AdditionalAttributes">
+            @if (!string.IsNullOrWhiteSpace(Placeholder))
+            {
+                <option value="">@Placeholder</option>
+            }
+
+            @foreach (var option in Options)
+            {
+                <option value="@option.Value" disabled="@option.IsDisabled">@option.Label</option>
+            }
+        </select>
+
+        @if (IsLoading)
+        {
+            <span class="app-field__loader">
+                <AppLoader Size="AppControlSize.Small" Inline="true" Label="Chargement des options" />
+            </span>
+        }
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Description))
+    {
+        <p id="@DescriptionId" class="app-field__description">@Description</p>
+    }
+
+    @if (HasError)
+    {
+        <p id="@ErrorId" class="app-field__error" role="alert">@ErrorMessage</p>
+    }
+</div>

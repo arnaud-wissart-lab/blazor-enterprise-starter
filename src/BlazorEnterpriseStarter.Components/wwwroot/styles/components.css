@@ -1,0 +1,117 @@
+.app-field {
+    display: grid;
+    gap: var(--bes-space-2);
+}
+
+.app-field--disabled {
+    opacity: 0.68;
+}
+
+.app-field__label {
+    font-size: var(--bes-font-size-sm);
+    font-weight: var(--bes-font-weight-semibold);
+    color: var(--bes-color-text-primary);
+}
+
+.app-field__description {
+    font-size: var(--bes-font-size-sm);
+    color: var(--bes-color-text-secondary);
+}
+
+.app-field__error {
+    font-size: var(--bes-font-size-sm);
+    color: var(--bes-color-danger-text);
+}
+
+.app-field__control-wrapper {
+    position: relative;
+}
+
+.app-field__loader {
+    position: absolute;
+    top: 50%;
+    right: var(--bes-space-4);
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.app-field__control {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--bes-color-border-strong);
+    border-radius: var(--bes-radius-md);
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--bes-color-text-primary);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.45);
+    transition:
+        border-color 140ms ease,
+        box-shadow 140ms ease,
+        background-color 140ms ease;
+}
+
+.app-field__control::placeholder {
+    color: var(--bes-color-text-secondary);
+}
+
+.app-field__control:hover {
+    border-color: var(--bes-color-border-accent);
+}
+
+.app-field__control:focus {
+    outline: none;
+    border-color: var(--bes-color-accent-primary);
+    box-shadow:
+        0 0 0 4px rgba(47, 127, 120, 0.12),
+        inset 0 1px 1px rgba(255, 255, 255, 0.45);
+}
+
+.app-field__control:disabled,
+.app-field__control[readonly] {
+    cursor: not-allowed;
+    background: rgba(244, 239, 231, 0.92);
+}
+
+.app-field--invalid .app-field__control {
+    border-color: rgba(181, 59, 56, 0.42);
+}
+
+.app-field--invalid .app-field__control:focus {
+    box-shadow:
+        0 0 0 4px rgba(181, 59, 56, 0.12),
+        inset 0 1px 1px rgba(255, 255, 255, 0.45);
+}
+
+.app-field__control--loading {
+    padding-right: 3rem;
+}
+
+.app-field__control--select {
+    appearance: none;
+    padding-right: 3.2rem;
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--bes-color-text-secondary) 50%),
+        linear-gradient(135deg, var(--bes-color-text-secondary) 50%, transparent 50%);
+    background-position:
+        calc(100% - 1.35rem) calc(50% - 0.14rem),
+        calc(100% - 1rem) calc(50% - 0.14rem);
+    background-size: 0.4rem 0.4rem, 0.4rem 0.4rem;
+    background-repeat: no-repeat;
+}
+
+.app-field__control--textarea {
+    min-height: 8rem;
+    resize: vertical;
+}
+
+@media (prefers-color-scheme: dark) {
+    .app-field__control {
+        background: rgba(33, 30, 27, 0.86);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.03);
+    }
+
+    .app-field__control:disabled,
+    .app-field__control[readonly] {
+        background: rgba(27, 24, 22, 0.96);
+    }
+}

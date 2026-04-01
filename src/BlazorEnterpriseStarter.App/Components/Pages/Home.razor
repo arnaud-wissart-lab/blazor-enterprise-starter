@@ -18,6 +18,11 @@
             <li>Composants réutilisables séparés des primitives UI</li>
             <li>Orchestration Aspire pour le développement local et l’observabilité</li>
         </ul>
+        <div class="home-intro__actions">
+            <AppButton Href="/composants" TrailingContent="HomeDemoArrow">
+                Explorer la vitrine de composants
+            </AppButton>
+        </div>
     </section>
 
     @if (_isLoading)
@@ -58,6 +63,11 @@
         "Aucune vérification n’a encore été effectuée.");
 
     private bool _isLoading = true;
+
+    private RenderFragment HomeDemoArrow => __builder =>
+    {
+        __builder.AddContent(0, "->");
+    };
 
     protected override async Task OnInitializedAsync()
     {

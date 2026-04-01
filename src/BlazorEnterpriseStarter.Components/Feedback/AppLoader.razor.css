@@ -1,0 +1,39 @@
+.app-loader {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--bes-space-2);
+    color: var(--bes-color-text-secondary);
+}
+
+.app-loader--inline {
+    display: inline-flex;
+}
+
+.app-loader__spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(47, 127, 120, 0.18);
+    border-top-color: var(--bes-color-accent-primary);
+    border-radius: 50%;
+    animation: app-loader-spin 700ms linear infinite;
+}
+
+.app-loader--small .app-loader__spinner {
+    width: 0.9rem;
+    height: 0.9rem;
+}
+
+.app-loader--large .app-loader__spinner {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.app-loader__label {
+    font-size: var(--bes-font-size-sm);
+}
+
+@keyframes app-loader-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,4 @@
+.app-field__control--textarea {
+    min-height: 8rem;
+    resize: vertical;
+}
