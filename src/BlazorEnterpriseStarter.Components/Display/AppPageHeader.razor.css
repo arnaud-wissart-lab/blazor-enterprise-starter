@@ -36,6 +36,12 @@
 .app-page-header__title {
     margin: 0;
     font-size: var(--bes-font-size-3xl);
+    scroll-margin-top: var(--bes-space-6);
+}
+
+.app-page-header__title:focus,
+.app-page-header__title:focus-visible {
+    outline: none;
 }
 
 .app-page-header__badges,
