@@ -28,9 +28,14 @@
 }
 
 .showcase-foundation-grid,
+.showcase-blazor-grid,
 .showcase-grid {
     display: grid;
     gap: var(--bes-space-4);
+}
+
+.showcase-blazor-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .showcase-foundation-grid {
@@ -214,6 +219,7 @@
 }
 
 @media (max-width: 64rem) {
+    .showcase-blazor-grid,
     .showcase-foundation-grid,
     .showcase-form-grid,
     .showcase-metrics {

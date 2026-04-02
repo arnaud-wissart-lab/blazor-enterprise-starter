@@ -4,7 +4,7 @@ BlazorEnterpriseStarter est une solution de démonstration construite pour illus
 
 Le projet met en avant :
 
-- une interface Blazor structurée et crédible pour un contexte professionnel
+- une interface Blazor Web App structurée et crédible pour un contexte professionnel
 - une API ASP.NET Core dédiée aux cas d’usage métier
 - un design system et une bibliothèque de composants réutilisables
 - une orchestration locale lisible avec .NET Aspire
@@ -89,10 +89,32 @@ BlazorEnterpriseStarter.AppHost
 
 Blazor porte l’interface utilisateur, la structure applicative, les pages de démonstration et le module backlog. Il permet ici de montrer :
 
+- une `Blazor Web App` assumée en mode `InteractiveServer`
 - une UI modulaire
 - des composants réutilisables
 - une gestion d’état locale claire
 - une expérience cohérente entre vitrine UI et module métier
+
+### Positionnement Blazor
+
+Le projet ne cherche pas à montrer tous les modes de rendu Blazor à la fois.
+
+Il assume un choix simple et lisible :
+
+- application `Blazor Web App`
+- rendu interactif côté serveur
+- composants Razor réutilisables
+- état local ciblé sur les cas d’usage métier
+
+Ce choix est volontaire :
+
+- il maximise la lisibilité du dépôt
+- il met en avant la composition Razor et l’architecture front
+- il évite d’ajouter de la complexité démonstrative peu rentable à ce stade
+
+Une note dédiée détaille ce positionnement et ses compromis :
+
+- `docs/positionnement-blazor.md`
 
 ### ASP.NET Core
 
@@ -291,6 +313,7 @@ Les évolutions naturelles du projet seraient :
 Un audit ciblé du dépôt et un plan d’amélioration priorisé sont disponibles dans :
 
 - `docs/audit-technique-2026-04.md`
+- `docs/positionnement-blazor.md`
 
 ## Valeur démonstrative pour un recruteur technique
 

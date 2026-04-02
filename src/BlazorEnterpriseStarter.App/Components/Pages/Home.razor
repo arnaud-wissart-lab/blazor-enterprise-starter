@@ -7,7 +7,9 @@
                Title="Vue d’ensemble du projet"
                Description="BlazorEnterpriseStarter est une application de démonstration conçue pour montrer une architecture .NET claire, une interface maîtrisée et un module métier crédible.">
     <Badges>
-        <AppBadge Tone="AppTone.Accent">Blazor</AppBadge>
+        <AppBadge Tone="AppTone.Accent">Blazor Web App</AppBadge>
+        <AppBadge Tone="AppTone.Info">Interactive Server</AppBadge>
+        <AppBadge Tone="AppTone.Neutral">Composants Razor</AppBadge>
         <AppBadge Tone="AppTone.Info">ASP.NET Core</AppBadge>
         <AppBadge Tone="AppTone.Success">.NET Aspire</AppBadge>
     </Badges>
@@ -61,6 +63,63 @@
         <PlatformOverviewCard Status="_status" />
     }
 </div>
+
+<section class="home-section">
+    <div class="home-section__heading">
+        <p class="home-section__eyebrow">Blazor</p>
+        <h3>Ce que le front démontre réellement</h3>
+        <p>Le projet assume une Blazor Web App en mode Interactive Server pour mettre en avant la composition Razor, l’état local et les interactions métier sans complexifier inutilement le dépôt.</p>
+    </div>
+
+    <div class="home-blazor-grid">
+        <AppCard Eyebrow="Rendu"
+                 Title="Interactive Server assumé"
+                 Description="Le rendu interactif côté serveur est un choix volontaire pour privilégier la lisibilité de l’architecture front et la rapidité de démonstration."
+                 IsCompact="true">
+            <ChildContent>
+                <p>Le projet montre un front Blazor crédible dans un contexte back-office ou application interne, avec un HTML initial côté serveur puis une interactivité gérée par le circuit Blazor.</p>
+            </ChildContent>
+            <Footer>
+                <div class="home-tech-tags">
+                    <AppBadge Tone="AppTone.Accent">AddInteractiveServerComponents</AppBadge>
+                    <AppBadge Tone="AppTone.Info">@@rendermode</AppBadge>
+                </div>
+            </Footer>
+        </AppCard>
+
+        <AppCard Eyebrow="Composants"
+                 Title="Architecture Razor par niveaux"
+                 Description="Le front sépare le shell, les pages, les composants applicatifs et les fondations visuelles."
+                 IsCompact="true">
+            <ChildContent>
+                <p>Cette organisation rend la lecture rapide pour un recruteur technique et montre que les composants Razor sont pensés comme des briques réutilisables plutôt que comme du code de page dispersé.</p>
+            </ChildContent>
+            <Footer>
+                <div class="home-tech-tags">
+                    <AppBadge Tone="AppTone.Neutral">DesignSystem</AppBadge>
+                    <AppBadge Tone="AppTone.Info">Components</AppBadge>
+                    <AppBadge Tone="AppTone.Success">Pages Razor</AppBadge>
+                </div>
+            </Footer>
+        </AppCard>
+
+        <AppCard Eyebrow="État"
+                 Title="État local et interactions utiles"
+                 Description="Le backlog met en avant les événements Razor, le binding, le debounce et une orchestration front explicite."
+                 IsCompact="true">
+            <ChildContent>
+                <p>Le dépôt ne surjoue pas le front riche : il montre surtout une gestion d’état pragmatique, des formulaires, des modales et un client API dédié, ce qui est plus convaincant qu’une démo artificiellement complexe.</p>
+            </ChildContent>
+            <Footer>
+                <div class="home-tech-tags">
+                    <AppBadge Tone="AppTone.Warning">BacklogState</AppBadge>
+                    <AppBadge Tone="AppTone.Accent">Binding</AppBadge>
+                    <AppBadge Tone="AppTone.Info">HttpClient</AppBadge>
+                </div>
+            </Footer>
+        </AppCard>
+    </div>
+</section>
 
 <section class="home-section">
     <div class="home-section__heading">

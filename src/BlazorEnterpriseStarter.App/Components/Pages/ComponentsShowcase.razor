@@ -8,6 +8,7 @@
     <Badges>
         <AppBadge Tone="AppTone.Accent">Tokens CSS</AppBadge>
         <AppBadge Tone="AppTone.Info">Composants Blazor</AppBadge>
+        <AppBadge Tone="AppTone.Neutral">Interactive Server</AppBadge>
         <AppBadge Tone="AppTone.Success">Responsive</AppBadge>
     </Badges>
     <Actions>
@@ -18,6 +19,60 @@
         <p>La navigation latérale permet de revenir facilement au parcours principal à tout moment.</p>
     </ChildContent>
 </AppPageHeader>
+
+<section id="blazor" class="showcase-section">
+    <div class="showcase-section__header">
+        <p class="showcase-section__eyebrow">Choix Blazor</p>
+        <h3>Ce que la vitrine assume côté front</h3>
+        <p>Le projet cherche à montrer un usage crédible de Blazor sur un front métier, pas à accumuler tous les modes de rendu ou toutes les abstractions possibles.</p>
+    </div>
+
+    <div class="showcase-blazor-grid">
+        <AppCard Title="Mode de rendu choisi"
+                 Description="La démonstration repose sur une Blazor Web App en mode Interactive Server."
+                 Tone="AppTone.Accent"
+                 IsCompact="true">
+            <ChildContent>
+                <p>Ce choix rend visibles la composition Razor, l’interactivité et l’intégration avec le backend sans transformer la vitrine en laboratoire technique difficile à lire.</p>
+            </ChildContent>
+            <Footer>
+                <div class="showcase-inline">
+                    <AppBadge Tone="AppTone.Accent">AddInteractiveServerComponents</AppBadge>
+                    <AppBadge Tone="AppTone.Info">AddInteractiveServerRenderMode</AppBadge>
+                </div>
+            </Footer>
+        </AppCard>
+
+        <AppCard Title="Ce que Blazor démontre ici"
+                 Description="Les composants Razor sont utilisés comme briques de composition et d’interaction."
+                 Tone="AppTone.Info"
+                 IsCompact="true">
+            <ChildContent>
+                <ul class="showcase-list">
+                    <li>composition du shell, des pages et des composants réutilisables</li>
+                    <li>binding et événements utilisateurs sur boutons, champs et modales</li>
+                    <li>état local explicite pour le module backlog et appels HTTP dédiés</li>
+                </ul>
+            </ChildContent>
+        </AppCard>
+
+        <AppCard Title="Compromis assumés"
+                 Description="Le dépôt ne cherche pas à démontrer tous les scénarios Blazor à la fois."
+                 Tone="AppTone.Success"
+                 IsCompact="true">
+            <ChildContent>
+                <p>Le projet n’a pas pour but principal de montrer WebAssembly, un store client global complexe ou une combinatoire complète de modes de rendu. Il privilégie la lisibilité, la cohérence et la démonstration métier.</p>
+            </ChildContent>
+            <Footer>
+                <div class="showcase-inline">
+                    <AppBadge Tone="AppTone.Neutral">Lisibilité</AppBadge>
+                    <AppBadge Tone="AppTone.Success">Architecture front</AppBadge>
+                    <AppBadge Tone="AppTone.Warning">Compromis documentés</AppBadge>
+                </div>
+            </Footer>
+        </AppCard>
+    </div>
+</section>
 
 <section id="fondations" class="showcase-section">
     <div class="showcase-section__header">
