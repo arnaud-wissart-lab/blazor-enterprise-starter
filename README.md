@@ -286,6 +286,12 @@ Les évolutions naturelles du projet seraient :
 - ajouter une stratégie de déploiement plus complète avec reverse proxy ou plate-forme managée
 - préparer une CI plus poussée avec analyse statique et publication d’images
 
+## Audit technique
+
+Un audit ciblé du dépôt et un plan d’amélioration priorisé sont disponibles dans :
+
+- `docs/audit-technique-2026-04.md`
+
 ## Valeur démonstrative pour un recruteur technique
 
 Ce dépôt permet d’évaluer rapidement plusieurs dimensions utiles dans un contexte de recrutement :
