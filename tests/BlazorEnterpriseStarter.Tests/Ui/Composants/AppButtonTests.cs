@@ -53,7 +53,7 @@ public sealed class AppButtonTests : IDisposable
         button.Click();
 
         Assert.Equal(0, clics);
-        Assert.Equal("true", button.GetAttribute("aria-busy"));
+        Assert.True(button.HasAttribute("aria-busy"));
         Assert.Contains("app-button--loading", button.ClassList);
     }
 

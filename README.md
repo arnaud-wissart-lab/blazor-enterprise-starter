@@ -39,6 +39,7 @@ Le projet a été conçu pour démontrer de manière concrète :
 
 /tests
   BlazorEnterpriseStarter.Tests
+  BlazorEnterpriseStarter.E2ETests
 ```
 
 ### Rôle des projets
@@ -66,6 +67,9 @@ Le projet a été conçu pour démontrer de manière concrète :
 
 - `BlazorEnterpriseStarter.Tests`
   Tests unitaires xUnit ciblant en priorité les services applicatifs, la gestion d’état et les comportements à forte valeur démonstrative.
+
+- `BlazorEnterpriseStarter.E2ETests`
+  Tests end-to-end Playwright ciblés sur un flux utilisateur visible, volontairement séparés de la solution principale pour préserver une boucle locale rapide.
 
 ### Vue d’ensemble
 
@@ -297,6 +301,24 @@ La mise en place SQLite et les choix d’implémentation sont détaillés dans :
 
 - `docs/persistence-sqlite.md`
 
+### Tests end-to-end
+
+Une couche E2E Playwright minimale est disponible dans :
+
+- `docs/tests-e2e-playwright.md`
+
+Installation du navigateur utilisé :
+
+```powershell
+pwsh ./scripts/install-playwright.ps1
+```
+
+Exécution des scénarios E2E :
+
+```powershell
+pwsh ./scripts/test-e2e.ps1
+```
+
 ## Captures d’écran
 
 Section à compléter avec des captures à mesure que la vitrine visuelle se stabilise.
@@ -334,6 +356,7 @@ Un audit ciblé du dépôt et un plan d’amélioration priorisé sont disponibl
 - `docs/audit-technique-2026-04.md`
 - `docs/positionnement-blazor.md`
 - `docs/persistence-sqlite.md`
+- `docs/tests-e2e-playwright.md`
 
 ## Valeur démonstrative pour un recruteur technique
 
