@@ -104,9 +104,90 @@ public partial class Backlog : ComponentBase, IDisposable
         && State.HasResult
         && !string.IsNullOrWhiteSpace(State.ListErrorMessage);
 
+    private bool AUnFiltreActif =>
+        !string.IsNullOrWhiteSpace(_recherche)
+        || FiltreStatutActif is not null
+        || FiltrePrioriteActif is not null;
+
     private string TitreModaleEdition => _idEdition is null ? "Créer un élément de backlog" : "Modifier l’élément de backlog";
 
     private string LibelleActionEdition => _idEdition is null ? "Créer l’élément" : "Enregistrer les modifications";
+
+    private int NombreElementsEnCoursVisibles => Elements.Count(static item => item.Statut == BacklogItemStatus.EnCours);
+
+    private int NombreElementsPretsVisibles => Elements.Count(static item => item.Statut == BacklogItemStatus.Pret);
+
+    private int NombreElementsCritiquesVisibles => Elements.Count(static item => item.Priorite == BacklogItemPriority.Critique);
+
+    private string DescriptionRechercheActive =>
+        string.IsNullOrWhiteSpace(_recherche)
+            ? "La recherche se lance automatiquement après une courte pause de saisie."
+            : $"Recherche active : \"{_recherche}\"";
+
+    private string LibelleTriCourant =>
+        $"{ObtenirLibelleTri(ConvertirEnum(_triSelectionne, BacklogItemSortField.DateCreation))} · {ObtenirLibelleDirection(ConvertirEnum(_directionSelectionnee, DirectionTri.Decroissante))}";
+
+    private string ResumeVueActive
+    {
+        get
+        {
+            var segments = new List<string>();
+
+            if (!string.IsNullOrWhiteSpace(_recherche))
+            {
+                segments.Add($"Recherche « {_recherche} »");
+            }
+
+            if (FiltreStatutActif is not null)
+            {
+                segments.Add($"Statut {ObtenirLibelleStatut(FiltreStatutActif.Value)}");
+            }
+
+            if (FiltrePrioriteActif is not null)
+            {
+                segments.Add($"Priorité {ObtenirLibellePriorite(FiltrePrioriteActif.Value)}");
+            }
+
+            segments.Add(LibelleTriCourant);
+
+            return string.Join(" · ", segments);
+        }
+    }
+
+    private string? VueRapideActive => (FiltreStatutActif, FiltrePrioriteActif) switch
+    {
+        (null, null) when string.IsNullOrWhiteSpace(_recherche) => "tout",
+        (BacklogItemStatus.Pret, null) => "pret",
+        (BacklogItemStatus.EnCours, null) => "encours",
+        (null, BacklogItemPriority.Critique) => "critique",
+        _ => null
+    };
+
+    private BacklogItemStatus StatutFormulaireCourant => ConvertirEnum(_statutFormulaireSelectionne, BacklogItemStatus.Nouveau);
+
+    private BacklogItemPriority PrioriteFormulaireCourante => ConvertirEnum(_prioriteFormulaireSelectionnee, BacklogItemPriority.Moyenne);
+
+    private string LibelleStatutFormulaire => ObtenirLibelleStatut(StatutFormulaireCourant);
+
+    private string LibellePrioriteFormulaire => ObtenirLibellePriorite(PrioriteFormulaireCourante);
+
+    private AppTone StatutFormulaireTone => ObtenirTonaliteStatut(StatutFormulaireCourant);
+
+    private AppTone PrioriteFormulaireTone => ObtenirTonalitePriorite(PrioriteFormulaireCourante);
+
+    private string TitreSyntheseFormulaire =>
+        _idEdition is null
+            ? "Préparer un élément clair, actionnable et simple à prioriser."
+            : "Mettre à jour l’élément sans perdre la lisibilité de la file produit.";
+
+    private string DescriptionSyntheseFormulaire =>
+        $"Le formulaire prépare une fiche courte avec le statut {LibelleStatutFormulaire.ToLowerInvariant()} et la priorité {LibellePrioriteFormulaire.ToLowerInvariant()}.";
+
+    private string DescriptionTitreFormulaire =>
+        $"{_formulaire.Titre.Length}/{BacklogInputRules.TitreLongueurMaximale} caractères · privilégiez un libellé orienté action.";
+
+    private string DescriptionDescriptionFormulaire =>
+        $"{_formulaire.Description.Length}/{BacklogInputRules.DescriptionLongueurMaximale:N0} caractères · décrivez le besoin, le contexte et l’attendu.";
 
     private string? ClasseAnimationPagination => _directionAnimationPagination switch
     {
@@ -160,6 +241,77 @@ public partial class Backlog : ComponentBase, IDisposable
         _triSelectionne = nameof(BacklogItemSortField.DateCreation);
         _directionSelectionnee = nameof(DirectionTri.Decroissante);
 
+        await State.ApplyFiltersAsync(CreerRequeteDepuisSaisie(resetPage: true), CancellationToken.None);
+    }
+
+    private async Task AppliquerVueRapideAsync(string vue, MouseEventArgs _)
+    {
+        AnnulerRechercheDebouncee();
+        _messageSucces = null;
+        _directionAnimationPagination = DirectionAnimationPagination.Aucune;
+
+        switch (vue)
+        {
+            case "pret":
+                _statutSelectionne = nameof(BacklogItemStatus.Pret);
+                _prioriteSelectionnee = null;
+                break;
+            case "encours":
+                _statutSelectionne = nameof(BacklogItemStatus.EnCours);
+                _prioriteSelectionnee = null;
+                break;
+            case "critique":
+                _statutSelectionne = null;
+                _prioriteSelectionnee = nameof(BacklogItemPriority.Critique);
+                break;
+            default:
+                _statutSelectionne = null;
+                _prioriteSelectionnee = null;
+                break;
+        }
+
+        await State.ApplyFiltersAsync(CreerRequeteDepuisSaisie(resetPage: true), CancellationToken.None);
+    }
+
+    private async Task EffacerRechercheAsync(MouseEventArgs _)
+    {
+        if (string.IsNullOrWhiteSpace(_recherche))
+        {
+            return;
+        }
+
+        AnnulerRechercheDebouncee();
+        _messageSucces = null;
+        _directionAnimationPagination = DirectionAnimationPagination.Aucune;
+        _recherche = null;
+        await State.ApplyFiltersAsync(CreerRequeteDepuisSaisie(resetPage: true), CancellationToken.None);
+    }
+
+    private async Task EffacerFiltreStatutAsync(MouseEventArgs _)
+    {
+        if (FiltreStatutActif is null)
+        {
+            return;
+        }
+
+        AnnulerRechercheDebouncee();
+        _messageSucces = null;
+        _directionAnimationPagination = DirectionAnimationPagination.Aucune;
+        _statutSelectionne = null;
+        await State.ApplyFiltersAsync(CreerRequeteDepuisSaisie(resetPage: true), CancellationToken.None);
+    }
+
+    private async Task EffacerFiltrePrioriteAsync(MouseEventArgs _)
+    {
+        if (FiltrePrioriteActif is null)
+        {
+            return;
+        }
+
+        AnnulerRechercheDebouncee();
+        _messageSucces = null;
+        _directionAnimationPagination = DirectionAnimationPagination.Aucune;
+        _prioriteSelectionnee = null;
         await State.ApplyFiltersAsync(CreerRequeteDepuisSaisie(resetPage: true), CancellationToken.None);
     }
 
@@ -480,6 +632,44 @@ public partial class Backlog : ComponentBase, IDisposable
         BacklogItemPriority.Haute => AppTone.Warning,
         BacklogItemPriority.Moyenne => AppTone.Accent,
         _ => AppTone.Neutral
+    };
+
+    private static string ObtenirLibelleTri(BacklogItemSortField tri) => tri switch
+    {
+        BacklogItemSortField.DateCreation => "Tri par date de création",
+        BacklogItemSortField.Priorite => "Tri par priorité",
+        BacklogItemSortField.Statut => "Tri par statut",
+        BacklogItemSortField.Titre => "Tri alphabétique",
+        _ => tri.ToString()
+    };
+
+    private static string ObtenirLibelleDirection(DirectionTri direction) => direction switch
+    {
+        DirectionTri.Decroissante => "ordre décroissant",
+        DirectionTri.Croissante => "ordre croissant",
+        _ => direction.ToString()
+    };
+
+    private static string ObtenirLibelleLecture(BacklogItemDto item) => item.Statut switch
+    {
+        BacklogItemStatus.Nouveau when item.Priorite == BacklogItemPriority.Critique => "Point d’entrée urgent à qualifier",
+        BacklogItemStatus.Nouveau => "Sujet encore à cadrer",
+        BacklogItemStatus.Pret => "Sujet déjà structuré et mobilisable",
+        BacklogItemStatus.EnCours => "Travail en progression active",
+        BacklogItemStatus.Termine => "Livrable finalisé",
+        BacklogItemStatus.Archive => "Historique conservé",
+        _ => "Lecture standard"
+    };
+
+    private static string ObtenirLibelleActionRecommandee(BacklogItemDto item) => item.Statut switch
+    {
+        BacklogItemStatus.Nouveau when item.Priorite == BacklogItemPriority.Critique => "Qualifier immédiatement le besoin",
+        BacklogItemStatus.Nouveau => "Préciser le périmètre",
+        BacklogItemStatus.Pret => "Planifier l’engagement",
+        BacklogItemStatus.EnCours => "Suivre l’exécution",
+        BacklogItemStatus.Termine => "Préparer la clôture",
+        BacklogItemStatus.Archive => "Conserver comme référence",
+        _ => "Aucune action suggérée"
     };
 
     private sealed class BacklogItemFormModel

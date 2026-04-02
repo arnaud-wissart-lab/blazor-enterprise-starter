@@ -67,32 +67,113 @@
          Title="Filtres et tri"
          Description="Ajustez les critères pour explorer la liste et faire varier les résultats.">
     <ChildContent>
-        <div class="backlog-filters">
-            <AppInput Label="Recherche"
-                      Placeholder="Titre, description, besoin métier..."
-                      MaxLength="@BacklogInputRules.RechercheLongueurMaximale"
-                      IsLoading="@AfficherIndicateurRafraichissement"
-                      @bind-Value="Recherche" />
+        <div class="backlog-filters-panel">
+            <div class="backlog-filters-panel__controls">
+                <div class="backlog-filters">
+                    <AppInput Label="Recherche"
+                              Placeholder="Titre, description, besoin métier..."
+                              Description="@DescriptionRechercheActive"
+                              MaxLength="@BacklogInputRules.RechercheLongueurMaximale"
+                              IsLoading="@AfficherIndicateurRafraichissement"
+                              @bind-Value="Recherche" />
 
-            <AppSelect Label="Statut"
-                       Placeholder="Tous les statuts"
-                       Options="_statutOptions"
-                       @bind-Value="_statutSelectionne" />
+                    <AppSelect Label="Statut"
+                               Description="Permet d’isoler rapidement une étape du flux produit."
+                               Placeholder="Tous les statuts"
+                               Options="_statutOptions"
+                               @bind-Value="_statutSelectionne" />
 
-            <AppSelect Label="Priorité"
-                       Placeholder="Toutes les priorités"
-                       Options="_prioriteOptions"
-                       @bind-Value="_prioriteSelectionnee" />
+                    <AppSelect Label="Priorité"
+                               Description="Mise en avant des sujets les plus sensibles."
+                               Placeholder="Toutes les priorités"
+                               Options="_prioriteOptions"
+                               @bind-Value="_prioriteSelectionnee" />
 
-            <AppSelect Label="Tri"
-                       Placeholder=""
-                       Options="_triOptions"
-                       @bind-Value="_triSelectionne" />
+                    <AppSelect Label="Tri"
+                               Description="Détermine la colonne métier mise en avant dans la vue."
+                               Placeholder=""
+                               Options="_triOptions"
+                               @bind-Value="_triSelectionne" />
 
-            <AppSelect Label="Direction"
-                       Placeholder=""
-                       Options="_directionOptions"
-                       @bind-Value="_directionSelectionnee" />
+                    <AppSelect Label="Direction"
+                               Description="Choisit l’ordre d’exploration des résultats."
+                               Placeholder=""
+                               Options="_directionOptions"
+                               @bind-Value="_directionSelectionnee" />
+                </div>
+            </div>
+
+            <aside class="backlog-filters-panel__summary">
+                <div class="backlog-filters-panel__section">
+                    <p class="backlog-filters-panel__title">Vues rapides</p>
+                    <div class="backlog-quick-filters">
+                        <AppButton Variant="@(VueRapideActive == "tout" ? AppButtonVariant.Secondary : AppButtonVariant.Ghost)"
+                                   Size="AppControlSize.Small"
+                                   OnClick="@((MouseEventArgs args) => AppliquerVueRapideAsync("tout", args))">
+                            Vue complète
+                        </AppButton>
+                        <AppButton Variant="@(VueRapideActive == "pret" ? AppButtonVariant.Secondary : AppButtonVariant.Ghost)"
+                                   Size="AppControlSize.Small"
+                                   OnClick="@((MouseEventArgs args) => AppliquerVueRapideAsync("pret", args))">
+                            Prêts à lancer
+                        </AppButton>
+                        <AppButton Variant="@(VueRapideActive == "encours" ? AppButtonVariant.Secondary : AppButtonVariant.Ghost)"
+                                   Size="AppControlSize.Small"
+                                   OnClick="@((MouseEventArgs args) => AppliquerVueRapideAsync("encours", args))">
+                            En cours
+                        </AppButton>
+                        <AppButton Variant="@(VueRapideActive == "critique" ? AppButtonVariant.Secondary : AppButtonVariant.Ghost)"
+                                   Size="AppControlSize.Small"
+                                   OnClick="@((MouseEventArgs args) => AppliquerVueRapideAsync("critique", args))">
+                            Priorité critique
+                        </AppButton>
+                    </div>
+                </div>
+
+                <div class="backlog-filters-panel__section">
+                    <p class="backlog-filters-panel__title">Filtres actifs</p>
+
+                    @if (!AUnFiltreActif)
+                    {
+                        <p class="backlog-filters-panel__empty">Aucun filtre spécifique n’est appliqué. La vue affiche le backlog complet selon le tri courant.</p>
+                    }
+                    else
+                    {
+                        <div class="backlog-active-filters">
+                            @if (!string.IsNullOrWhiteSpace(Recherche))
+                            {
+                                <AppButton Variant="AppButtonVariant.Ghost"
+                                           Size="AppControlSize.Small"
+                                           OnClick="EffacerRechercheAsync">
+                                    Recherche : @Recherche
+                                </AppButton>
+                            }
+
+                            @if (FiltreStatutActif is not null)
+                            {
+                                <AppButton Variant="AppButtonVariant.Ghost"
+                                           Size="AppControlSize.Small"
+                                           OnClick="EffacerFiltreStatutAsync">
+                                    Statut : @ObtenirLibelleStatut(FiltreStatutActif.Value)
+                                </AppButton>
+                            }
+
+                            @if (FiltrePrioriteActif is not null)
+                            {
+                                <AppButton Variant="AppButtonVariant.Ghost"
+                                           Size="AppControlSize.Small"
+                                           OnClick="EffacerFiltrePrioriteAsync">
+                                    Priorité : @ObtenirLibellePriorite(FiltrePrioriteActif.Value)
+                                </AppButton>
+                            }
+                        </div>
+                    }
+                </div>
+
+                <p class="backlog-filters-panel__hint">
+                    La recherche se déclenche automatiquement après une courte pause. Les autres filtres restent pilotés manuellement pour garder une requête lisible et contrôlée.
+                </p>
+            </aside>
         </div>
     </ChildContent>
     <Footer>
@@ -158,20 +239,29 @@ else
             </ChildContent>
         </AppCard>
 
-        <AppCard Title="Page courante" Description="Position dans la pagination serveur." IsCompact="true">
+        <AppCard Title="En cours" Description="Éléments visibles actuellement en exécution sur la page." IsCompact="true">
             <ChildContent>
                 <div class="backlog-metric">
-                    <strong>@State.CurrentPage</strong>
-                    <span>sur @(State.TotalPages == 0 ? 1 : State.TotalPages)</span>
+                    <strong>@NombreElementsEnCoursVisibles</strong>
+                    <span>sujets actifs</span>
                 </div>
             </ChildContent>
         </AppCard>
 
-        <AppCard Title="Taille de page" Description="Nombre d’éléments renvoyés par la requête." IsCompact="true">
+        <AppCard Title="Prêts à lancer" Description="Éléments déjà cadrés et prêts à être engagés." IsCompact="true">
             <ChildContent>
                 <div class="backlog-metric">
-                    <strong>@State.Items.Count</strong>
-                    <span>éléments affichés</span>
+                    <strong>@NombreElementsPretsVisibles</strong>
+                    <span>sur cette page</span>
+                </div>
+            </ChildContent>
+        </AppCard>
+
+        <AppCard Title="Priorité critique" Description="Sujets nécessitant une vigilance immédiate sur la vue courante." IsCompact="true">
+            <ChildContent>
+                <div class="backlog-metric">
+                    <strong>@NombreElementsCritiquesVisibles</strong>
+                    <span>points chauds</span>
                 </div>
             </ChildContent>
         </AppCard>
@@ -194,6 +284,28 @@ else
     }
     else
     {
+        <AppCard Eyebrow="Lecture"
+                 Title="Vue active"
+                 Description="@ResumeVueActive"
+                 IsCompact="true">
+            <ChildContent>
+                <div class="backlog-overview">
+                    <div class="backlog-overview__item">
+                        <span>Tri courant</span>
+                        <strong>@LibelleTriCourant</strong>
+                    </div>
+                    <div class="backlog-overview__item">
+                        <span>Pagination</span>
+                        <strong>Page @State.CurrentPage sur @(State.TotalPages == 0 ? 1 : State.TotalPages)</strong>
+                    </div>
+                    <div class="backlog-overview__item">
+                        <span>Résultats visibles</span>
+                        <strong>@Elements.Count élément@(Elements.Count > 1 ? "s" : string.Empty)</strong>
+                    </div>
+                </div>
+            </ChildContent>
+        </AppCard>
+
         <div @key="State.CurrentPage"
              class="backlog-list @ClasseAnimationPagination @(AfficherIndicateurRafraichissement ? "backlog-region--busy" : null)">
             @foreach (var item in Elements)
@@ -212,9 +324,22 @@ else
                         </Actions>
                         <ChildContent>
                             <div class="backlog-item__meta">
-                                <AppBadge Tone="@ObtenirTonaliteStatut(item.Statut)">@ObtenirLibelleStatut(item.Statut)</AppBadge>
-                                <AppBadge Tone="@ObtenirTonalitePriorite(item.Priorite)">@ObtenirLibellePriorite(item.Priorite)</AppBadge>
+                                <div class="backlog-item__badges">
+                                    <AppBadge Tone="@ObtenirTonaliteStatut(item.Statut)">@ObtenirLibelleStatut(item.Statut)</AppBadge>
+                                    <AppBadge Tone="@ObtenirTonalitePriorite(item.Priorite)">@ObtenirLibellePriorite(item.Priorite)</AppBadge>
+                                </div>
                                 <span class="backlog-item__date">Créé le @item.DateCreation.ToLocalTime().ToString("dd/MM/yyyy")</span>
+                            </div>
+
+                            <div class="backlog-item__insights">
+                                <div class="backlog-item__insight">
+                                    <span>Lecture</span>
+                                    <strong>@ObtenirLibelleLecture(item)</strong>
+                                </div>
+                                <div class="backlog-item__insight">
+                                    <span>Action recommandée</span>
+                                    <strong>@ObtenirLibelleActionRecommandee(item)</strong>
+                                </div>
                             </div>
                         </ChildContent>
                     </AppCard>
@@ -250,9 +375,23 @@ else
           OnClose="FermerEditionAsync">
     <ChildContent>
         <div class="backlog-form">
+            <div class="backlog-form__summary">
+                <div class="backlog-form__summary-copy">
+                    <p class="backlog-form__summary-eyebrow">Fiche backlog</p>
+                    <strong>@TitreSyntheseFormulaire</strong>
+                    <p>@DescriptionSyntheseFormulaire</p>
+                </div>
+
+                <div class="backlog-form__summary-badges">
+                    <AppBadge Tone="@StatutFormulaireTone">@LibelleStatutFormulaire</AppBadge>
+                    <AppBadge Tone="@PrioriteFormulaireTone">@LibellePrioriteFormulaire</AppBadge>
+                </div>
+            </div>
+
             <AppInput Label="Titre"
                       Placeholder="Exemple : Préparer la feuille de route Q3"
                       Required="true"
+                      Description="@DescriptionTitreFormulaire"
                       MaxLength="@BacklogInputRules.TitreLongueurMaximale"
                       ErrorMessage="@ObtenirErreurChamp(nameof(BacklogItemFormModel.Titre))"
                       @bind-Value="_formulaire.Titre" />
@@ -261,7 +400,7 @@ else
                          Rows="6"
                          Required="true"
                          MaxLength="@BacklogInputRules.DescriptionLongueurMaximale"
-                         Description="Une description claire facilite la lecture et la priorisation."
+                         Description="@DescriptionDescriptionFormulaire"
                          ErrorMessage="@ObtenirErreurChamp(nameof(BacklogItemFormModel.Description))"
                          @bind-Value="_formulaire.Description" />
 
