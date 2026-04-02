@@ -8,6 +8,8 @@ services:
       ASPNETCORE_ENVIRONMENT: Production
     ports:
       - "8081:8080"
+    volumes:
+      - server-data:/app/data
 
   app:
     build:
@@ -21,3 +23,6 @@ services:
       PlatformApi__BaseUrl: http://server:8080
     ports:
       - "8080:8080"
+
+volumes:
+  server-data:

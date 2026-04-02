@@ -21,6 +21,8 @@ ENV ASPNETCORE_HTTP_PORTS=8080
 
 COPY --from=build /app/publish .
 
+RUN mkdir -p /app/data
+
 EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "BlazorEnterpriseStarter.Server.dll"]

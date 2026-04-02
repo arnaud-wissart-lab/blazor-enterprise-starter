@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0-preview.3.25171.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BlazorEnterpriseStarter.ServiceDefaults\BlazorEnterpriseStarter.ServiceDefaults.csproj" />
     <ProjectReference Include="..\BlazorEnterpriseStarter.Shared\BlazorEnterpriseStarter.Shared.csproj" />
   </ItemGroup>

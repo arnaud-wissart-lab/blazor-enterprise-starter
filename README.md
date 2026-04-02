@@ -9,6 +9,7 @@ Le projet met en avant :
 - un design system et une bibliothèque de composants réutilisables
 - une orchestration locale lisible avec .NET Aspire
 - une conteneurisation simple avec Docker
+- une persistence SQLite légère via EF Core sur le module backlog
 - une base de tests unitaires orientée comportements à valeur réelle
 
 L’objectif n’est pas de livrer un produit complet, mais un socle vitrine lisible, maintenable et démontrable localement ou sur GitHub.
@@ -22,7 +23,7 @@ Le projet a été conçu pour démontrer de manière concrète :
 - une approche sobre et réutilisable du design system et des composants Blazor
 - un module métier simple mais crédible autour d’un backlog produit
 - une exécution locale propre, à la fois via Aspire et via Docker
-- une base saine pour évoluer ensuite vers de la persistence, de l’authentification ou d’autres modules métier
+- une base saine pour évoluer ensuite vers des migrations versionnées, de l’authentification ou d’autres modules métier
 
 ## Architecture de la solution
 
@@ -131,6 +132,7 @@ Docker fournit un mode de lancement simple et démontrable hors Aspire. Il perme
 
 - lancer rapidement le front et l’API dans des conteneurs distincts
 - valider la cohérence des URLs inter-services
+- conserver la base SQLite du backlog dans un volume nommé
 - préparer un futur déploiement avec une base conteneurisée propre
 
 ### .NET Aspire
@@ -163,13 +165,18 @@ Le module backlog évite les appels HTTP directs dans les composants Razor. Il s
 
 L’objectif est d’obtenir une architecture compréhensible rapidement, sans introduire une solution de type Redux qui ne serait pas justifiée ici.
 
-### 4. Persistence mémoire pour accélérer la démonstration
+### 4. Persistence SQLite légère et crédible
 
-Le backlog repose pour l’instant sur une persistence en mémoire. Ce choix est volontaire :
+Le backlog repose désormais sur une persistence `SQLite` locale via `Entity Framework Core`.
 
-- il accélère la démonstration locale
-- il garde l’architecture simple
-- il reste remplaçable, car la logique métier passe par des abstractions dédiées
+Le choix reste volontairement sobre :
+
+- aucun service externe n’est requis
+- la base est créée automatiquement au démarrage
+- un jeu initial est injecté uniquement si la base est vide
+- l’architecture reste lisible grâce à un dépôt dédié et un `DbContext` ciblé
+
+La solution n’ajoute pas encore de migrations versionnées, afin de conserver un coût d’entrée faible pour la vitrine.
 
 ### 5. Optimisations limitées aux gains utiles
 
@@ -233,6 +240,10 @@ dotnet run --project src/BlazorEnterpriseStarter.AppHost
 
 Ce mode est le chemin principal pour le développement local.
 
+La base SQLite du backlog est créée automatiquement dans :
+
+- `src/BlazorEnterpriseStarter.Server/data/blazor-enterprise-starter.db`
+
 Ports attendus en développement :
 
 - application Blazor : `https://localhost:7196` et `http://localhost:5184`
@@ -258,6 +269,8 @@ Ports exposés :
 
 Dans ce mode, le front contacte l’API via l’URL interne `http://server:8080`.
 
+Le backend monte un volume Docker nommé pour conserver la base SQLite entre deux redémarrages.
+
 Pour arrêter les conteneurs :
 
 ```bash
@@ -277,6 +290,12 @@ dotnet build BlazorEnterpriseStarter.sln
 dotnet test BlazorEnterpriseStarter.sln
 docker compose config
 ```
+
+### Documentation persistence
+
+La mise en place SQLite et les choix d’implémentation sont détaillés dans :
+
+- `docs/persistence-sqlite.md`
 
 ## Captures d’écran
 
@@ -301,7 +320,7 @@ Exemple de structure à compléter :
 
 Les évolutions naturelles du projet seraient :
 
-- remplacer la persistence mémoire par EF Core et une base relationnelle
+- introduire des migrations EF Core versionnées si la vitrine gagne en profondeur métier
 - ajouter une authentification et une gestion des rôles
 - enrichir le backlog avec des commentaires, affectations ou workflows
 - introduire des tests de composants Blazor avec bUnit si le périmètre UI s’élargit
@@ -314,6 +333,7 @@ Un audit ciblé du dépôt et un plan d’amélioration priorisé sont disponibl
 
 - `docs/audit-technique-2026-04.md`
 - `docs/positionnement-blazor.md`
+- `docs/persistence-sqlite.md`
 
 ## Valeur démonstrative pour un recruteur technique
 

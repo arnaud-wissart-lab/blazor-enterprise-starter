@@ -416,3 +416,8 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# SQLite locale de démonstration
+src/BlazorEnterpriseStarter.Server/data/*.db
+src/BlazorEnterpriseStarter.Server/data/*.db-shm
+src/BlazorEnterpriseStarter.Server/data/*.db-wal

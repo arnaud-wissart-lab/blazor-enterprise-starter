@@ -1,18 +1,18 @@
 using BlazorEnterpriseStarter.Server.Application.Backlog;
 using BlazorEnterpriseStarter.Server.Endpoints;
-using BlazorEnterpriseStarter.Server.Infrastructure.Backlog;
+using BlazorEnterpriseStarter.Server.Infrastructure.Persistence;
 
 namespace BlazorEnterpriseStarter.Server;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
         builder.AddServiceDefaults();
         builder.Services.AddProblemDetails();
-        builder.Services.AddSingleton<IBacklogRepository, InMemoryBacklogRepository>();
+        builder.Services.AddBacklogPersistence(builder.Configuration, builder.Environment);
         builder.Services.AddScoped<IBacklogService, BacklogService>();
 
         var app = builder.Build();
@@ -37,7 +37,9 @@ public class Program
         app.MapBacklogEndpoints();
         app.MapDefaultEndpoints();
 
-        app.Run();
+        await BacklogDatabaseInitializer.InitializeAsync(app.Services, CancellationToken.None);
+
+        await app.RunAsync();
     }
 
     private static bool IsRunningInContainer() =>
