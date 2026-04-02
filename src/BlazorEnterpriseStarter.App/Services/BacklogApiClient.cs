@@ -12,6 +12,8 @@ namespace BlazorEnterpriseStarter.App.Services;
 /// </summary>
 public sealed class BacklogApiClient(HttpClient httpClient) : IBacklogApiClient
 {
+    private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
+
     public async Task<PagedResultDto<BacklogItemDto>> ListerAsync(BacklogItemsQueryDto requete, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetAsync(ConstruireUriListe(requete), cancellationToken);
@@ -101,16 +103,16 @@ public sealed class BacklogApiClient(HttpClient httpClient) : IBacklogApiClient
             return new BacklogApiException("La ressource backlog demandée est introuvable.");
         }
 
-        if (response.Content.Headers.ContentLength == 0)
+        var payload = await response.Content.ReadAsStringAsync(cancellationToken);
+
+        if (string.IsNullOrWhiteSpace(payload))
         {
             return new BacklogApiException("L’API a renvoyé une réponse vide inattendue.");
         }
 
-        var payload = await response.Content.ReadAsStringAsync(cancellationToken);
-
         try
         {
-            var validation = JsonSerializer.Deserialize<HttpValidationProblemDetails>(payload);
+            var validation = JsonSerializer.Deserialize<HttpValidationProblemDetails>(payload, JsonOptions);
 
             if (validation?.Errors is { Count: > 0 })
             {
@@ -126,7 +128,7 @@ public sealed class BacklogApiClient(HttpClient httpClient) : IBacklogApiClient
 
         try
         {
-            var problem = JsonSerializer.Deserialize<ProblemDetails>(payload);
+            var problem = JsonSerializer.Deserialize<ProblemDetails>(payload, JsonOptions);
 
             if (!string.IsNullOrWhiteSpace(problem?.Detail) || !string.IsNullOrWhiteSpace(problem?.Title))
             {

@@ -5,6 +5,9 @@ namespace BlazorEnterpriseStarter.App.Services;
 /// </summary>
 public sealed class BacklogApiException(string message, IReadOnlyDictionary<string, string[]>? erreurs = null) : Exception(message)
 {
+    private static readonly IReadOnlyDictionary<string, string[]> ErreursVides =
+        new Dictionary<string, string[]>();
+
     public IReadOnlyDictionary<string, string[]> Errors { get; } =
-        erreurs ?? new Dictionary<string, string[]>();
+        erreurs ?? ErreursVides;
 }

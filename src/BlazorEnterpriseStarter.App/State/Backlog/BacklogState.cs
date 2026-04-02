@@ -9,6 +9,9 @@ namespace BlazorEnterpriseStarter.App.State.Backlog;
 /// </summary>
 public sealed class BacklogState
 {
+    private static readonly IReadOnlyDictionary<string, string[]> ErreursVides =
+        new Dictionary<string, string[]>();
+
     private readonly IBacklogApiClient _apiClient;
 
     public BacklogState(IBacklogApiClient apiClient)
@@ -31,7 +34,7 @@ public sealed class BacklogState
     public string? MutationErrorMessage { get; private set; }
 
     public IReadOnlyDictionary<string, string[]> MutationErrors { get; private set; } =
-        new Dictionary<string, string[]>();
+        ErreursVides;
 
     public bool HasLoadedOnce { get; private set; }
 
@@ -99,7 +102,7 @@ public sealed class BacklogState
     public async Task CreateAsync(BacklogItemUpsertRequest request, CancellationToken cancellationToken)
     {
         await ExecuteMutationAsync(
-            async token => await _apiClient.CreerAsync(request, token),
+            async token => { await _apiClient.CreerAsync(request, token); },
             false,
             cancellationToken);
     }
@@ -107,7 +110,7 @@ public sealed class BacklogState
     public async Task UpdateAsync(Guid id, BacklogItemUpsertRequest request, CancellationToken cancellationToken)
     {
         await ExecuteMutationAsync(
-            async token => await _apiClient.ModifierAsync(id, request, token),
+            async token => { await _apiClient.ModifierAsync(id, request, token); },
             false,
             cancellationToken);
     }
@@ -120,7 +123,6 @@ public sealed class BacklogState
             async token =>
             {
                 await _apiClient.SupprimerAsync(id, token);
-                return null;
             },
             mustGoBackOnePage,
             cancellationToken);
@@ -130,7 +132,7 @@ public sealed class BacklogState
     {
         MutationStatus = BacklogRequestStatus.Idle;
         MutationErrorMessage = null;
-        MutationErrors = new Dictionary<string, string[]>();
+        MutationErrors = ErreursVides;
         NotifyChanged();
     }
 
@@ -170,13 +172,13 @@ public sealed class BacklogState
     }
 
     private async Task ExecuteMutationAsync(
-        Func<CancellationToken, Task<object?>> action,
+        Func<CancellationToken, Task> action,
         bool decrementPageBeforeReload,
         CancellationToken cancellationToken)
     {
         MutationStatus = BacklogRequestStatus.Loading;
         MutationErrorMessage = null;
-        MutationErrors = new Dictionary<string, string[]>();
+        MutationErrors = ErreursVides;
         NotifyChanged();
 
         try
