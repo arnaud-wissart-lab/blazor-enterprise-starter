@@ -1,6 +1,6 @@
 .showcase-section {
     display: grid;
-    gap: var(--bes-space-4);
+    gap: var(--bes-space-5);
 }
 
 .showcase-section__header {
@@ -24,6 +24,7 @@
 }
 
 .showcase-section__header p {
+    line-height: 1.6;
     color: var(--bes-color-text-secondary);
 }
 
@@ -49,11 +50,12 @@
 
 .showcase-swatch {
     display: grid;
-    gap: var(--bes-space-1);
-    min-height: 5.5rem;
+    gap: var(--bes-space-2);
+    min-height: 6.15rem;
     padding: var(--bes-space-4);
     border: 1px solid var(--bes-color-border-subtle);
     border-radius: var(--bes-radius-md);
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
 }
 
 .showcase-swatch strong {
@@ -88,7 +90,7 @@
 
 .showcase-type-scale {
     display: grid;
-    gap: var(--bes-space-4);
+    gap: var(--bes-space-5);
 }
 
 .showcase-type-scale div {
@@ -171,8 +173,16 @@
 .showcase-feedback,
 .showcase-form-note {
     margin: 0;
+    line-height: 1.6;
     color: var(--bes-color-text-secondary);
     font-size: var(--bes-font-size-sm);
+}
+
+.showcase-form-note {
+    padding: var(--bes-space-3) var(--bes-space-4);
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: var(--bes-radius-md);
+    background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(241, 245, 249, 0.92));
 }
 
 .showcase-nested-header {
@@ -187,11 +197,12 @@
 
 .showcase-metrics div {
     display: grid;
-    gap: var(--bes-space-1);
+    gap: 0.35rem;
     padding: var(--bes-space-4);
     border: 1px solid var(--bes-color-border-subtle);
     border-radius: var(--bes-radius-md);
-    background: var(--bes-color-surface-secondary);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 248, 252, 0.94));
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
 }
 
 .showcase-metrics strong {

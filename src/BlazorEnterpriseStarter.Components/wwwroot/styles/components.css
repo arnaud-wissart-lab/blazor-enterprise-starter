@@ -1,6 +1,6 @@
 .app-field {
     display: grid;
-    gap: var(--bes-space-2);
+    gap: 0.65rem;
 }
 
 .app-field--disabled {
@@ -10,16 +10,19 @@
 .app-field__label {
     font-size: var(--bes-font-size-sm);
     font-weight: var(--bes-font-weight-semibold);
+    letter-spacing: -0.01em;
     color: var(--bes-color-text-primary);
 }
 
 .app-field__description {
-    font-size: var(--bes-font-size-sm);
+    font-size: var(--bes-font-size-xs);
+    line-height: 1.55;
     color: var(--bes-color-text-secondary);
 }
 
 .app-field__error {
-    font-size: var(--bes-font-size-sm);
+    font-size: var(--bes-font-size-xs);
+    line-height: 1.5;
     color: var(--bes-color-danger-text);
 }
 
@@ -37,12 +40,15 @@
 
 .app-field__control {
     width: 100%;
-    min-height: 3rem;
-    padding: 0.75rem 0.95rem;
+    min-height: 3.15rem;
+    padding: 0.82rem 1rem;
     border: 1px solid var(--bes-color-border-strong);
-    border-radius: var(--bes-radius-md);
-    background: var(--bes-color-surface-primary);
+    border-radius: calc(var(--bes-radius-md) + 0.08rem);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(247, 250, 252, 0.96));
     color: var(--bes-color-text-primary);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.92),
+        0 1px 2px rgba(15, 23, 42, 0.04);
     transition:
         border-color 140ms ease,
         box-shadow 140ms ease,
@@ -54,19 +60,21 @@
 }
 
 .app-field__control:hover {
-    border-color: var(--bes-color-accent-primary);
+    border-color: rgba(37, 99, 235, 0.48);
 }
 
 .app-field__control:focus {
     outline: none;
     border-color: var(--bes-color-accent-primary);
-    box-shadow: 0 0 0 4px var(--bes-color-focus-ring);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.98),
+        0 0 0 4px var(--bes-color-focus-ring);
 }
 
 .app-field__control:disabled,
 .app-field__control[readonly] {
     cursor: not-allowed;
-    background: var(--bes-color-surface-secondary);
+    background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(241, 245, 249, 0.94));
 }
 
 .app-field--invalid .app-field__control {
@@ -95,7 +103,7 @@
 }
 
 .app-field__control--textarea {
-    min-height: 8rem;
+    min-height: 8.5rem;
     resize: vertical;
 }
 

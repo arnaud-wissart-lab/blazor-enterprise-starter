@@ -6,19 +6,31 @@
 }
 
 .platform-status__environment {
-    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.2rem 0.75rem;
+    border: 1px solid var(--bes-color-border-subtle);
+    border-radius: var(--bes-radius-pill);
+    background: var(--bes-color-surface-secondary);
+    font-size: 0.82rem;
+    font-weight: var(--bes-font-weight-medium);
     color: var(--bes-color-text-secondary);
 }
 
 .platform-status__details {
     display: grid;
-    gap: 1rem;
+    gap: var(--bes-space-3);
     margin: 0;
 }
 
 .platform-status__details div {
     display: grid;
-    gap: 0.2rem;
+    gap: 0.25rem;
+    padding: var(--bes-space-3);
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: var(--bes-radius-md);
+    background: linear-gradient(180deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.88));
 }
 
 .platform-status__details dt {
@@ -35,6 +47,6 @@
 }
 
 .platform-status__message {
-    padding-top: 0.35rem;
-    border-top: 1px solid rgba(31, 41, 55, 0.08);
+    padding-top: var(--bes-space-4);
+    border-top: none;
 }

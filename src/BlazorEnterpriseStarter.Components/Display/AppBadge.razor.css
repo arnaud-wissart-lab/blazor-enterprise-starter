@@ -2,13 +2,14 @@
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.35rem 0.7rem;
+    padding: 0.38rem 0.74rem;
     border: 1px solid transparent;
-    border-radius: var(--bes-radius-md);
+    border-radius: var(--bes-radius-pill);
     font-size: var(--bes-font-size-xs);
     font-weight: var(--bes-font-weight-semibold);
     letter-spacing: 0.01em;
     white-space: nowrap;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .app-badge__icon {

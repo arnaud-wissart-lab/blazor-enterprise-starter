@@ -1,6 +1,6 @@
 .backlog-filters {
     display: grid;
-    gap: var(--bes-space-4);
+    gap: var(--bes-space-5);
     grid-template-columns: repeat(5, minmax(0, 1fr));
     align-items: start;
 }
@@ -31,10 +31,10 @@
     gap: var(--bes-space-3);
     padding: var(--bes-space-3) var(--bes-space-4);
     border: 1px solid var(--bes-color-border-subtle);
-    border-radius: var(--bes-radius-md);
-    background: var(--bes-color-surface-secondary);
+    border-radius: var(--bes-radius-pill);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(243, 247, 251, 0.96));
     color: var(--bes-color-text-secondary);
-    box-shadow: var(--bes-shadow-xs);
+    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06);
 }
 
 .backlog-refresh-indicator span {
@@ -42,7 +42,7 @@
 }
 
 .backlog-region--busy {
-    opacity: 0.78;
+    opacity: 0.72;
 }
 
 .backlog-region--busy,
@@ -62,7 +62,7 @@
 }
 
 .backlog-metric strong {
-    font-size: var(--bes-font-size-2xl);
+    font-size: clamp(1.55rem, 2vw, 1.95rem);
     color: var(--bes-color-text-primary);
 }
 
@@ -112,9 +112,9 @@
     flex-wrap: wrap;
     padding: var(--bes-space-4) var(--bes-space-5);
     border: 1px solid var(--bes-color-border-subtle);
-    border-radius: var(--bes-radius-md);
-    background: var(--bes-color-surface-primary);
-    box-shadow: var(--bes-shadow-xs);
+    border-radius: calc(var(--bes-radius-md) + 0.12rem);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 252, 0.95));
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
 }
 
 .backlog-pagination__summary {
@@ -124,7 +124,7 @@
 
 .backlog-form {
     display: grid;
-    gap: var(--bes-space-4);
+    gap: var(--bes-space-5);
 }
 
 .backlog-form__grid {
@@ -135,11 +135,16 @@
 
 .backlog-form__error {
     margin: 0;
+    padding: var(--bes-space-3) var(--bes-space-4);
+    border: 1px solid rgba(180, 35, 24, 0.16);
+    border-radius: var(--bes-radius-md);
+    background: rgba(180, 35, 24, 0.06);
     color: var(--bes-color-danger-text);
 }
 
 .backlog-delete p {
     margin: 0;
+    line-height: 1.6;
     color: var(--bes-color-text-secondary);
 }
 
