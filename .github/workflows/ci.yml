@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restaurer la solution
+        run: dotnet restore BlazorEnterpriseStarter.sln
+
+      - name: Compiler la solution
+        run: dotnet build BlazorEnterpriseStarter.sln --no-restore -m:1
+
+      - name: Exécuter les tests unitaires et composants
+        run: dotnet test BlazorEnterpriseStarter.sln --no-build -m:1
+
+      - name: Compiler les tests end-to-end
+        run: dotnet build tests/BlazorEnterpriseStarter.E2ETests/BlazorEnterpriseStarter.E2ETests.csproj --no-restore -m:1
+
+      - name: Valider la configuration Docker Compose
+        run: docker compose config

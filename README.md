@@ -10,7 +10,8 @@ Le projet met en avant :
 - une orchestration locale lisible avec .NET Aspire
 - une conteneurisation simple avec Docker
 - une persistence SQLite légère via EF Core sur le module backlog
-- une base de tests unitaires orientée comportements à valeur réelle
+- une base de tests unitaires, bUnit et E2E ciblée sur les comportements à forte valeur
+- une CI GitHub minimale pour vérifier la build, les tests et la configuration Docker
 
 L’objectif n’est pas de livrer un produit complet, mais un socle vitrine lisible, maintenable et démontrable localement ou sur GitHub.
 
@@ -70,6 +71,9 @@ Le projet a été conçu pour démontrer de manière concrète :
 
 - `BlazorEnterpriseStarter.E2ETests`
   Tests end-to-end Playwright ciblés sur un flux utilisateur visible, volontairement séparés de la solution principale pour préserver une boucle locale rapide.
+
+- `.github/workflows/ci.yml`
+  Pipeline GitHub Actions minimal pour compiler la solution, exécuter les tests du dépôt et valider la configuration Docker.
 
 ### Vue d’ensemble
 
@@ -292,6 +296,7 @@ docker compose down
 ```bash
 dotnet build BlazorEnterpriseStarter.sln
 dotnet test BlazorEnterpriseStarter.sln
+dotnet build tests/BlazorEnterpriseStarter.E2ETests/BlazorEnterpriseStarter.E2ETests.csproj
 docker compose config
 ```
 
@@ -319,9 +324,18 @@ Exécution des scénarios E2E :
 pwsh ./scripts/test-e2e.ps1
 ```
 
+### Intégration continue
+
+Le dépôt inclut une CI GitHub Actions volontairement sobre :
+
+- compilation de la solution
+- exécution des tests unitaires et composants
+- compilation du projet E2E
+- validation de `docker compose config`
+
 ## Captures d’écran
 
-Section à compléter avec des captures à mesure que la vitrine visuelle se stabilise.
+Le dossier `docs/screenshots` est prêt à recevoir des captures ou GIFs à mesure que la vitrine visuelle se stabilise.
 
 Suggestions de captures :
 
