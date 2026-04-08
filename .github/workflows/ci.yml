@@ -28,6 +28,9 @@ jobs:
       - name: Exécuter les tests unitaires et composants
         run: dotnet test BlazorEnterpriseStarter.sln --no-build -m:1
 
+      - name: Restaurer les tests end-to-end
+        run: dotnet restore tests/BlazorEnterpriseStarter.E2ETests/BlazorEnterpriseStarter.E2ETests.csproj
+
       - name: Compiler les tests end-to-end
         run: dotnet build tests/BlazorEnterpriseStarter.E2ETests/BlazorEnterpriseStarter.E2ETests.csproj --no-restore -m:1
 
