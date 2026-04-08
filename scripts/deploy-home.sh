@@ -141,17 +141,23 @@ git_with_auth() {
   git "$@"
 }
 
-ensure_env_key() {
+upsert_env_key() {
   local file_path="$1"
   local key="$2"
   local value="$3"
 
+  if grep -qE "^${key}=${value}$" "$file_path"; then
+    return
+  fi
+
   if grep -qE "^${key}=" "$file_path"; then
+    sed -i "s|^${key}=.*$|${key}=${value}|" "$file_path"
+    log "Variable ${key} mise à jour dans le .env: ${value}"
     return
   fi
 
   printf '\n%s=%s\n' "$key" "$value" >> "$file_path"
-  log "Variable ${key} absente du .env, valeur par défaut ajoutée: ${value}"
+  log "Variable ${key} ajoutée dans le .env: ${value}"
 }
 
 DEPLOY_REF="$1"
@@ -248,10 +254,10 @@ if [ ! -f "$ENV_FILE_PATH" ]; then
   log "Fichier .env créé depuis .env.example."
 fi
 
-ensure_env_key "$ENV_FILE_PATH" "APP_BIND_ADDRESS" "127.0.0.1"
-ensure_env_key "$ENV_FILE_PATH" "APP_PORT" "8085"
-ensure_env_key "$ENV_FILE_PATH" "SERVER_BIND_ADDRESS" "127.0.0.1"
-ensure_env_key "$ENV_FILE_PATH" "SERVER_PORT" "18085"
+upsert_env_key "$ENV_FILE_PATH" "APP_BIND_ADDRESS" "127.0.0.1"
+upsert_env_key "$ENV_FILE_PATH" "APP_PORT" "8085"
+upsert_env_key "$ENV_FILE_PATH" "SERVER_BIND_ADDRESS" "127.0.0.1"
+upsert_env_key "$ENV_FILE_PATH" "SERVER_PORT" "18085"
 
 log "Validation de la configuration Compose"
 "${compose_cmd[@]}" --env-file "$ENV_FILE_PATH" -p "$COMPOSE_PROJECT" -f "$COMPOSE_FILE_PATH" config >/dev/null
