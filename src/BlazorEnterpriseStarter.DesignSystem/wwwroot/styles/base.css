@@ -44,12 +44,20 @@ textarea {
 
 a {
     color: var(--bes-color-accent-strong);
+}
+
+/* Les liens éditoriaux restent soulignés ; les liens portés par des composants gèrent leur propre rendu. */
+a:not([class]) {
     text-decoration-thickness: 0.08em;
     text-underline-offset: 0.18em;
 }
 
-a:hover {
+a:not([class]):hover {
     color: var(--bes-color-accent-primary);
+}
+
+a[class] {
+    text-decoration: none;
 }
 
 :focus-visible {

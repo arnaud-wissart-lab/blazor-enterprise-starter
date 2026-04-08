@@ -13,7 +13,7 @@ BlazorEnterpriseStarter est un starter Blazor/.NET pour application métier mode
 
 ## Accès rapide
 
-- Démo web : `Accueil (/)`, `Bibliothèque UI (/composants)`, `Backlog (/backlog)`
+- Démo web : [Accueil](https://blazor.arnaudwissart.fr/), [Bibliothèque UI](https://blazor.arnaudwissart.fr/composants), [Backlog](https://blazor.arnaudwissart.fr/backlog)
 - Lecture du dépôt : [Architecture](#architecture-de-la-solution), [Ce que montre la démo](#ce-que-montre-la-démo), [Validation locale](#validation-locale)
 - Vérifications : [Tests end-to-end](#tests-end-to-end), [Intégration continue](#intégration-continue), [Lancement via Aspire](#lancement-via-aspire)
 
@@ -356,21 +356,14 @@ Le dépôt inclut une CI GitHub Actions volontairement sobre :
 
 ## Captures d’écran
 
-Le dossier `docs/screenshots` est prêt à accueillir les captures de vitrine. La section ci-dessous sert de gabarit lisible pour brancher rapidement de vrais visuels dans le README, sans réorganiser sa structure.
+Le dossier `docs/screenshots` accueille les visuels de vitrine. La convention ci-dessous est définitive et peut être branchée directement dans le README dès que les fichiers sont produits.
 
-### Captures attendues
+### Captures à produire manuellement
 
-- accueil du projet
-- bibliothèque UI
-- module backlog produit
-- supervision locale ou AppHost Aspire
-
-### Convention de nommage
-
-- `docs/screenshots/home-overview.png`
-- `docs/screenshots/components-library.png`
-- `docs/screenshots/backlog-module.png`
-- `docs/screenshots/apphost-dashboard.png`
+- `docs/screenshots/home-overview.png` : accueil avec hero, preuves concrètes et entrées principales visibles
+- `docs/screenshots/components-library.png` : bibliothèque UI avec fondations et premiers composants dans le même cadre
+- `docs/screenshots/backlog-module.png` : backlog avec filtres, KPI et liste métier affichés
+- `docs/screenshots/apphost-dashboard.png` : tableau de bord AppHost ou supervision locale des services
 
 ### Gabarit Markdown prêt à activer
 

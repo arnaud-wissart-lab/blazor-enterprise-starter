@@ -11,44 +11,16 @@
     border-radius: calc(var(--bes-radius-lg) - 0.1rem);
     background: var(--bes-color-surface-primary);
     color: inherit;
-    text-decoration: none !important;
+    text-decoration: none;
     transition:
         border-color 140ms ease,
         box-shadow 140ms ease,
         transform 140ms ease;
 }
 
-.layout-nav :deep(.layout-nav__link),
-.layout-nav :deep(.layout-nav__link:hover),
-.layout-nav :deep(.layout-nav__link:focus),
-.layout-nav :deep(.layout-nav__link:active),
-.layout-nav :deep(.layout-nav__link:visited) {
+.layout-nav :deep(.layout-nav__link:where(:link, :visited, :hover, :focus-visible, :active)) {
     color: inherit;
-    text-decoration: none !important;
-    text-decoration-line: none !important;
-    text-decoration-color: transparent !important;
-}
-
-.layout-nav :deep(.layout-nav__link *),
-.layout-nav :deep(.layout-nav__link:hover *),
-.layout-nav :deep(.layout-nav__link:focus *),
-.layout-nav :deep(.layout-nav__link:active *),
-.layout-nav :deep(.layout-nav__link:visited *) {
-    color: inherit;
-    text-decoration: none !important;
-    text-decoration-line: none !important;
-    text-decoration-color: transparent !important;
-}
-
-.layout-nav :deep(a.layout-nav__link),
-.layout-nav :deep(a.layout-nav__link:hover),
-.layout-nav :deep(a.layout-nav__link:focus),
-.layout-nav :deep(a.layout-nav__link:active),
-.layout-nav :deep(a.layout-nav__link:visited) {
-    color: inherit;
-    text-decoration: none !important;
-    text-decoration-line: none !important;
-    text-decoration-color: transparent !important;
+    text-decoration: none;
 }
 
 .layout-nav :deep(.layout-nav__link:hover) {
@@ -84,7 +56,6 @@
     align-items: center;
     gap: var(--bes-space-3);
     min-width: 0;
-    text-decoration: none !important;
 }
 
 .layout-nav__icon {
@@ -118,7 +89,6 @@
     font-weight: var(--bes-font-weight-semibold);
     letter-spacing: -0.01em;
     line-height: 1.35;
-    text-decoration: none !important;
 }
 
 .layout-nav__copy small {
@@ -127,7 +97,6 @@
     color: var(--bes-color-text-secondary);
     font-size: var(--bes-font-size-xs);
     line-height: 1.45;
-    text-decoration: none !important;
 }
 
 .layout-nav :deep(.layout-nav__link.active .layout-nav__icon) {
