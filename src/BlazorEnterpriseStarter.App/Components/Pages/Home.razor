@@ -3,120 +3,71 @@
 
 <PageTitle>Accueil</PageTitle>
 
-<AppPageHeader Eyebrow="Accueil"
-               Title="Vue d’ensemble du projet"
-               Description="BlazorEnterpriseStarter est une application de démonstration conçue pour montrer une architecture .NET claire, une interface maîtrisée et un module métier crédible.">
+<AppPageHeader Eyebrow="Starter métier"
+               Title="Starter Blazor/.NET pour application métier"
+               Description="Une base claire avec shell applicatif, design system, API séparée et module backlog déjà prêt.">
     <Badges>
         <AppBadge Tone="AppTone.Accent">Blazor Web App</AppBadge>
-        <AppBadge Tone="AppTone.Info">Interactive Server</AppBadge>
-        <AppBadge Tone="AppTone.Neutral">Composants Razor</AppBadge>
-        <AppBadge Tone="AppTone.Info">ASP.NET Core</AppBadge>
-        <AppBadge Tone="AppTone.Success">.NET Aspire</AppBadge>
+        <AppBadge Tone="AppTone.Info">API ASP.NET Core séparée</AppBadge>
+        <AppBadge Tone="AppTone.Success">Design system réutilisable</AppBadge>
+        <AppBadge Tone="AppTone.Neutral">Aspire + Docker</AppBadge>
     </Badges>
     <Actions>
-        <AppButton Href="/backlog">Ouvrir le backlog</AppButton>
+        <AppButton Href="/backlog">Voir le backlog</AppButton>
         <AppButton Variant="AppButtonVariant.Secondary" Href="/composants">Voir la bibliothèque UI</AppButton>
     </Actions>
     <ChildContent>
-        <div class="home-header-stats">
-            <div>
-                <strong>8</strong>
-                <span>projets dans la solution</span>
+        <div class="home-hero-points">
+            <div class="home-hero-point">
+                <strong>Shell applicatif</strong>
+                <span>Navigation, en-têtes et états globaux déjà cadrés.</span>
             </div>
-            <div>
-                <strong>3</strong>
-                <span>sections principales à parcourir</span>
+            <div class="home-hero-point">
+                <strong>Module backlog</strong>
+                <span>Recherche, filtres, pagination et CRUD prêts à démontrer.</span>
             </div>
-            <div>
-                <strong>2</strong>
-                <span>modes de lancement : Aspire et Docker</span>
+            <div class="home-hero-point">
+                <strong>Base technique lisible</strong>
+                <span>Solution multi-projets pensée pour être reprise et étendue.</span>
             </div>
         </div>
     </ChildContent>
 </AppPageHeader>
 
-<div class="home-overview-grid">
-    <AppCard Eyebrow="Projet"
-             Title="Ce que montre cette application"
-             Description="Le dépôt a été structuré pour être compris rapidement par un recruteur technique ou un lead développeur.">
-        <ChildContent>
-            <ul class="home-list">
-                <li>Une application Blazor structurée autour d’un backend ASP.NET Core séparé</li>
-                <li>Un design system clair, réutilisable et aligné sur des usages métier</li>
-                <li>Un module backlog avec recherche, filtres, pagination et opérations CRUD</li>
-                <li>Une exécution locale lisible via Aspire, avec un lancement Docker simple</li>
-            </ul>
-        </ChildContent>
-    </AppCard>
-
-    @if (_isLoading)
-    {
-        <AppCard Eyebrow="Supervision" Title="État de la plateforme" Description="Le diagnostic du backend apparaît ici après la première vérification.">
-            <div class="home-loading-state">
-                <AppLoader Label="Vérification du backend" />
-                <p>Le contrôle est effectué automatiquement au chargement.</p>
-            </div>
-        </AppCard>
-    }
-    else
-    {
-        <PlatformOverviewCard Status="_status" />
-    }
-</div>
-
 <section class="home-section">
     <div class="home-section__heading">
-        <p class="home-section__eyebrow">Blazor</p>
-        <h3>Ce que le front démontre réellement</h3>
-        <p>Le projet assume une Blazor Web App en mode Interactive Server pour mettre en avant la composition Razor, l’état local et les interactions métier sans complexifier inutilement le dépôt.</p>
+        <p class="home-section__eyebrow">Preuves concrètes</p>
+        <h2>Ce que le starter livre déjà</h2>
+        <p>Ces éléments sont déjà visibles dans l’interface et utilisables comme base de projet.</p>
     </div>
 
-    <div class="home-blazor-grid">
-        <AppCard Eyebrow="Rendu"
-                 Title="Interactive Server assumé"
-                 Description="Le rendu interactif côté serveur est un choix volontaire pour privilégier la lisibilité de l’architecture front et la rapidité de démonstration."
-                 IsCompact="true">
-            <ChildContent>
-                <p>Le projet montre un front Blazor crédible dans un contexte back-office ou application interne, avec un HTML initial côté serveur puis une interactivité gérée par le circuit Blazor.</p>
-            </ChildContent>
-            <Footer>
-                <div class="home-tech-tags">
-                    <AppBadge Tone="AppTone.Accent">AddInteractiveServerComponents</AppBadge>
-                    <AppBadge Tone="AppTone.Info">@@rendermode</AppBadge>
-                </div>
-            </Footer>
+    <div class="home-proof-grid">
+        <AppCard Title="8 projets" Description="Une solution .NET organisée par responsabilités." IsCompact="true">
+            <div class="home-proof-card">
+                <strong>8</strong>
+                <span>front, API, contrats, design system, composants, orchestration et tests</span>
+            </div>
         </AppCard>
 
-        <AppCard Eyebrow="Composants"
-                 Title="Architecture Razor par niveaux"
-                 Description="Le front sépare le shell, les pages, les composants applicatifs et les fondations visuelles."
-                 IsCompact="true">
-            <ChildContent>
-                <p>Cette organisation rend la lecture rapide pour un recruteur technique et montre que les composants Razor sont pensés comme des briques réutilisables plutôt que comme du code de page dispersé.</p>
-            </ChildContent>
-            <Footer>
-                <div class="home-tech-tags">
-                    <AppBadge Tone="AppTone.Neutral">DesignSystem</AppBadge>
-                    <AppBadge Tone="AppTone.Info">Components</AppBadge>
-                    <AppBadge Tone="AppTone.Success">Pages Razor</AppBadge>
-                </div>
-            </Footer>
+        <AppCard Title="3 parcours utiles" Description="Pas de page vitrine en trop, seulement les entrées qui comptent." IsCompact="true">
+            <div class="home-proof-card">
+                <strong>3</strong>
+                <span>accueil, bibliothèque UI et module backlog</span>
+            </div>
         </AppCard>
 
-        <AppCard Eyebrow="État"
-                 Title="État local et interactions utiles"
-                 Description="Le backlog met en avant les événements Razor, le binding, le debounce et une orchestration front explicite."
-                 IsCompact="true">
-            <ChildContent>
-                <p>Le dépôt ne surjoue pas le front riche : il montre surtout une gestion d’état pragmatique, des formulaires, des modales et un client API dédié, ce qui est plus convaincant qu’une démo artificiellement complexe.</p>
-            </ChildContent>
-            <Footer>
-                <div class="home-tech-tags">
-                    <AppBadge Tone="AppTone.Warning">BacklogState</AppBadge>
-                    <AppBadge Tone="AppTone.Accent">Binding</AppBadge>
-                    <AppBadge Tone="AppTone.Info">HttpClient</AppBadge>
-                </div>
-            </Footer>
+        <AppCard Title="2 modes de lancement" Description="Le projet reste démontrable en local sans friction." IsCompact="true">
+            <div class="home-proof-card">
+                <strong>2</strong>
+                <span>Aspire pour l’orchestration, Docker pour le déploiement simple</span>
+            </div>
+        </AppCard>
+
+        <AppCard Title="Santé intégrée" Description="L’état de plateforme remonte déjà dans l’interface." IsCompact="true">
+            <div class="home-proof-card">
+                <strong>OK</strong>
+                <span>health check, supervision et diagnostic visibles sans ajout spécifique</span>
+            </div>
         </AppCard>
     </div>
 </section>
@@ -124,41 +75,56 @@
 <section class="home-section">
     <div class="home-section__heading">
         <p class="home-section__eyebrow">Parcours</p>
-        <h3>Les trois entrées principales</h3>
-        <p>Chaque page a un rôle précis pour comprendre rapidement le projet et son niveau de finition.</p>
+        <h2>Explorer rapidement les zones utiles</h2>
+        <p>Chaque entrée répond à un besoin concret : situer le starter, vérifier l’UI ou tester un écran métier crédible.</p>
     </div>
 
-    <div class="home-quick-grid">
-        <AppCard Title="Accueil"
-                 Description="Présente le périmètre, l’architecture et les accès utiles."
+    <div class="home-entry-grid">
+        <AppCard Eyebrow="Accueil"
+                 Title="Comprendre la proposition"
+                 Description="Un point d’entrée direct pour situer le starter, son périmètre et sa valeur."
                  IsCompact="true">
             <ChildContent>
-                <p>Cette vue sert de point d’entrée pour comprendre le dépôt sans passer immédiatement par le code.</p>
+                <ul class="home-list">
+                    <li>positionnement du starter</li>
+                    <li>preuves concrètes déjà livrées</li>
+                    <li>architecture résumée en quelques blocs</li>
+                </ul>
             </ChildContent>
             <Footer>
-                <AppBadge Tone="AppTone.Neutral">Vous êtes actuellement sur cette page</AppBadge>
+                <AppBadge Tone="AppTone.Neutral">Page actuelle</AppBadge>
             </Footer>
         </AppCard>
 
-        <AppCard Title="Bibliothèque UI"
-                 Description="Expose les fondations visuelles et les composants réutilisables."
+        <AppCard Eyebrow="Bibliothèque UI"
+                 Title="Vérifier le design system"
+                 Description="Une vraie page de référence pour les fondations visuelles, les composants et les états d’interface."
                  IsCompact="true">
             <ChildContent>
-                <p>La page montre les styles, les champs, les boutons et les états d’interface utilisés dans l’application.</p>
+                <ul class="home-list">
+                    <li>couleurs, typographie et rythme</li>
+                    <li>boutons, champs, badges et loaders</li>
+                    <li>modales, empty states et composition d’écran</li>
+                </ul>
             </ChildContent>
             <Footer>
-                <AppButton Href="/composants" Size="AppControlSize.Small">Ouvrir la bibliothèque</AppButton>
+                <AppButton Href="/composants" Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small">Voir la bibliothèque UI</AppButton>
             </Footer>
         </AppCard>
 
-        <AppCard Title="Backlog produit"
-                 Description="Démontre un cas d’usage métier complet avec état local et API dédiée."
+        <AppCard Eyebrow="Backlog"
+                 Title="Tester un écran métier"
+                 Description="Le backlog concentre le scénario le plus concret du starter, avec interactions, API et état local."
                  IsCompact="true">
             <ChildContent>
-                <p>Cette vue concentre la liste, les filtres, la pagination serveur et les opérations de création, mise à jour et suppression.</p>
+                <ul class="home-list">
+                    <li>recherche, filtres et vues rapides</li>
+                    <li>liste paginée, statuts et priorités</li>
+                    <li>création, édition et suppression via modales</li>
+                </ul>
             </ChildContent>
             <Footer>
-                <AppButton Href="/backlog" Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small">Ouvrir le module</AppButton>
+                <AppButton Href="/backlog" Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small">Voir le backlog</AppButton>
             </Footer>
         </AppCard>
     </div>
@@ -166,27 +132,107 @@
 
 <section class="home-section">
     <div class="home-section__heading">
-        <p class="home-section__eyebrow">Lecture technique</p>
-        <h3>Ce que le dépôt met en évidence</h3>
-        <p>Les choix ci-dessous sont visibles dans l’application et lisibles dans la solution.</p>
+        <p class="home-section__eyebrow">Architecture</p>
+        <h2>Une base claire à reprendre</h2>
+        <p>Le dépôt repose sur des frontières simples, lisibles et crédibles pour une application métier moderne.</p>
     </div>
 
-    <div class="home-strengths-grid">
-        <AppCard Eyebrow="Architecture" Title="Front-end, backend et contrats séparés" IsCompact="true">
-            <p>Les responsabilités sont réparties entre l’interface Blazor, l’API, les contrats partagés et l’orchestration locale.</p>
+    <div class="home-architecture-grid">
+        <AppCard Eyebrow="UI" Title="Blazor Web App structurée" Description="Le front porte le shell, les pages, les composants applicatifs et la navigation." IsCompact="true">
+            <ChildContent></ChildContent>
+        </AppCard>
+        <AppCard Eyebrow="API" Title="Backend ASP.NET Core dédié" Description="Le module backlog passe par une API séparée, lisible et indépendante de l’interface." IsCompact="true">
+            <ChildContent></ChildContent>
+        </AppCard>
+        <AppCard Eyebrow="Contrats" Title="Types partagés explicites" Description="Les contrats communs évitent les duplications entre front, API et tests." IsCompact="true">
+            <ChildContent></ChildContent>
+        </AppCard>
+        <AppCard Eyebrow="Exécution" Title="Aspire et Docker dès le départ" Description="Le projet reste démontrable localement comme en environnement conteneurisé léger." IsCompact="true">
+            <ChildContent></ChildContent>
+        </AppCard>
+    </div>
+</section>
+
+<section class="home-section">
+    <div class="home-section__heading">
+        <p class="home-section__eyebrow">Dès J1</p>
+        <h2>Ce que le starter apporte immédiatement</h2>
+        <p>Le projet ne part pas d’une page vide : il fournit déjà les briques attendues pour lancer un socle métier.</p>
+    </div>
+
+    <div class="home-day-one-grid">
+        <AppCard Title="Socle applicatif" Description="Les éléments de structure déjà en place." IsCompact="true">
+            <ul class="home-check-list">
+                <li>shell applicatif</li>
+                <li>navigation structurée</li>
+                <li>thème clair/sombre</li>
+                <li>états globaux intégrés</li>
+            </ul>
         </AppCard>
 
-        <AppCard Eyebrow="UI" Title="Design system et composants réutilisables" IsCompact="true">
-            <p>Les styles globaux et les composants applicatifs restent distincts pour préserver la cohérence et la maintenabilité.</p>
+        <AppCard Title="Design system" Description="Les composants de base déjà uniformisés." IsCompact="true">
+            <ul class="home-check-list">
+                <li>cartes, boutons et badges</li>
+                <li>champs et sélecteurs</li>
+                <li>modales et empty states</li>
+                <li>feedback et loaders</li>
+            </ul>
         </AppCard>
 
-        <AppCard Eyebrow="Exécution" Title="Lancement local simple avec Aspire et Docker" IsCompact="true">
-            <p>L’application peut être lancée dans un parcours orchestré ou dans un contexte conteneurisé minimal.</p>
+        <AppCard Title="Socle métier" Description="Le backlog sert déjà de preuve fonctionnelle." IsCompact="true">
+            <ul class="home-check-list">
+                <li>liste métier</li>
+                <li>recherche et filtres</li>
+                <li>pagination</li>
+                <li>création, édition, suppression</li>
+            </ul>
         </AppCard>
 
-        <AppCard Eyebrow="Backlog" Title="État local et flux métier démonstratifs" IsCompact="true">
-            <p>Le module backlog montre la séparation entre client API, gestion d’état locale, logique de page et backend applicatif.</p>
+        <AppCard Title="Base technique" Description="L’architecture reste immédiatement crédible." IsCompact="true">
+            <ul class="home-check-list">
+                <li>client API dédié</li>
+                <li>état local explicite</li>
+                <li>health check</li>
+                <li>lancement Aspire et Docker</li>
+            </ul>
         </AppCard>
+    </div>
+</section>
+
+<section class="home-section">
+    <div class="home-section__heading">
+        <p class="home-section__eyebrow">Plateforme</p>
+        <h2>Un contrôle simple, déjà intégré</h2>
+        <p>La supervision reste compacte : elle confirme rapidement que l’interface parle bien au backend et que le starter est exploitable.</p>
+    </div>
+
+    <div class="home-platform-grid">
+        <AppCard Title="Ce que montre ce bloc"
+                 Description="Le contrôle de plateforme valide l’état du socle sans surcharger la page d’accueil."
+                 IsCompact="true">
+            <ChildContent>
+                <ul class="home-check-list">
+                    <li>état du backend</li>
+                    <li>environnement courant</li>
+                    <li>horodatage du dernier contrôle</li>
+                    <li>message de diagnostic</li>
+                </ul>
+            </ChildContent>
+        </AppCard>
+
+        @if (_isLoading)
+        {
+            <AppCard Eyebrow="Supervision" Title="État de la plateforme" Description="Le diagnostic du backend apparaît ici après la première vérification." IsCompact="true">
+                <div class="home-loading-state">
+                    <AppLoader Label="Vérification du backend" />
+                    <p>Le contrôle est exécuté automatiquement au chargement.</p>
+                </div>
+            </AppCard>
+        }
+        else
+        {
+            <PlatformOverviewCard Status="_status" />
+        }
     </div>
 </section>
 

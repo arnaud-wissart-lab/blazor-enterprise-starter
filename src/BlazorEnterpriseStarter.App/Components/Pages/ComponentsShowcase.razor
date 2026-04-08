@@ -1,89 +1,35 @@
 @page "/composants"
 
-<PageTitle>Design system et composants</PageTitle>
+<PageTitle>Bibliothèque UI</PageTitle>
 
 <AppPageHeader Eyebrow="Bibliothèque UI"
-               Title="Design system et composants"
-               Description="Cette page sert de référence visuelle pour les styles globaux, les composants réutilisables et leurs états principaux.">
+               Title="Bibliothèque UI"
+               Description="Référence visuelle des fondations, composants et états utilisés dans le starter.">
     <Badges>
         <AppBadge Tone="AppTone.Accent">Tokens CSS</AppBadge>
         <AppBadge Tone="AppTone.Info">Composants Blazor</AppBadge>
-        <AppBadge Tone="AppTone.Neutral">Interactive Server</AppBadge>
-        <AppBadge Tone="AppTone.Success">Responsive</AppBadge>
+        <AppBadge Tone="AppTone.Success">États d’interface</AppBadge>
+        <AppBadge Tone="AppTone.Neutral">Responsive</AppBadge>
     </Badges>
     <Actions>
         <AppButton Variant="AppButtonVariant.Secondary" Href="/">Retour à l’accueil</AppButton>
         <AppButton Href="/backlog">Voir le backlog</AppButton>
     </Actions>
     <ChildContent>
-        <p>La navigation latérale permet de revenir facilement au parcours principal à tout moment.</p>
+        <p class="showcase-page-note">Les composants sont montrés dans leurs variantes utiles. Le commentaire reste volontairement court.</p>
     </ChildContent>
 </AppPageHeader>
 
-<section id="blazor" class="showcase-section">
+<section class="showcase-section" id="fondations">
     <div class="showcase-section__header">
-        <p class="showcase-section__eyebrow">Choix Blazor</p>
-        <h3>Ce que la vitrine assume côté front</h3>
-        <p>Le projet cherche à montrer un usage crédible de Blazor sur un front métier, pas à accumuler tous les modes de rendu ou toutes les abstractions possibles.</p>
+        <p class="showcase-section__eyebrow">Fondations</p>
+        <h2>Les règles de base du système</h2>
+        <p>Les fondations assurent une interface stable, lisible et facile à reprendre dans une application métier.</p>
     </div>
 
-    <div class="showcase-blazor-grid">
-        <AppCard Title="Mode de rendu choisi"
-                 Description="La démonstration repose sur une Blazor Web App en mode Interactive Server."
-                 Tone="AppTone.Accent"
-                 IsCompact="true">
-            <ChildContent>
-                <p>Ce choix rend visibles la composition Razor, l’interactivité et l’intégration avec le backend sans transformer la vitrine en laboratoire technique difficile à lire.</p>
-            </ChildContent>
-            <Footer>
-                <div class="showcase-inline">
-                    <AppBadge Tone="AppTone.Accent">AddInteractiveServerComponents</AppBadge>
-                    <AppBadge Tone="AppTone.Info">AddInteractiveServerRenderMode</AppBadge>
-                </div>
-            </Footer>
-        </AppCard>
-
-        <AppCard Title="Ce que Blazor démontre ici"
-                 Description="Les composants Razor sont utilisés comme briques de composition et d’interaction."
-                 Tone="AppTone.Info"
-                 IsCompact="true">
-            <ChildContent>
-                <ul class="showcase-list">
-                    <li>composition du shell, des pages et des composants réutilisables</li>
-                    <li>binding et événements utilisateurs sur boutons, champs et modales</li>
-                    <li>état local explicite pour le module backlog et appels HTTP dédiés</li>
-                </ul>
-            </ChildContent>
-        </AppCard>
-
-        <AppCard Title="Compromis assumés"
-                 Description="Le dépôt ne cherche pas à démontrer tous les scénarios Blazor à la fois."
-                 Tone="AppTone.Success"
-                 IsCompact="true">
-            <ChildContent>
-                <p>Le projet n’a pas pour but principal de montrer WebAssembly, un store client global complexe ou une combinatoire complète de modes de rendu. Il privilégie la lisibilité, la cohérence et la démonstration métier.</p>
-            </ChildContent>
-            <Footer>
-                <div class="showcase-inline">
-                    <AppBadge Tone="AppTone.Neutral">Lisibilité</AppBadge>
-                    <AppBadge Tone="AppTone.Success">Architecture front</AppBadge>
-                    <AppBadge Tone="AppTone.Warning">Compromis documentés</AppBadge>
-                </div>
-            </Footer>
-        </AppCard>
-    </div>
-</section>
-
-<section id="fondations" class="showcase-section">
-    <div class="showcase-section__header">
-        <p class="showcase-section__eyebrow">Fondations visuelles</p>
-        <h3>Les bases du langage visuel</h3>
-        <p>Les fondations privilégient la lisibilité, la hiérarchie et la stabilité plutôt qu’un habillage démonstratif.</p>
-    </div>
-
-    <div class="showcase-foundation-grid">
+    <div class="showcase-grid showcase-grid--three">
         <AppCard Title="Palette et surfaces"
-                 Description="La palette s’appuie sur des neutres froids et un accent principal unique pour garder des écrans lisibles."
+                 Description="Un fond sobre, des surfaces nettes et un accent principal unique."
                  Tone="AppTone.Accent">
             <div class="showcase-swatches">
                 <div class="showcase-swatch showcase-swatch--canvas">
@@ -106,26 +52,26 @@
         </AppCard>
 
         <AppCard Title="Hiérarchie typographique"
-                 Description="Les tailles et les contrastes sont calibrés pour des écrans de travail et des captures de projet."
+                 Description="Une échelle pensée pour le scan rapide d’une interface de travail."
                  Tone="AppTone.Info">
             <div class="showcase-type-scale">
                 <div>
                     <p class="showcase-type-scale__eyebrow">Eyebrow</p>
-                    <span class="showcase-type-scale__meta">Repères de section et de navigation</span>
+                    <span class="showcase-type-scale__meta">Repères de page, de section et de navigation</span>
                 </div>
                 <div>
-                    <h2>Un titre net pour annoncer clairement la section affichée</h2>
-                    <span class="showcase-type-scale__meta">Titres de page, cartes importantes et panneaux</span>
+                    <h2>Un titre net pour annoncer clairement une zone importante</h2>
+                    <span class="showcase-type-scale__meta">Titres de page, cartes principales et panneaux structurants</span>
                 </div>
                 <div>
-                    <p>Le texte courant reste compact et lisible pour des filtres, des formulaires, des résumés et des écrans métier.</p>
-                    <span class="showcase-type-scale__meta">Texte descriptif et contenu applicatif</span>
+                    <p>Le texte courant reste volontairement compact pour préserver la densité et la lisibilité.</p>
+                    <span class="showcase-type-scale__meta">Descriptions, aides et contenus métier</span>
                 </div>
             </div>
         </AppCard>
 
         <AppCard Title="Rythme et responsive"
-                 Description="Les grilles et espacements sont limités à quelques règles simples pour conserver une maintenance directe."
+                 Description="Quelques règles simples pour garder un rendu stable sur desktop, tablette et mobile."
                  Tone="AppTone.Success">
             <div class="showcase-rhythm">
                 <div class="showcase-rhythm__diagram" aria-hidden="true">
@@ -155,27 +101,30 @@
                     </div>
                 </div>
                 <ul class="showcase-list">
-                    <li>Espacements réguliers autour des sections, cartes et contrôles</li>
-                    <li>Repli simple des grilles sur tablette et mobile</li>
-                    <li>Navigation et titres conçus pour rester compréhensibles sur chaque format</li>
+                    <li>espacements constants entre sections, cartes et contrôles</li>
+                    <li>grilles qui se replient sans changer la logique de lecture</li>
+                    <li>densité raisonnable pour une interface de travail</li>
                 </ul>
             </div>
         </AppCard>
     </div>
 </section>
 
-<section id="composants" class="showcase-section">
+<section class="showcase-section" id="actions">
     <div class="showcase-section__header">
-        <p class="showcase-section__eyebrow">Composants réutilisables</p>
-        <h3>Les briques prêtes à l’emploi</h3>
-        <p>Les composants privilégient une API simple, des états explicites et des usages directement réemployables dans une interface métier.</p>
+        <p class="showcase-section__eyebrow">Actions et saisie</p>
+        <h2>Les composants utilisés au quotidien</h2>
+        <p>Actions, champs et sélecteurs partagent les mêmes conventions de taille, de focus et de densité.</p>
     </div>
 
-    <div class="showcase-grid">
-        <AppCard Eyebrow="Actions" Title="AppButton" Description="Variantes principales, tailles et état de chargement pour les actions d’écran.">
+    <div class="showcase-grid showcase-grid--two">
+        <AppCard Eyebrow="Actions"
+                 Title="AppButton"
+                 Description="Variantes principales, tailles et état de chargement."
+                 Tone="AppTone.Accent">
             <div class="showcase-stack">
                 <div class="showcase-inline">
-                    <AppButton OnClick="MontrerActionPrincipaleAsync">Action principale</AppButton>
+                    <AppButton OnClick="MontrerActionPrincipaleAsync">Principale</AppButton>
                     <AppButton Variant="AppButtonVariant.Secondary" OnClick="MontrerActionSecondaireAsync">Secondaire</AppButton>
                     <AppButton Variant="AppButtonVariant.Ghost" OnClick="MontrerActionNavigationAsync">Ghost</AppButton>
                     <AppButton Variant="AppButtonVariant.Danger" OnClick="MontrerActionDangerAsync">Danger</AppButton>
@@ -186,7 +135,7 @@
                     <AppButton Size="AppControlSize.Large" OnClick="MontrerActionGrandeAsync">Grand</AppButton>
                     <AppButton Disabled="true">Désactivé</AppButton>
                     <AppButton Variant="AppButtonVariant.Secondary" OnClick="ToggleButtonLoadingAsync">
-                        @(_isButtonLoading ? "Désactiver l’état de chargement" : "Activer l’état de chargement")
+                        @(_isButtonLoading ? "Désactiver le chargement" : "Activer le chargement")
                     </AppButton>
                     <AppButton IsLoading="_isButtonLoading">Action en cours</AppButton>
                 </div>
@@ -198,11 +147,14 @@
             </div>
         </AppCard>
 
-        <AppCard Eyebrow="Formulaires" Title="AppInput, AppSelect et AppTextarea" Description="Les champs partagent les mêmes conventions de lisibilité, de validation et de focus.">
+        <AppCard Eyebrow="Saisie"
+                 Title="AppInput, AppSelect et AppTextarea"
+                 Description="Les champs restent lisibles et homogènes, sans variantes inutiles."
+                 Tone="AppTone.Info">
             <div class="showcase-form-grid">
                 <AppInput Label="Nom du contact"
                           Placeholder="Claire Martin"
-                          Description="Binding simple et intégration naturelle dans un formulaire Blazor."
+                          Description="Exemple de champ texte standard."
                           @bind-Value="_contactName" />
 
                 <AppInput Label="Adresse e-mail"
@@ -212,22 +164,32 @@
                           @bind-Value="_email" />
 
                 <AppSelect Label="Environnement"
-                           Description="Exemple de liste déroulante typée."
+                           Description="Liste déroulante typée."
                            Options="_environments"
                            @bind-Value="_selectedEnvironment" />
 
-                <AppTextarea Label="Message d’introduction"
-                             Description="Le composant gère aussi les états d’erreur et de chargement."
+                <AppTextarea Label="Message"
+                             Description="Champ multi-ligne avec limite visible."
                              Rows="5"
                              MaxLength="280"
                              @bind-Value="_message" />
             </div>
-            <p class="showcase-form-note">
-                Les exemples ci-dessus servent à vérifier le rythme vertical, la validation et la cohérence des états de focus.
-            </p>
         </AppCard>
+    </div>
+</section>
 
-        <AppCard Eyebrow="Feedback" Title="AppBadge et AppLoader" Description="Des éléments légers pour signaler des statuts, des niveaux ou une attente côté interface.">
+<section class="showcase-section" id="feedback">
+    <div class="showcase-section__header">
+        <p class="showcase-section__eyebrow">Statuts et feedback</p>
+        <h2>Informer sans surcharger l’interface</h2>
+        <p>Badges, loaders et messages signalent un état, une priorité ou une attente sans casser la lecture.</p>
+    </div>
+
+    <div class="showcase-grid showcase-grid--two">
+        <AppCard Eyebrow="Statuts"
+                 Title="AppBadge"
+                 Description="Une échelle simple pour représenter l’état et la criticité."
+                 Tone="AppTone.Success">
             <div class="showcase-stack">
                 <div class="showcase-inline">
                     <AppBadge Tone="AppTone.Neutral">Brouillon</AppBadge>
@@ -236,16 +198,38 @@
                     <AppBadge Tone="AppTone.Warning">À vérifier</AppBadge>
                     <AppBadge Tone="AppTone.Danger">Bloqué</AppBadge>
                 </div>
-
-                <div class="showcase-inline">
-                    <AppLoader Label="Synchronisation" />
-                    <AppLoader Size="AppControlSize.Small" Label="Chargement léger" />
-                    <AppLoader Size="AppControlSize.Large" Label="Traitement étendu" />
-                </div>
+                <p class="showcase-feedback">Les couleurs suivent une logique sémantique stable entre la vitrine et le backlog.</p>
             </div>
         </AppCard>
 
-        <AppCard Eyebrow="Composition" Title="AppCard et AppPageHeader" Description="Des briques de composition pour construire des écrans métier avec une hiérarchie stable.">
+        <AppCard Eyebrow="Chargement"
+                 Title="AppLoader"
+                 Description="Une attente visible mais discrète, adaptée au contexte."
+                 Tone="AppTone.Warning">
+            <div class="showcase-stack">
+                <div class="showcase-inline showcase-inline--loaders">
+                    <AppLoader Size="AppControlSize.Small" Label="Léger" />
+                    <AppLoader Label="Standard" />
+                    <AppLoader Size="AppControlSize.Large" Label="Étendu" />
+                </div>
+                <p class="showcase-feedback">Les trois tailles sont volontairement distinguées pour qu’une équipe puisse les utiliser selon la densité de l’écran.</p>
+            </div>
+        </AppCard>
+    </div>
+</section>
+
+<section class="showcase-section" id="composition">
+    <div class="showcase-section__header">
+        <p class="showcase-section__eyebrow">Composition d’écran</p>
+        <h2>Assembler des écrans métier cohérents</h2>
+        <p>Les composants de structure composent une page complète sans rompre la hiérarchie visuelle du système.</p>
+    </div>
+
+    <div class="showcase-grid showcase-grid--two">
+        <AppCard Eyebrow="Structure"
+                 Title="AppPageHeader et cartes"
+                 Description="Un en-tête réutilisable pour les pages, suivi de cartes plus compactes pour le détail."
+                 Tone="AppTone.Accent">
             <div class="showcase-stack">
                 <AppPageHeader Title="Tableau de bord régional"
                                Description="Exemple d’en-tête réutilisable pour une page métier ou un onglet fonctionnel."
@@ -259,7 +243,9 @@
                     </Actions>
                 </AppPageHeader>
 
-                <AppCard Title="Carte imbriquée" Description="Une carte peut encapsuler des sous-sections ou des métriques sans rompre la cohérence générale." IsCompact="true">
+                <AppCard Title="Carte imbriquée"
+                         Description="Une carte secondaire peut détailler métriques, sous-sections ou indicateurs."
+                         IsCompact="true">
                     <div class="showcase-metrics">
                         <div>
                             <strong>98,4 %</strong>
@@ -267,7 +253,7 @@
                         </div>
                         <div>
                             <strong>24 min</strong>
-                            <span>Délai moyen de traitement</span>
+                            <span>Délai moyen</span>
                         </div>
                         <div>
                             <strong>12</strong>
@@ -278,11 +264,14 @@
             </div>
         </AppCard>
 
-        <AppCard Eyebrow="États" Title="AppEmptyState et AppModal" Description="Des composants pensés pour l’absence de données et les confirmations courtes.">
+        <AppCard Eyebrow="États"
+                 Title="AppEmptyState et AppModal"
+                 Description="Des composants conçus pour l’absence de données et les confirmations courtes."
+                 Tone="AppTone.Info">
             <div class="showcase-stack">
                 <AppEmptyState Eyebrow="Données"
                                Title="Aucun rapport n’est encore disponible"
-                               Description="Le composant évite les écrans vides et oriente immédiatement l’utilisateur vers l’action utile."
+                               Description="Le composant évite les écrans vides et oriente immédiatement vers l’action utile."
                                Tone="AppTone.Accent">
                     <VisualContent>
                         <span class="showcase-visual-token">0</span>
@@ -292,7 +281,7 @@
                         <AppButton Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small" OnClick="ImporterRapportExempleAsync">Importer</AppButton>
                     </Actions>
                     <ChildContent>
-                        Dans cette démonstration, les actions déclenchent une modale ou un message de confirmation pour illustrer le comportement attendu.
+                        L’état vide reste démonstratif sans être bavard, avec une action principale claire et une alternative secondaire.
                     </ChildContent>
                 </AppEmptyState>
             </div>

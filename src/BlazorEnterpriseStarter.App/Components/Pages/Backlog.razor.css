@@ -98,8 +98,7 @@
 }
 
 .backlog-region--busy,
-.backlog-list__item,
-.backlog-pagination {
+.backlog-list__item {
     transition:
         opacity 160ms ease,
         transform 180ms ease,
@@ -234,11 +233,7 @@
     justify-content: space-between;
     gap: var(--bes-space-3);
     flex-wrap: wrap;
-    padding: var(--bes-space-4) var(--bes-space-5);
-    border: 1px solid var(--bes-color-border-subtle);
-    border-radius: calc(var(--bes-radius-md) + 0.12rem);
-    background: var(--bes-color-surface-primary);
-    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
+    width: 100%;
 }
 
 .backlog-pagination__summary {

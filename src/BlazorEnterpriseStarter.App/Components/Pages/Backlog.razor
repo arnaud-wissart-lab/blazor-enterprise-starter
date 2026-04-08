@@ -4,7 +4,7 @@
 
 <AppPageHeader Eyebrow="Module métier"
                Title="Backlog produit"
-               Description="Exemple de module métier avec liste, recherche, filtres, pagination serveur et opérations CRUD.">
+               Description="Écran métier avec liste, recherche, filtres, pagination et opérations CRUD.">
     <Badges>
         <AppBadge Tone="AppTone.Accent">@NombreTotalLibelle</AppBadge>
         @if (FiltreStatutActif is not null)
@@ -26,7 +26,7 @@
         <AppButton OnClick="OuvrirCreationAsync">Créer un élément</AppButton>
     </Actions>
     <ChildContent>
-        <p>La navigation latérale permet de revenir vers les autres sections sans perdre le contexte courant.</p>
+        <p>Le backlog sert de preuve concrète : données, interactions et états d’interface sont déjà raccordés dans un flux simple et lisible.</p>
     </ChildContent>
 </AppPageHeader>
 
@@ -51,13 +51,13 @@
      && !string.IsNullOrWhiteSpace(State.MutationErrorMessage))
 {
     <AppCard Eyebrow="Dernière action"
-             Title="Une action n’a pas pu être finalisée"
-             Description="@State.MutationErrorMessage"
-             Tone="AppTone.Danger"
-             IsCompact="true">
+            Title="Une action n’a pas pu être finalisée"
+            Description="@State.MutationErrorMessage"
+            Tone="AppTone.Danger"
+            IsCompact="true">
         <ChildContent>
             <div class="backlog-state">
-                <AppButton Variant="AppButtonVariant.Secondary" OnClick="ActualiserAsync">Réactualiser la liste</AppButton>
+                <AppButton Variant="AppButtonVariant.Secondary" OnClick="ActualiserAsync">Actualiser la liste</AppButton>
             </div>
         </ChildContent>
     </AppCard>
@@ -65,13 +65,13 @@
 
 <AppCard Eyebrow="Pilotage"
          Title="Filtres et tri"
-         Description="Ajustez les critères pour explorer la liste et faire varier les résultats.">
+         Description="Ajustez la recherche, les vues rapides et l’ordre de lecture sans casser le rythme de l’écran.">
     <ChildContent>
         <div class="backlog-filters-panel">
             <div class="backlog-filters-panel__controls">
                 <div class="backlog-filters">
                     <AppInput Label="Recherche"
-                              Placeholder="Titre, description, besoin métier..."
+                              Placeholder="Titre, description ou besoin métier"
                               Description="@DescriptionRechercheActive"
                               MaxLength="@BacklogInputRules.RechercheLongueurMaximale"
                               IsLoading="@AfficherIndicateurRafraichissement"
@@ -105,7 +105,7 @@
 
             <aside class="backlog-filters-panel__summary">
                 <div class="backlog-filters-panel__section">
-                    <p class="backlog-filters-panel__title">Vues rapides</p>
+                    <p class="backlog-filters-panel__title">Accès rapides</p>
                     <div class="backlog-quick-filters">
                         <AppButton Variant="@(VueRapideActive == "tout" ? AppButtonVariant.Secondary : AppButtonVariant.Ghost)"
                                    Size="AppControlSize.Small"
@@ -135,7 +135,7 @@
 
                     @if (!AUnFiltreActif)
                     {
-                        <p class="backlog-filters-panel__empty">Aucun filtre spécifique n’est appliqué. La vue affiche le backlog complet selon le tri courant.</p>
+                        <p class="backlog-filters-panel__empty">Aucun filtre spécifique n’est appliqué. La vue affiche actuellement tout le backlog.</p>
                     }
                     else
                     {
@@ -171,7 +171,7 @@
                 </div>
 
                 <p class="backlog-filters-panel__hint">
-                    La recherche se déclenche automatiquement après une courte pause. Les autres filtres restent pilotés manuellement pour garder une requête lisible et contrôlée.
+                    La recherche se déclenche automatiquement après une courte pause. Les autres filtres restent explicites pour garder un comportement lisible.
                 </p>
             </aside>
         </div>
@@ -230,7 +230,7 @@ else
     }
 
     <div class="backlog-summary-grid @(AfficherIndicateurRafraichissement ? "backlog-region--busy" : null)">
-        <AppCard Title="Total filtré" Description="Nombre d’éléments correspondant aux critères en cours." IsCompact="true">
+        <AppCard Title="Total filtré" Description="Éléments correspondant aux critères en cours." IsCompact="true">
             <ChildContent>
                 <div class="backlog-metric">
                     <strong>@State.TotalCount</strong>
@@ -239,7 +239,7 @@ else
             </ChildContent>
         </AppCard>
 
-        <AppCard Title="En cours" Description="Éléments visibles actuellement en exécution sur la page." IsCompact="true">
+        <AppCard Title="En cours" Description="Sujets actifs visibles sur la page courante." IsCompact="true">
             <ChildContent>
                 <div class="backlog-metric">
                     <strong>@NombreElementsEnCoursVisibles</strong>
@@ -248,7 +248,7 @@ else
             </ChildContent>
         </AppCard>
 
-        <AppCard Title="Prêts à lancer" Description="Éléments déjà cadrés et prêts à être engagés." IsCompact="true">
+        <AppCard Title="Prêts à lancer" Description="Sujets suffisamment cadrés pour être engagés." IsCompact="true">
             <ChildContent>
                 <div class="backlog-metric">
                     <strong>@NombreElementsPretsVisibles</strong>
@@ -257,7 +257,7 @@ else
             </ChildContent>
         </AppCard>
 
-        <AppCard Title="Priorité critique" Description="Sujets nécessitant une vigilance immédiate sur la vue courante." IsCompact="true">
+        <AppCard Title="Priorité critique" Description="Points nécessitant une vigilance immédiate." IsCompact="true">
             <ChildContent>
                 <div class="backlog-metric">
                     <strong>@NombreElementsCritiquesVisibles</strong>
@@ -278,7 +278,7 @@ else
                 <AppButton OnClick="OuvrirCreationAsync">Créer un élément</AppButton>
             </Actions>
             <ChildContent>
-                Les critères actuels ne renvoient aucun résultat. Vous pouvez élargir la recherche ou ajouter un élément à la liste.
+                Les critères actuels ne renvoient aucun résultat. Vous pouvez élargir la recherche ou ajouter un nouvel élément.
             </ChildContent>
         </AppEmptyState>
     }
@@ -304,6 +304,27 @@ else
                     </div>
                 </div>
             </ChildContent>
+            <Footer>
+                <div class="backlog-pagination">
+                    <AppButton Variant="AppButtonVariant.Secondary"
+                               Size="AppControlSize.Small"
+                               Disabled="@(!PeutAllerPagePrecedente || AfficherIndicateurRafraichissement)"
+                               OnClick="AllerPagePrecedenteAsync">
+                        Page précédente
+                    </AppButton>
+
+                    <span class="backlog-pagination__summary">
+                        Page @State.CurrentPage sur @(State.TotalPages == 0 ? 1 : State.TotalPages)
+                    </span>
+
+                    <AppButton Variant="AppButtonVariant.Secondary"
+                               Size="AppControlSize.Small"
+                               Disabled="@(!PeutAllerPageSuivante || AfficherIndicateurRafraichissement)"
+                               OnClick="AllerPageSuivanteAsync">
+                        Page suivante
+                    </AppButton>
+                </div>
+            </Footer>
         </AppCard>
 
         <div @key="State.CurrentPage"
@@ -347,25 +368,6 @@ else
             }
         </div>
 
-        <div class="backlog-pagination @(AfficherIndicateurRafraichissement ? "backlog-region--busy" : null)">
-            <AppButton Variant="AppButtonVariant.Secondary"
-                       Size="AppControlSize.Small"
-                       Disabled="@(!PeutAllerPagePrecedente || AfficherIndicateurRafraichissement)"
-                       OnClick="AllerPagePrecedenteAsync">
-                Page précédente
-            </AppButton>
-
-            <span class="backlog-pagination__summary">
-                Page @State.CurrentPage sur @(State.TotalPages == 0 ? 1 : State.TotalPages)
-            </span>
-
-            <AppButton Variant="AppButtonVariant.Secondary"
-                       Size="AppControlSize.Small"
-                       Disabled="@(!PeutAllerPageSuivante || AfficherIndicateurRafraichissement)"
-                       OnClick="AllerPageSuivanteAsync">
-                Page suivante
-            </AppButton>
-        </div>
     }
 }
 

@@ -3,7 +3,7 @@
     display: grid;
     align-items: start;
     grid-template-columns: minmax(18rem, 18.75rem) minmax(0, 1fr);
-    column-gap: clamp(1.6rem, 2.8vw, 2.35rem);
+    column-gap: clamp(1.85rem, 3vw, 2.65rem);
     row-gap: var(--bes-space-6);
     max-width: 98rem;
     margin: 0 auto;
@@ -108,7 +108,7 @@
 .app-shell__topbar-copy {
     display: grid;
     gap: var(--bes-space-3);
-    max-width: min(100%, 58rem);
+    max-width: min(100%, 54rem);
 }
 
 .app-shell__topbar-eyebrow {
@@ -126,13 +126,13 @@
 }
 
 .app-shell__topbar-copy h2 {
-    font-size: clamp(1.62rem, 2.2vw, 2rem);
-    line-height: 1.1;
+    font-size: clamp(1.54rem, 2.1vw, 1.92rem);
+    line-height: 1.12;
 }
 
 .app-shell__topbar-copy p {
-    max-width: min(100%, 60rem);
-    line-height: 1.6;
+    max-width: min(100%, 52rem);
+    line-height: 1.55;
     color: var(--bes-color-text-secondary);
 }
 

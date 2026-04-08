@@ -121,8 +121,8 @@ public partial class Backlog : ComponentBase, IDisposable
 
     private string DescriptionRechercheActive =>
         string.IsNullOrWhiteSpace(_recherche)
-            ? "La recherche se lance automatiquement après une courte pause de saisie."
-            : $"Recherche active : \"{_recherche}\"";
+            ? "La recherche se lance automatiquement après une courte pause."
+            : $"Recherche active : « {_recherche} »";
 
     private string LibelleTriCourant =>
         $"{ObtenirLibelleTri(ConvertirEnum(_triSelectionne, BacklogItemSortField.DateCreation))} · {ObtenirLibelleDirection(ConvertirEnum(_directionSelectionnee, DirectionTri.Decroissante))}";
@@ -132,6 +132,13 @@ public partial class Backlog : ComponentBase, IDisposable
         get
         {
             var segments = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(_recherche)
+                && FiltreStatutActif is null
+                && FiltrePrioriteActif is null)
+            {
+                segments.Add("Vue complète");
+            }
 
             if (!string.IsNullOrWhiteSpace(_recherche))
             {
@@ -177,11 +184,11 @@ public partial class Backlog : ComponentBase, IDisposable
 
     private string TitreSyntheseFormulaire =>
         _idEdition is null
-            ? "Préparer un élément clair, actionnable et simple à prioriser."
-            : "Mettre à jour l’élément sans perdre la lisibilité de la file produit.";
+            ? "Préparer un élément clair, actionnable et facile à prioriser."
+            : "Mettre à jour l’élément sans casser la lisibilité du backlog.";
 
     private string DescriptionSyntheseFormulaire =>
-        $"Le formulaire prépare une fiche courte avec le statut {LibelleStatutFormulaire.ToLowerInvariant()} et la priorité {LibellePrioriteFormulaire.ToLowerInvariant()}.";
+        $"La fiche reste courte, avec le statut {LibelleStatutFormulaire.ToLowerInvariant()} et la priorité {LibellePrioriteFormulaire.ToLowerInvariant()}.";
 
     private string DescriptionTitreFormulaire =>
         $"{_formulaire.Titre.Length}/{BacklogInputRules.TitreLongueurMaximale} caractères · privilégiez un libellé orienté action.";
@@ -636,10 +643,10 @@ public partial class Backlog : ComponentBase, IDisposable
 
     private static string ObtenirLibelleTri(BacklogItemSortField tri) => tri switch
     {
-        BacklogItemSortField.DateCreation => "Tri par date de création",
-        BacklogItemSortField.Priorite => "Tri par priorité",
-        BacklogItemSortField.Statut => "Tri par statut",
-        BacklogItemSortField.Titre => "Tri alphabétique",
+        BacklogItemSortField.DateCreation => "Date de création",
+        BacklogItemSortField.Priorite => "Priorité",
+        BacklogItemSortField.Statut => "Statut",
+        BacklogItemSortField.Titre => "Titre",
         _ => tri.ToString()
     };
 

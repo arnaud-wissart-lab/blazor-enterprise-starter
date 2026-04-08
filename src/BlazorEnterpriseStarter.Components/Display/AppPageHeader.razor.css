@@ -1,6 +1,6 @@
 .app-page-header {
     display: grid;
-    gap: var(--bes-space-5);
+    gap: var(--bes-space-4);
     padding: var(--bes-space-6);
     border: 1px solid var(--bes-color-border-subtle);
     border-radius: var(--bes-radius-xl);
@@ -21,7 +21,7 @@
 .app-page-header__copy {
     display: grid;
     gap: var(--bes-space-3);
-    max-width: min(100%, 62rem);
+    max-width: min(100%, 56rem);
 }
 
 .app-page-header__eyebrow {
@@ -35,7 +35,7 @@
 
 .app-page-header__title {
     margin: 0;
-    font-size: clamp(1.9rem, 2.8vw, 2.35rem);
+    font-size: clamp(1.82rem, 2.6vw, 2.22rem);
     line-height: 1.08;
     scroll-margin-top: var(--bes-space-6);
 }
@@ -52,19 +52,16 @@
 
 .app-page-header__description {
     margin: 0;
-    line-height: 1.62;
+    max-width: min(100%, 52rem);
+    line-height: 1.58;
     color: var(--bes-color-text-secondary);
-}
-
-.app-page-header__description {
-    max-width: min(100%, 64rem);
 }
 
 .app-page-header__toolbar {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: var(--bes-space-4);
-    align-items: center;
+    align-items: start;
 }
 
 .app-page-header__badges,
@@ -81,8 +78,9 @@
 
 .app-page-header__details {
     display: grid;
-    gap: var(--bes-space-3);
-    padding-top: var(--bes-space-1);
+    gap: var(--bes-space-4);
+    padding-top: var(--bes-space-4);
+    border-top: 1px solid var(--bes-color-border-subtle);
 }
 
 @media (max-width: 48rem) {

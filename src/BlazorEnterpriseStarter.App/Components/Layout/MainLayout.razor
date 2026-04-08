@@ -1,11 +1,11 @@
 @inherits LayoutComponentBase
 
 <AppShell ProductName="BlazorEnterpriseStarter"
-          Title="Démonstrateur technique .NET"
-          Subtitle="Application Blazor avec API ASP.NET Core, design system réutilisable et module backlog produit."
-          TopBarEyebrow="Navigation"
-          TopBarTitle="Parcours de démonstration"
-          TopBarDescription="L’accueil présente le projet, la bibliothèque UI expose les composants et le backlog montre un cas d’usage complet.">
+          Title="Starter applicatif .NET"
+          Subtitle="Base Blazor avec API séparée, design system et module backlog déjà exploitable."
+          TopBarEyebrow="Démo"
+          TopBarTitle="Explorer le starter"
+          TopBarDescription="Accueil, bibliothèque UI et backlog montrent ensemble le socle applicatif, le design system et un écran métier réutilisable.">
     <NavigationContent>
         <div class="layout-nav">
             <NavLink href="/" Match="NavLinkMatch.All" class="layout-nav__link" style="text-decoration:none;">
@@ -19,7 +19,7 @@
                         </span>
                         <strong>Accueil</strong>
                     </span>
-                    <small>Vue d’ensemble du projet, de l’architecture et des accès principaux.</small>
+                    <small>Positionnement du starter, preuves concrètes et accès principaux.</small>
                 </span>
             </NavLink>
 
@@ -36,7 +36,7 @@
                         </span>
                         <strong>Bibliothèque UI</strong>
                     </span>
-                    <small>Fondations visuelles, composants réutilisables et états d’interface.</small>
+                    <small>Tokens, composants, feedback et états d’interface.</small>
                 </span>
             </NavLink>
 
@@ -55,7 +55,7 @@
                         </span>
                         <strong>Backlog produit</strong>
                     </span>
-                    <small>Cas d’usage complet avec recherche, filtres, pagination et édition.</small>
+                    <small>Recherche, filtres, pagination et opérations CRUD sur un vrai écran métier.</small>
                 </span>
             </NavLink>
         </div>
@@ -65,10 +65,10 @@
         <div class="layout-sidebar-panel">
             <p class="layout-sidebar-panel__eyebrow">Repères</p>
             <ul class="layout-sidebar-panel__list">
-                <li>Front-end Blazor et backend ASP.NET Core séparés</li>
-                <li>Design system et composants applicatifs distincts</li>
-                <li>Module backlog utilisé comme exemple métier démonstratif</li>
-                <li>Exécution locale via Aspire, avec alternative Docker</li>
+                <li>Front Blazor et API ASP.NET Core séparés</li>
+                <li>Design system et composants applicatifs factorisés</li>
+                <li>Backlog utilisé comme preuve métier directement exploitable</li>
+                <li>Lancement local via Aspire ou Docker</li>
             </ul>
         </div>
     </SidebarContent>
@@ -81,7 +81,12 @@
 <ThemeModeToggle IsFloating="true" />
 
 <div id="blazor-error-ui" data-nosnippet>
-    Une erreur inattendue est survenue.
-    <a href="." class="reload">Recharger</a>
-    <span class="dismiss">x</span>
+    <div class="layout-error-banner">
+        <strong>Connexion interrompue</strong>
+        <p>Une erreur empêche l’interface de poursuivre normalement. Vous pouvez recharger la page ou fermer ce message si la situation se rétablit.</p>
+        <div class="layout-error-banner__actions">
+            <a href="." class="reload">Recharger</a>
+            <button type="button" class="dismiss" aria-label="Fermer le message">Fermer</button>
+        </div>
+    </div>
 </div>
