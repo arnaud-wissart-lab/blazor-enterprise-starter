@@ -22,7 +22,7 @@
 
 .app-button:hover {
     transform: translateY(-1px);
-    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
 }
 
 .app-button:active {
@@ -75,19 +75,19 @@
 }
 
 .app-button--primary {
-    background: linear-gradient(135deg, var(--bes-color-accent-primary), var(--bes-color-accent-strong));
+    background: var(--bes-color-accent-primary);
     color: var(--bes-color-text-inverse);
-    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.22);
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.2);
 }
 
 .app-button--primary:hover {
-    background: linear-gradient(135deg, #2b6df0, var(--bes-color-accent-strong));
+    background: var(--bes-color-accent-strong);
     color: var(--bes-color-text-inverse);
 }
 
 .app-button--secondary {
     border-color: var(--bes-color-border-strong);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+    background: var(--bes-color-surface-primary);
     color: var(--bes-color-text-primary);
 }
 
@@ -96,23 +96,23 @@
 }
 
 .app-button--ghost {
-    background: rgba(255, 255, 255, 0.2);
-    color: var(--bes-color-accent-strong);
+    background: var(--bes-color-surface-secondary);
+    color: var(--bes-color-accent-primary);
     border-color: var(--bes-color-border-subtle);
 }
 
 .app-button--ghost:hover {
-    background: rgba(37, 99, 235, 0.08);
+    background: var(--bes-color-accent-surface);
 }
 
 .app-button--danger {
-    background: linear-gradient(135deg, #c7392d, #a61b14);
+    background: #b42318;
     color: var(--bes-color-text-inverse);
-    box-shadow: 0 10px 22px rgba(180, 35, 24, 0.18);
+    box-shadow: 0 8px 18px rgba(180, 35, 24, 0.18);
 }
 
 .app-button--danger:hover {
-    background: linear-gradient(135deg, #bf3025, #991b1b);
+    background: #981b1b;
 }
 
 @media (prefers-color-scheme: dark) {

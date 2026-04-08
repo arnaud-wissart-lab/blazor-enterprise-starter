@@ -6,22 +6,32 @@
 
 .home-header-stats div {
     display: grid;
-    gap: 0.35rem;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    column-gap: var(--bes-space-3);
+    row-gap: 0.1rem;
     padding: var(--bes-space-4);
     border: 1px solid var(--bes-color-border-subtle);
     border-radius: calc(var(--bes-radius-md) + 0.08rem);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 248, 252, 0.94));
-    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
+    background: var(--bes-color-surface-primary);
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
 }
 
 .home-header-stats strong {
-    font-size: clamp(1.4rem, 2vw, 1.7rem);
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    min-width: 2.4rem;
+    font-size: clamp(1.55rem, 2vw, 1.9rem);
+    line-height: 1;
     color: var(--bes-color-text-primary);
 }
 
 .home-header-stats span {
+    align-self: center;
     color: var(--bes-color-text-secondary);
     font-size: var(--bes-font-size-sm);
+    line-height: 1.45;
 }
 
 .home-overview-grid {

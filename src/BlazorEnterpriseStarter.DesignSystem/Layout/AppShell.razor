@@ -35,7 +35,7 @@
     </aside>
 
     <div class="app-shell__main">
-        <header class="app-shell__topbar">
+        <header class="@(TopBarMetaContent is null ? "app-shell__topbar app-shell__topbar--simple" : "app-shell__topbar")">
             <div class="app-shell__topbar-copy">
                 @if (!string.IsNullOrWhiteSpace(TopBarEyebrow))
                 {

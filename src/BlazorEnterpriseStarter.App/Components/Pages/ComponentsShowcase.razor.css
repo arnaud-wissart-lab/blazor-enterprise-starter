@@ -121,27 +121,52 @@
     gap: var(--bes-space-4);
 }
 
-.showcase-rhythm__bars {
+.showcase-rhythm__diagram {
     display: grid;
-    gap: var(--bes-space-2);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--bes-space-3);
 }
 
-.showcase-rhythm__bars span {
-    height: 0.75rem;
+.showcase-rhythm__frame {
+    display: grid;
+    gap: var(--bes-space-3);
+    padding: var(--bes-space-3);
+    border: 1px solid var(--bes-color-border-subtle);
     border-radius: var(--bes-radius-md);
-    background: var(--bes-color-surface-tertiary);
+    background: var(--bes-color-surface-secondary);
 }
 
-.showcase-rhythm__bars span:nth-child(1) {
-    width: 45%;
+.showcase-rhythm__label {
+    font-size: var(--bes-font-size-xs);
+    font-weight: var(--bes-font-weight-bold);
+    letter-spacing: var(--bes-letter-spacing-caps);
+    text-transform: uppercase;
+    color: var(--bes-color-accent-primary);
 }
 
-.showcase-rhythm__bars span:nth-child(2) {
-    width: 72%;
+.showcase-rhythm__rows {
+    display: grid;
+    gap: 0.45rem;
 }
 
-.showcase-rhythm__bars span:nth-child(3) {
+.showcase-rhythm__row {
+    display: block;
+    height: 0.8rem;
+    border-radius: var(--bes-radius-pill);
+    background:
+        linear-gradient(90deg, rgba(37, 99, 235, 0.18), rgba(37, 99, 235, 0.08));
+}
+
+.showcase-rhythm__row--wide {
     width: 100%;
+}
+
+.showcase-rhythm__row--medium {
+    width: 78%;
+}
+
+.showcase-rhythm__row--split {
+    width: 48%;
 }
 
 .showcase-list,
@@ -180,9 +205,9 @@
 
 .showcase-form-note {
     padding: var(--bes-space-3) var(--bes-space-4);
-    border: 1px solid rgba(148, 163, 184, 0.14);
+    border: 1px solid var(--bes-color-border-subtle);
     border-radius: var(--bes-radius-md);
-    background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(241, 245, 249, 0.92));
+    background: var(--bes-color-surface-secondary);
 }
 
 .showcase-nested-header {
@@ -201,8 +226,8 @@
     padding: var(--bes-space-4);
     border: 1px solid var(--bes-color-border-subtle);
     border-radius: var(--bes-radius-md);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 248, 252, 0.94));
-    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
+    background: var(--bes-color-surface-primary);
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
 }
 
 .showcase-metrics strong {
@@ -234,6 +259,10 @@
     .showcase-foundation-grid,
     .showcase-form-grid,
     .showcase-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .showcase-rhythm__diagram {
         grid-template-columns: 1fr;
     }
 }

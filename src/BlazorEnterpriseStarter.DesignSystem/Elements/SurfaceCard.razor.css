@@ -6,6 +6,16 @@
     border-radius: var(--bes-radius-lg);
     background: var(--bes-color-surface-primary);
     box-shadow: var(--bes-shadow-sm);
+    transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.surface-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--bes-color-border-strong);
+    box-shadow: 0 16px 28px rgba(15, 23, 42, 0.08);
 }
 
 .surface-card__header {
@@ -23,11 +33,14 @@
 }
 
 .surface-card__header h3 {
-    font-size: var(--bes-font-size-xl);
+    margin: 0;
+    font-size: clamp(1.12rem, 1.3vw, 1.34rem);
+    line-height: 1.2;
 }
 
 .surface-card__description {
     margin: 0;
+    line-height: 1.58;
     color: var(--bes-color-text-secondary);
 }
 

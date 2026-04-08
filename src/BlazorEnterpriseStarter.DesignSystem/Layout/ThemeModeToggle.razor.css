@@ -54,3 +54,34 @@
     font-weight: var(--bes-font-weight-semibold);
     white-space: nowrap;
 }
+
+.theme-mode-toggle--floating {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: var(--bes-z-overlay);
+    justify-content: center;
+    width: 3rem;
+    min-width: 3rem;
+    min-height: 3rem;
+    padding: 0;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bes-color-surface-primary) 88%, transparent);
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.16);
+    backdrop-filter: blur(12px);
+}
+
+.theme-mode-toggle--floating .theme-mode-toggle__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+@media (max-width: 48rem) {
+    .theme-mode-toggle--floating {
+        top: 0.85rem;
+        right: 0.85rem;
+        width: 2.75rem;
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+    }
+}

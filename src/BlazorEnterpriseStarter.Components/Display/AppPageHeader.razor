@@ -9,32 +9,37 @@
 
         <div class="app-page-header__title-group">
             <h2 class="app-page-header__title">@Title</h2>
-
-            @if (Badges is not null)
-            {
-                <div class="app-page-header__badges">
-                    @Badges
-                </div>
-            }
         </div>
 
         @if (!string.IsNullOrWhiteSpace(Description))
         {
             <p class="app-page-header__description">@Description</p>
         }
-
-        @if (ChildContent is not null)
-        {
-            <div class="app-page-header__details">
-                @ChildContent
-            </div>
-        }
     </div>
 
-    @if (Actions is not null)
+    @if (Badges is not null || Actions is not null)
     {
-        <div class="app-page-header__actions">
-            @Actions
+        <div class="app-page-header__toolbar">
+            @if (Badges is not null)
+            {
+                <div class="app-page-header__badges">
+                    @Badges
+                </div>
+            }
+
+            @if (Actions is not null)
+            {
+                <div class="app-page-header__actions">
+                    @Actions
+                </div>
+            }
+        </div>
+    }
+
+    @if (ChildContent is not null)
+    {
+        <div class="app-page-header__details">
+            @ChildContent
         </div>
     }
 </header>

@@ -1,7 +1,7 @@
 @namespace BlazorEnterpriseStarter.DesignSystem.Layout
 
 <button type="button"
-        class="theme-mode-toggle"
+        class="@(IsFloating ? "theme-mode-toggle theme-mode-toggle--floating" : "theme-mode-toggle")"
         title="@InfoBulle"
         aria-label="@LibelleAccessible"
         @onclick="BasculerAsync">
@@ -28,5 +28,8 @@
         }
     </span>
 
-    <span class="theme-mode-toggle__label">@LibelleVisible</span>
+    @if (!IsFloating)
+    {
+        <span class="theme-mode-toggle__label">@LibelleVisible</span>
+    }
 </button>

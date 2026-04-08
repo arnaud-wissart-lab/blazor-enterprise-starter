@@ -13,6 +13,9 @@ public partial class ThemeModeToggle : ComponentBase
     [Inject]
     public IJSRuntime JSRuntime { get; set; } = default!;
 
+    [Parameter]
+    public bool IsFloating { get; set; }
+
     private string LibelleVisible => _themeActuel == "dark" ? "Mode sombre" : "Mode clair";
 
     private string LibelleAccessible => _themeActuel == "dark"

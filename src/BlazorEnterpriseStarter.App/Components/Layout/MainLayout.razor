@@ -8,7 +8,7 @@
           TopBarDescription="L’accueil présente le projet, la bibliothèque UI expose les composants et le backlog montre un cas d’usage complet.">
     <NavigationContent>
         <div class="layout-nav">
-            <NavLink href="/" Match="NavLinkMatch.All" class="layout-nav__link">
+            <NavLink href="/" Match="NavLinkMatch.All" class="layout-nav__link" style="text-decoration:none;">
                 <span class="layout-nav__copy">
                     <span class="layout-nav__headline">
                         <span class="layout-nav__icon layout-nav__icon--home" aria-hidden="true">
@@ -23,7 +23,7 @@
                 </span>
             </NavLink>
 
-            <NavLink href="/composants" class="layout-nav__link">
+            <NavLink href="/composants" class="layout-nav__link" style="text-decoration:none;">
                 <span class="layout-nav__copy">
                     <span class="layout-nav__headline">
                         <span class="layout-nav__icon layout-nav__icon--library" aria-hidden="true">
@@ -40,7 +40,7 @@
                 </span>
             </NavLink>
 
-            <NavLink href="/backlog" class="layout-nav__link">
+            <NavLink href="/backlog" class="layout-nav__link" style="text-decoration:none;">
                 <span class="layout-nav__copy">
                     <span class="layout-nav__headline">
                         <span class="layout-nav__icon layout-nav__icon--backlog" aria-hidden="true">
@@ -73,20 +73,12 @@
         </div>
     </SidebarContent>
 
-    <TopBarMetaContent>
-        <div class="layout-meta">
-            <span class="layout-meta__item">Blazor</span>
-            <span class="layout-meta__item">ASP.NET Core</span>
-            <span class="layout-meta__item">Docker</span>
-            <span class="layout-meta__item">.NET Aspire</span>
-            <ThemeModeToggle />
-        </div>
-    </TopBarMetaContent>
-
     <ChildContent>
         @Body
     </ChildContent>
 </AppShell>
+
+<ThemeModeToggle IsFloating="true" />
 
 <div id="blazor-error-ui" data-nosnippet>
     Une erreur inattendue est survenue.

@@ -28,9 +28,9 @@
     display: grid;
     gap: 0.25rem;
     padding: var(--bes-space-3);
-    border: 1px solid rgba(148, 163, 184, 0.14);
+    border: 1px solid var(--bes-color-border-subtle);
     border-radius: var(--bes-radius-md);
-    background: linear-gradient(180deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.88));
+    background: var(--bes-color-surface-secondary);
 }
 
 .platform-status__details dt {

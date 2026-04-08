@@ -128,10 +128,31 @@
                  Description="Les grilles et espacements sont limités à quelques règles simples pour conserver une maintenance directe."
                  Tone="AppTone.Success">
             <div class="showcase-rhythm">
-                <div class="showcase-rhythm__bars">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <div class="showcase-rhythm__diagram" aria-hidden="true">
+                    <div class="showcase-rhythm__frame">
+                        <span class="showcase-rhythm__label">Desktop</span>
+                        <div class="showcase-rhythm__rows">
+                            <span class="showcase-rhythm__row showcase-rhythm__row--wide"></span>
+                            <span class="showcase-rhythm__row showcase-rhythm__row--split"></span>
+                            <span class="showcase-rhythm__row showcase-rhythm__row--split"></span>
+                        </div>
+                    </div>
+                    <div class="showcase-rhythm__frame">
+                        <span class="showcase-rhythm__label">Tablette</span>
+                        <div class="showcase-rhythm__rows">
+                            <span class="showcase-rhythm__row showcase-rhythm__row--wide"></span>
+                            <span class="showcase-rhythm__row showcase-rhythm__row--medium"></span>
+                            <span class="showcase-rhythm__row showcase-rhythm__row--medium"></span>
+                        </div>
+                    </div>
+                    <div class="showcase-rhythm__frame">
+                        <span class="showcase-rhythm__label">Mobile</span>
+                        <div class="showcase-rhythm__rows">
+                            <span class="showcase-rhythm__row showcase-rhythm__row--wide"></span>
+                            <span class="showcase-rhythm__row showcase-rhythm__row--wide"></span>
+                            <span class="showcase-rhythm__row showcase-rhythm__row--wide"></span>
+                        </div>
+                    </div>
                 </div>
                 <ul class="showcase-list">
                     <li>Espacements réguliers autour des sections, cartes et contrôles</li>
@@ -274,10 +295,6 @@
                         Dans cette démonstration, les actions déclenchent une modale ou un message de confirmation pour illustrer le comportement attendu.
                     </ChildContent>
                 </AppEmptyState>
-
-                <div class="showcase-inline">
-                    <AppButton Variant="AppButtonVariant.Secondary" OnClick="OpenModalAsync">Ouvrir la modale</AppButton>
-                </div>
             </div>
         </AppCard>
     </div>
@@ -370,7 +387,10 @@
 
     private Task ExporterExempleAsync(MouseEventArgs _)
     {
-        _messageInteraction = "Export déclenché : dans un écran réel, cette action préparerait un fichier ou un rapport.";
+        ConfigurerModale(
+            "Exporter le tableau régional",
+            "Exemple d’action secondaire sur un en-tête de page.",
+            "Dans une interface réelle, cette action préparerait un export PDF, Excel ou CSV du tableau affiché, avec les filtres courants déjà appliqués.");
         return Task.CompletedTask;
     }
 
@@ -396,16 +416,10 @@
 
     private Task ImporterRapportExempleAsync(MouseEventArgs _)
     {
-        _messageInteraction = "Import déclenché : dans un écran réel, cette action ouvrirait un assistant ou un sélecteur de fichier.";
-        return Task.CompletedTask;
-    }
-
-    private Task OpenModalAsync(MouseEventArgs _)
-    {
         ConfigurerModale(
-            "Exemple de modale",
-            "La modale illustre un dialogue court, lisible et centré sur une action explicite.",
-            "Ce format fonctionne bien pour une confirmation, une action secondaire ou un court complément d’information.");
+            "Importer des rapports",
+            "Exemple d’action secondaire depuis un état vide.",
+            "Dans un cas réel, cette action ouvrirait un assistant d’import ou un sélecteur de fichier pour injecter plusieurs rapports existants dans l’interface.");
 
         return Task.CompletedTask;
     }

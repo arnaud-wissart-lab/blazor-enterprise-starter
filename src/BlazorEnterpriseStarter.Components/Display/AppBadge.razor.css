@@ -9,7 +9,6 @@
     font-weight: var(--bes-font-weight-semibold);
     letter-spacing: 0.01em;
     white-space: nowrap;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .app-badge__icon {
@@ -40,15 +39,15 @@
 }
 
 .app-badge--success {
-    background: rgba(22, 101, 52, 0.12);
+    background: var(--bes-color-success-surface);
     border-color: rgba(22, 101, 52, 0.18);
-    color: #166534;
+    color: var(--bes-color-success-text);
 }
 
 .app-badge--warning {
-    background: rgba(180, 83, 9, 0.12);
+    background: var(--bes-color-warning-surface);
     border-color: rgba(180, 83, 9, 0.18);
-    color: #b45309;
+    color: var(--bes-color-warning-text);
 }
 
 .app-badge--danger {
@@ -58,9 +57,9 @@
 }
 
 .app-badge--info {
-    background: rgba(29, 78, 216, 0.12);
+    background: var(--bes-color-info-surface);
     border-color: rgba(29, 78, 216, 0.18);
-    color: #1d4ed8;
+    color: var(--bes-color-info-text);
 }
 
 .app-badge--subtle {
@@ -70,17 +69,5 @@
 @media (prefers-color-scheme: dark) {
     .app-badge--neutral {
         color: var(--bes-color-text-secondary);
-    }
-
-    .app-badge--success {
-        color: #8fd0ac;
-    }
-
-    .app-badge--warning {
-        color: #e6c989;
-    }
-
-    .app-badge--info {
-        color: #9ec1f4;
     }
 }

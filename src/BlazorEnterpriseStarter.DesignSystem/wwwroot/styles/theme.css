@@ -2,23 +2,24 @@
 :root[data-theme="light"] {
     color-scheme: light;
 
-    --bes-color-background-canvas: #f3f6f9;
-    --bes-color-background-subtle: #edf2f7;
+    --bes-color-background-canvas: #f5f7fb;
+    --bes-color-background-subtle: #eef2f7;
     --bes-color-background-elevated: #ffffff;
-    --bes-color-background-hero: linear-gradient(180deg, #f6f8fb 0%, #eef3f8 100%);
+    --bes-color-background-hero: linear-gradient(180deg, #f7f9fc 0%, #f1f5f9 100%);
 
     --bes-color-surface-primary: #ffffff;
     --bes-color-surface-secondary: #f8fafc;
-    --bes-color-surface-tertiary: #eef2f7;
+    --bes-color-surface-tertiary: #f1f5f9;
     --bes-color-surface-inverse: #0f172a;
 
-    --bes-color-text-primary: var(--bes-ref-neutral-800);
-    --bes-color-text-secondary: #475569;
-    --bes-color-text-muted: #64748b;
+    --bes-color-text-primary: #243247;
+    --bes-color-text-secondary: #5a677c;
+    --bes-color-text-tertiary: #7a879b;
+    --bes-color-text-muted: #7a879b;
     --bes-color-text-inverse: #f8fafc;
 
-    --bes-color-border-subtle: #d8e1ea;
-    --bes-color-border-strong: #c0cedd;
+    --bes-color-border-subtle: #d7e0ea;
+    --bes-color-border-strong: #c2cedb;
     --bes-color-border-accent: rgba(37, 99, 235, 0.32);
 
     --bes-color-accent-primary: var(--bes-ref-brand-500);
@@ -42,23 +43,24 @@
 :root[data-theme="dark"] {
     color-scheme: dark;
 
-    --bes-color-background-canvas: #0b1220;
-    --bes-color-background-subtle: #111a2c;
-    --bes-color-background-elevated: #162033;
-    --bes-color-background-hero: linear-gradient(180deg, #0c1424 0%, #101a2d 100%);
+    --bes-color-background-canvas: #0f1724;
+    --bes-color-background-subtle: #151f30;
+    --bes-color-background-elevated: #1a2538;
+    --bes-color-background-hero: linear-gradient(180deg, #111b2c 0%, #172132 100%);
 
-    --bes-color-surface-primary: #132033;
-    --bes-color-surface-secondary: #17263d;
-    --bes-color-surface-tertiary: #1c2d46;
+    --bes-color-surface-primary: #1b2739;
+    --bes-color-surface-secondary: #212f44;
+    --bes-color-surface-tertiary: #26364d;
     --bes-color-surface-inverse: #f8fafc;
 
-    --bes-color-text-primary: #e2e8f0;
-    --bes-color-text-secondary: #c0ccdc;
-    --bes-color-text-muted: #93a6bf;
+    --bes-color-text-primary: #edf2f8;
+    --bes-color-text-secondary: #c3cfdf;
+    --bes-color-text-tertiary: #95a8c0;
+    --bes-color-text-muted: #95a8c0;
     --bes-color-text-inverse: #0f172a;
 
-    --bes-color-border-subtle: rgba(192, 204, 220, 0.14);
-    --bes-color-border-strong: rgba(192, 204, 220, 0.24);
+    --bes-color-border-subtle: rgba(195, 207, 223, 0.18);
+    --bes-color-border-strong: rgba(195, 207, 223, 0.3);
     --bes-color-border-accent: rgba(96, 165, 250, 0.32);
 
     --bes-color-accent-primary: #60a5fa;
@@ -81,23 +83,24 @@
     :root:not([data-theme="light"]):not([data-theme="dark"]) {
         color-scheme: dark;
 
-        --bes-color-background-canvas: #0b1220;
-        --bes-color-background-subtle: #111a2c;
-        --bes-color-background-elevated: #162033;
-        --bes-color-background-hero: linear-gradient(180deg, #0c1424 0%, #101a2d 100%);
+        --bes-color-background-canvas: #0f1724;
+        --bes-color-background-subtle: #151f30;
+        --bes-color-background-elevated: #1a2538;
+        --bes-color-background-hero: linear-gradient(180deg, #111b2c 0%, #172132 100%);
 
-        --bes-color-surface-primary: #132033;
-        --bes-color-surface-secondary: #17263d;
-        --bes-color-surface-tertiary: #1c2d46;
+        --bes-color-surface-primary: #1b2739;
+        --bes-color-surface-secondary: #212f44;
+        --bes-color-surface-tertiary: #26364d;
         --bes-color-surface-inverse: #f8fafc;
 
-        --bes-color-text-primary: #e2e8f0;
-        --bes-color-text-secondary: #c0ccdc;
-        --bes-color-text-muted: #93a6bf;
+        --bes-color-text-primary: #edf2f8;
+        --bes-color-text-secondary: #c3cfdf;
+        --bes-color-text-tertiary: #95a8c0;
+        --bes-color-text-muted: #95a8c0;
         --bes-color-text-inverse: #0f172a;
 
-        --bes-color-border-subtle: rgba(192, 204, 220, 0.14);
-        --bes-color-border-strong: rgba(192, 204, 220, 0.24);
+        --bes-color-border-subtle: rgba(195, 207, 223, 0.18);
+        --bes-color-border-strong: rgba(195, 207, 223, 0.3);
         --bes-color-border-accent: rgba(96, 165, 250, 0.32);
 
         --bes-color-accent-primary: #60a5fa;
