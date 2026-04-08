@@ -33,10 +33,10 @@ jobs:
       DEPLOY_ENVIRONMENT: ${{ inputs.environment }}
       DEPLOY_REF: ${{ inputs.ref }}
       GITHUB_TOKEN: ${{ github.token }}
-      SSH_HOST: ${{ secrets.SSH_HOST }}
-      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_HOST: ${{ vars.SSH_HOST || secrets.SSH_HOST }}
+      SSH_USER: ${{ vars.SSH_USER || secrets.SSH_USER }}
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      SSH_PORT: ${{ secrets.SSH_PORT }}
+      SSH_PORT: ${{ vars.SSH_PORT || secrets.SSH_PORT }}
       DEPLOY_DEBUG: ${{ inputs.debug }}
 
     steps:
@@ -63,6 +63,19 @@ jobs:
           echo "SSH_USER configuré: $([ -n "${SSH_USER:-}" ] && echo oui || echo non)"
           echo "SSH_PRIVATE_KEY configurée: $([ -n "${SSH_PRIVATE_KEY:-}" ] && echo oui || echo non)"
           echo "SSH_PORT effectif: ${SSH_PORT:-22}"
+
+          missing=0
+
+          for required_var in SSH_HOST SSH_USER SSH_PRIVATE_KEY; do
+            if [ -z "${!required_var:-}" ]; then
+              echo "::error title=Configuration SSH manquante::La variable ${required_var} n'est pas définie. Configure-la dans GitHub (Repository secrets/variables) avant de relancer le workflow."
+              missing=1
+            fi
+          done
+
+          if [ "$missing" -ne 0 ]; then
+            exit 1
+          fi
 
           command -v ssh
           command -v ssh-keyscan
