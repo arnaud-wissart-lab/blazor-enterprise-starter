@@ -8,7 +8,7 @@
           TopBarDescription="Accueil, bibliothèque UI et backlog montrent ensemble le socle applicatif, le design system et un écran métier réutilisable.">
     <NavigationContent>
         <div class="layout-nav">
-            <NavLink href="/" Match="NavLinkMatch.All" class="layout-nav__link" style="text-decoration:none;">
+            <NavLink href="/" Match="NavLinkMatch.All" class="layout-nav__link">
                 <span class="layout-nav__copy">
                     <span class="layout-nav__headline">
                         <span class="layout-nav__icon layout-nav__icon--home" aria-hidden="true">
@@ -23,7 +23,7 @@
                 </span>
             </NavLink>
 
-            <NavLink href="/composants" class="layout-nav__link" style="text-decoration:none;">
+            <NavLink href="/composants" class="layout-nav__link">
                 <span class="layout-nav__copy">
                     <span class="layout-nav__headline">
                         <span class="layout-nav__icon layout-nav__icon--library" aria-hidden="true">
@@ -40,7 +40,7 @@
                 </span>
             </NavLink>
 
-            <NavLink href="/backlog" class="layout-nav__link" style="text-decoration:none;">
+            <NavLink href="/backlog" class="layout-nav__link">
                 <span class="layout-nav__copy">
                     <span class="layout-nav__headline">
                         <span class="layout-nav__icon layout-nav__icon--backlog" aria-hidden="true">
@@ -79,14 +79,3 @@
 </AppShell>
 
 <ThemeModeToggle IsFloating="true" />
-
-<div id="blazor-error-ui" data-nosnippet>
-    <div class="layout-error-banner">
-        <strong>Connexion interrompue</strong>
-        <p>Une erreur empêche l’interface de poursuivre normalement. Vous pouvez recharger la page ou fermer ce message si la situation se rétablit.</p>
-        <div class="layout-error-banner__actions">
-            <a href="." class="reload">Recharger</a>
-            <button type="button" class="dismiss" aria-label="Fermer le message">Fermer</button>
-        </div>
-    </div>
-</div>

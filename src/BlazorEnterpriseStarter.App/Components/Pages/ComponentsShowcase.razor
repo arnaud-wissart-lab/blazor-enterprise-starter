@@ -4,7 +4,7 @@
 
 <AppPageHeader Eyebrow="Bibliothèque UI"
                Title="Bibliothèque UI"
-               Description="Référence visuelle des fondations, composants et états utilisés dans le starter.">
+               Description="Référence visuelle des fondations, composants et états du starter.">
     <Badges>
         <AppBadge Tone="AppTone.Accent">Tokens CSS</AppBadge>
         <AppBadge Tone="AppTone.Info">Composants Blazor</AppBadge>
@@ -16,7 +16,7 @@
         <AppButton Href="/backlog">Voir le backlog</AppButton>
     </Actions>
     <ChildContent>
-        <p class="showcase-page-note">Les composants sont montrés dans leurs variantes utiles. Le commentaire reste volontairement court.</p>
+        <p class="showcase-page-note">Voir les composants, puis leurs usages essentiels.</p>
     </ChildContent>
 </AppPageHeader>
 
@@ -24,12 +24,12 @@
     <div class="showcase-section__header">
         <p class="showcase-section__eyebrow">Fondations</p>
         <h2>Les règles de base du système</h2>
-        <p>Les fondations assurent une interface stable, lisible et facile à reprendre dans une application métier.</p>
+        <p>Une base visuelle simple, stable et immédiatement lisible.</p>
     </div>
 
     <div class="showcase-grid showcase-grid--three">
         <AppCard Title="Palette et surfaces"
-                 Description="Un fond sobre, des surfaces nettes et un accent principal unique."
+                 Description="Fond, surfaces et accent principal."
                  Tone="AppTone.Accent">
             <div class="showcase-swatches">
                 <div class="showcase-swatch showcase-swatch--canvas">
@@ -52,26 +52,26 @@
         </AppCard>
 
         <AppCard Title="Hiérarchie typographique"
-                 Description="Une échelle pensée pour le scan rapide d’une interface de travail."
+                 Description="Une échelle conçue pour le scan rapide."
                  Tone="AppTone.Info">
             <div class="showcase-type-scale">
                 <div>
                     <p class="showcase-type-scale__eyebrow">Eyebrow</p>
-                    <span class="showcase-type-scale__meta">Repères de page, de section et de navigation</span>
+                    <span class="showcase-type-scale__meta">Repères de page et de section</span>
                 </div>
                 <div>
                     <h2>Un titre net pour annoncer clairement une zone importante</h2>
-                    <span class="showcase-type-scale__meta">Titres de page, cartes principales et panneaux structurants</span>
+                    <span class="showcase-type-scale__meta">Titres de page et blocs structurants</span>
                 </div>
                 <div>
                     <p>Le texte courant reste volontairement compact pour préserver la densité et la lisibilité.</p>
-                    <span class="showcase-type-scale__meta">Descriptions, aides et contenus métier</span>
+                    <span class="showcase-type-scale__meta">Descriptions et aides</span>
                 </div>
             </div>
         </AppCard>
 
         <AppCard Title="Rythme et responsive"
-                 Description="Quelques règles simples pour garder un rendu stable sur desktop, tablette et mobile."
+                 Description="Quelques règles simples pour garder un rendu stable."
                  Tone="AppTone.Success">
             <div class="showcase-rhythm">
                 <div class="showcase-rhythm__diagram" aria-hidden="true">
@@ -102,8 +102,8 @@
                 </div>
                 <ul class="showcase-list">
                     <li>espacements constants entre sections, cartes et contrôles</li>
-                    <li>grilles qui se replient sans changer la logique de lecture</li>
-                    <li>densité raisonnable pour une interface de travail</li>
+                    <li>grilles qui se replient sans casser la lecture</li>
+                    <li>densité raisonnable pour une interface métier</li>
                 </ul>
             </div>
         </AppCard>
@@ -120,7 +120,7 @@
     <div class="showcase-grid showcase-grid--two">
         <AppCard Eyebrow="Actions"
                  Title="AppButton"
-                 Description="Variantes principales, tailles et état de chargement."
+                 Description="Variantes principales, tailles et chargement."
                  Tone="AppTone.Accent">
             <div class="showcase-stack">
                 <div class="showcase-inline">
@@ -149,7 +149,7 @@
 
         <AppCard Eyebrow="Saisie"
                  Title="AppInput, AppSelect et AppTextarea"
-                 Description="Les champs restent lisibles et homogènes, sans variantes inutiles."
+                 Description="Des champs lisibles, homogènes et sans variantes inutiles."
                  Tone="AppTone.Info">
             <div class="showcase-form-grid">
                 <AppInput Label="Nom du contact"
@@ -182,13 +182,13 @@
     <div class="showcase-section__header">
         <p class="showcase-section__eyebrow">Statuts et feedback</p>
         <h2>Informer sans surcharger l’interface</h2>
-        <p>Badges, loaders et messages signalent un état, une priorité ou une attente sans casser la lecture.</p>
+        <p>Badges, loaders et messages signalent un état sans casser la lecture.</p>
     </div>
 
     <div class="showcase-grid showcase-grid--two">
         <AppCard Eyebrow="Statuts"
                  Title="AppBadge"
-                 Description="Une échelle simple pour représenter l’état et la criticité."
+                 Description="Une échelle simple pour l’état et la criticité."
                  Tone="AppTone.Success">
             <div class="showcase-stack">
                 <div class="showcase-inline">
@@ -198,13 +198,13 @@
                     <AppBadge Tone="AppTone.Warning">À vérifier</AppBadge>
                     <AppBadge Tone="AppTone.Danger">Bloqué</AppBadge>
                 </div>
-                <p class="showcase-feedback">Les couleurs suivent une logique sémantique stable entre la vitrine et le backlog.</p>
+                <p class="showcase-feedback">La logique sémantique reste identique entre vitrine et backlog.</p>
             </div>
         </AppCard>
 
         <AppCard Eyebrow="Chargement"
                  Title="AppLoader"
-                 Description="Une attente visible mais discrète, adaptée au contexte."
+                 Description="Une attente visible, discrète et adaptée au contexte."
                  Tone="AppTone.Warning">
             <div class="showcase-stack">
                 <div class="showcase-inline showcase-inline--loaders">
@@ -212,7 +212,7 @@
                     <AppLoader Label="Standard" />
                     <AppLoader Size="AppControlSize.Large" Label="Étendu" />
                 </div>
-                <p class="showcase-feedback">Les trois tailles sont volontairement distinguées pour qu’une équipe puisse les utiliser selon la densité de l’écran.</p>
+                <p class="showcase-feedback">Les trois tailles restent lisibles selon la densité de l’écran.</p>
             </div>
         </AppCard>
     </div>
@@ -222,17 +222,17 @@
     <div class="showcase-section__header">
         <p class="showcase-section__eyebrow">Composition d’écran</p>
         <h2>Assembler des écrans métier cohérents</h2>
-        <p>Les composants de structure composent une page complète sans rompre la hiérarchie visuelle du système.</p>
+        <p>Les composants de structure composent une page complète sans rompre la hiérarchie du système.</p>
     </div>
 
     <div class="showcase-grid showcase-grid--two">
         <AppCard Eyebrow="Structure"
                  Title="AppPageHeader et cartes"
-                 Description="Un en-tête réutilisable pour les pages, suivi de cartes plus compactes pour le détail."
+                 Description="Un en-tête réutilisable, puis des cartes plus compactes pour le détail."
                  Tone="AppTone.Accent">
             <div class="showcase-stack">
                 <AppPageHeader Title="Tableau de bord régional"
-                               Description="Exemple d’en-tête réutilisable pour une page métier ou un onglet fonctionnel."
+                               Description="Exemple d’en-tête pour une page métier ou un onglet fonctionnel."
                                Class="showcase-nested-header">
                     <Badges>
                         <AppBadge Tone="AppTone.Success">Synchronisé</AppBadge>
@@ -244,7 +244,7 @@
                 </AppPageHeader>
 
                 <AppCard Title="Carte imbriquée"
-                         Description="Une carte secondaire peut détailler métriques, sous-sections ou indicateurs."
+                         Description="Une carte secondaire pour détailler métriques ou sous-sections."
                          IsCompact="true">
                     <div class="showcase-metrics">
                         <div>
@@ -266,12 +266,12 @@
 
         <AppCard Eyebrow="États"
                  Title="AppEmptyState et AppModal"
-                 Description="Des composants conçus pour l’absence de données et les confirmations courtes."
+                 Description="Des composants pour l’absence de données et les confirmations courtes."
                  Tone="AppTone.Info">
             <div class="showcase-stack">
                 <AppEmptyState Eyebrow="Données"
                                Title="Aucun rapport n’est encore disponible"
-                               Description="Le composant évite les écrans vides et oriente immédiatement vers l’action utile."
+                               Description="Un état vide qui oriente immédiatement vers l’action utile."
                                Tone="AppTone.Accent">
                     <VisualContent>
                         <span class="showcase-visual-token">0</span>
@@ -281,7 +281,7 @@
                         <AppButton Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small" OnClick="ImporterRapportExempleAsync">Importer</AppButton>
                     </Actions>
                     <ChildContent>
-                        L’état vide reste démonstratif sans être bavard, avec une action principale claire et une alternative secondaire.
+                        Un état vide démonstratif, avec une action principale claire et une alternative secondaire.
                     </ChildContent>
                 </AppEmptyState>
             </div>
@@ -296,7 +296,7 @@
     <ChildContent>
         <div class="showcase-modal-copy">
             <p>@_contenuModale</p>
-            <p>Le contenu reste volontairement bref pour préserver la lisibilité et mettre l’action principale au premier plan.</p>
+            <p>Le contenu reste bref pour préserver la lisibilité et mettre l’action principale au premier plan.</p>
         </div>
     </ChildContent>
     <FooterContent>

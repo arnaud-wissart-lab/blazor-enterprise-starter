@@ -1,31 +1,23 @@
 ﻿<script type="module" src="@Assets["Components/Layout/ReconnectModal.razor.js"]"></script>
 
-<dialog id="components-reconnect-modal" data-nosnippet>
+<dialog id="components-reconnect-modal"
+        aria-labelledby="components-reconnect-title"
+        aria-describedby="components-reconnect-message"
+        data-nosnippet>
     <div class="components-reconnect-container">
-        <div class="components-rejoining-animation" aria-hidden="true">
+        <div id="components-reconnect-animation" class="components-rejoining-animation" aria-hidden="true" hidden>
             <div></div>
             <div></div>
         </div>
-        <p class="components-reconnect-first-attempt-visible">
-            Reconnexion au serveur...
+        <p id="components-reconnect-eyebrow" class="components-reconnect-eyebrow" hidden></p>
+        <h2 id="components-reconnect-title" class="components-reconnect-title"></h2>
+        <p id="components-reconnect-message" class="components-reconnect-message"></p>
+        <p id="components-reconnect-countdown" class="components-reconnect-countdown" hidden>
+            Nouvelle tentative dans <span id="components-seconds-to-next-attempt"></span> secondes.
         </p>
-        <p class="components-reconnect-repeated-attempt-visible">
-            La reconnexion a échoué... nouvelle tentative dans <span id="components-seconds-to-next-attempt"></span> secondes.
-        </p>
-        <p class="components-reconnect-failed-visible">
-            Impossible de rétablir la session.<br />Veuillez réessayer ou recharger la page.
-        </p>
-        <button id="components-reconnect-button" class="components-reconnect-failed-visible">
-            Réessayer
-        </button>
-        <p class="components-pause-visible">
-            La session a été mise en pause par le serveur.
-        </p>
-        <p class="components-resume-failed-visible">
-            Impossible de reprendre la session.<br />Veuillez réessayer ou recharger la page.
-        </p>
-        <button id="components-resume-button" class="components-pause-visible components-resume-failed-visible">
-            Reprendre
-        </button>
+        <div class="components-reconnect-actions">
+            <button id="components-reconnect-button" type="button" hidden></button>
+            <button id="components-resume-button" type="button" hidden></button>
+        </div>
     </div>
 </dialog>

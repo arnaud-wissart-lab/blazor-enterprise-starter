@@ -17,10 +17,10 @@ public partial class Backlog : ComponentBase, IDisposable
     private readonly BacklogItemFormModel _formulaire = new();
 
     private readonly IReadOnlyList<AppSelectOption> _statutOptions =
-        CreerOptionsAvecEnum<BacklogItemStatus>(static statut => ObtenirLibelleStatut(statut), inclureOptionVide: true, libelleOptionVide: "Tous les statuts");
+        CreerOptionsAvecEnum<BacklogItemStatus>(static statut => ObtenirLibelleStatut(statut));
 
     private readonly IReadOnlyList<AppSelectOption> _prioriteOptions =
-        CreerOptionsAvecEnum<BacklogItemPriority>(static priorite => ObtenirLibellePriorite(priorite), inclureOptionVide: true, libelleOptionVide: "Toutes les priorités");
+        CreerOptionsAvecEnum<BacklogItemPriority>(static priorite => ObtenirLibellePriorite(priorite));
 
     private readonly IReadOnlyList<AppSelectOption> _statutFormulaireOptions =
         CreerOptionsAvecEnum<BacklogItemStatus>(static statut => ObtenirLibelleStatut(statut));

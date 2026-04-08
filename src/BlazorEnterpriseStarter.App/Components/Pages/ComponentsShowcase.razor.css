@@ -1,13 +1,13 @@
 .showcase-page-note {
     margin: 0;
-    max-width: 46rem;
-    line-height: 1.58;
+    max-width: 38rem;
+    line-height: 1.55;
     color: var(--bes-color-text-secondary);
 }
 
 .showcase-section {
     display: grid;
-    gap: var(--bes-space-5);
+    gap: var(--bes-space-4);
 }
 
 .showcase-section__header {
@@ -42,7 +42,7 @@
 
 .showcase-grid {
     display: grid;
-    gap: var(--bes-space-4);
+    gap: var(--bes-space-3);
 }
 
 .showcase-grid--two {
@@ -100,7 +100,7 @@
 
 .showcase-type-scale {
     display: grid;
-    gap: var(--bes-space-5);
+    gap: var(--bes-space-4);
 }
 
 .showcase-type-scale div {
@@ -181,7 +181,7 @@
 .showcase-list,
 .showcase-stack {
     display: grid;
-    gap: var(--bes-space-4);
+    gap: var(--bes-space-3);
 }
 
 .showcase-list {
@@ -211,9 +211,9 @@
 
 .showcase-feedback {
     margin: 0;
-    line-height: 1.6;
+    line-height: 1.55;
     color: var(--bes-color-text-secondary);
-    font-size: var(--bes-font-size-sm);
+    font-size: var(--bes-font-size-xs);
 }
 
 .showcase-nested-header {

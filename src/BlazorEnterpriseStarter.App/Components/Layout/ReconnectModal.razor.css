@@ -1,24 +1,3 @@
-.components-reconnect-first-attempt-visible,
-.components-reconnect-repeated-attempt-visible,
-.components-reconnect-failed-visible,
-.components-pause-visible,
-.components-resume-failed-visible,
-.components-rejoining-animation {
-    display: none;
-}
-
-#components-reconnect-modal.components-reconnect-show .components-reconnect-first-attempt-visible,
-#components-reconnect-modal.components-reconnect-show .components-rejoining-animation,
-#components-reconnect-modal.components-reconnect-paused .components-pause-visible,
-#components-reconnect-modal.components-reconnect-resume-failed .components-resume-failed-visible,
-#components-reconnect-modal.components-reconnect-retrying,
-#components-reconnect-modal.components-reconnect-retrying .components-reconnect-repeated-attempt-visible,
-#components-reconnect-modal.components-reconnect-retrying .components-rejoining-animation,
-#components-reconnect-modal.components-reconnect-failed,
-#components-reconnect-modal.components-reconnect-failed .components-reconnect-failed-visible {
-    display: block;
-}
-
 #components-reconnect-modal {
     width: min(25rem, calc(100vw - 2rem));
     margin: 18vh auto;
@@ -87,11 +66,37 @@
     box-shadow: 0 24px 48px rgba(15, 23, 42, 0.2);
 }
 
-#components-reconnect-modal p {
+#components-reconnect-modal p,
+#components-reconnect-modal h2 {
     margin: 0;
     text-align: center;
+}
+
+.components-reconnect-eyebrow {
+    font-size: var(--bes-font-size-xs);
+    font-weight: var(--bes-font-weight-bold);
+    letter-spacing: var(--bes-letter-spacing-caps);
+    text-transform: uppercase;
+    color: var(--bes-color-accent-primary);
+}
+
+.components-reconnect-title {
+    font-size: clamp(1.3rem, 2vw, 1.55rem);
+    line-height: 1.15;
+    color: var(--bes-color-text-primary);
+}
+
+.components-reconnect-message,
+.components-reconnect-countdown {
     line-height: 1.6;
     color: var(--bes-color-text-secondary);
+}
+
+.components-reconnect-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--bes-space-3);
 }
 
 #components-reconnect-modal button {

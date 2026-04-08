@@ -94,6 +94,10 @@ public partial class AppSelect : ComponentBase
 
     private bool HasError => !string.IsNullOrWhiteSpace(ErrorMessage);
 
+    private bool ShouldRenderPlaceholder =>
+        !string.IsNullOrWhiteSpace(Placeholder)
+        && !Options.Any(static option => string.IsNullOrEmpty(option.Value));
+
     private string _resolvedId = $"app-select-{Guid.NewGuid():N}";
 
     private string ResolvedId => Id ?? _resolvedId;

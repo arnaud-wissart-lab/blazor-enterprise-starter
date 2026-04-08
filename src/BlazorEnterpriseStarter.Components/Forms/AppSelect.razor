@@ -18,7 +18,7 @@
                 aria-busy="@IsLoading"
                 @onchange="HandleChangeAsync"
                 @attributes="AdditionalAttributes">
-            @if (!string.IsNullOrWhiteSpace(Placeholder))
+            @if (ShouldRenderPlaceholder)
             {
                 <option value="">@Placeholder</option>
             }
