@@ -29,6 +29,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: [self-hosted, linux, ci]
+    environment: ${{ inputs.environment }}
     env:
       DEPLOY_ENVIRONMENT: ${{ inputs.environment }}
       DEPLOY_REF: ${{ inputs.ref }}
