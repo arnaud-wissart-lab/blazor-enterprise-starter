@@ -56,7 +56,8 @@ a:not([class]):hover {
     color: var(--bes-color-accent-primary);
 }
 
-a[class] {
+a[class],
+a[class]:where(:link, :visited, :hover, :focus-visible, :active) {
     text-decoration: none;
 }
 

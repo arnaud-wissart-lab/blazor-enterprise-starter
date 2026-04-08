@@ -1,77 +1,133 @@
 const reconnectModal = document.getElementById("components-reconnect-modal");
-const titleElement = document.getElementById("components-reconnect-title");
-const messageElement = document.getElementById("components-reconnect-message");
-const eyebrowElement = document.getElementById("components-reconnect-eyebrow");
-const countdownElement = document.getElementById("components-reconnect-countdown");
-const animationElement = document.getElementById("components-reconnect-animation");
-const retryButton = document.getElementById("components-reconnect-button");
-const resumeButton = document.getElementById("components-resume-button");
 
-if (reconnectModal && titleElement && messageElement && eyebrowElement && countdownElement && animationElement && retryButton && resumeButton) {
+if (reconnectModal) {
     reconnectModal.addEventListener("components-reconnect-state-changed", handleReconnectStateChanged);
-    retryButton.addEventListener("click", retry);
-    resumeButton.addEventListener("click", resume);
 }
 
 function setHidden(element, isHidden) {
     element.hidden = isHidden;
 }
 
-function resetModalContent() {
-    eyebrowElement.textContent = "";
-    titleElement.textContent = "";
-    messageElement.textContent = "";
-    setHidden(eyebrowElement, true);
-    setHidden(countdownElement, true);
-    setHidden(animationElement, true);
-    setHidden(retryButton, true);
-    setHidden(resumeButton, true);
+function createReconnectContent() {
+    reconnectModal.replaceChildren();
+
+    const container = document.createElement("div");
+    container.className = "components-reconnect-container";
+
+    const animationElement = document.createElement("div");
+    animationElement.id = "components-reconnect-animation";
+    animationElement.className = "components-rejoining-animation";
+    animationElement.setAttribute("aria-hidden", "true");
+    animationElement.hidden = true;
+    animationElement.append(document.createElement("div"), document.createElement("div"));
+
+    const eyebrowElement = document.createElement("p");
+    eyebrowElement.id = "components-reconnect-eyebrow";
+    eyebrowElement.className = "components-reconnect-eyebrow";
+    eyebrowElement.hidden = true;
+
+    const titleElement = document.createElement("h2");
+    titleElement.id = "components-reconnect-title";
+    titleElement.className = "components-reconnect-title";
+
+    const messageElement = document.createElement("p");
+    messageElement.id = "components-reconnect-message";
+    messageElement.className = "components-reconnect-message";
+
+    const countdownElement = document.createElement("p");
+    countdownElement.id = "components-reconnect-countdown";
+    countdownElement.className = "components-reconnect-countdown";
+    countdownElement.hidden = true;
+    countdownElement.append("Nouvelle tentative dans ");
+
+    const secondsElement = document.createElement("span");
+    secondsElement.id = "components-seconds-to-next-attempt";
+    countdownElement.append(secondsElement, " secondes.");
+
+    const actionsElement = document.createElement("div");
+    actionsElement.className = "components-reconnect-actions";
+
+    const retryButton = document.createElement("button");
+    retryButton.id = "components-reconnect-button";
+    retryButton.type = "button";
+    retryButton.hidden = true;
+    retryButton.addEventListener("click", retry);
+
+    const resumeButton = document.createElement("button");
+    resumeButton.id = "components-resume-button";
+    resumeButton.type = "button";
+    resumeButton.hidden = true;
+    resumeButton.addEventListener("click", resume);
+
+    actionsElement.append(retryButton, resumeButton);
+    container.append(animationElement, eyebrowElement, titleElement, messageElement, countdownElement, actionsElement);
+    reconnectModal.append(container);
+
+    reconnectModal.setAttribute("aria-labelledby", "components-reconnect-title");
+    reconnectModal.setAttribute("aria-describedby", "components-reconnect-message");
+
+    return {
+        animationElement,
+        eyebrowElement,
+        titleElement,
+        messageElement,
+        countdownElement,
+        retryButton,
+        resumeButton
+    };
+}
+
+function clearReconnectContent() {
+    reconnectModal.replaceChildren();
+    reconnectModal.removeAttribute("aria-labelledby");
+    reconnectModal.removeAttribute("aria-describedby");
 }
 
 function applyStateContent(state) {
-    resetModalContent();
+    const elements = createReconnectContent();
 
     switch (state) {
         case "show":
-            eyebrowElement.textContent = "Connexion";
-            titleElement.textContent = "Connexion interrompue";
-            messageElement.textContent = "Tentative de reconnexion au serveur en cours.";
-            setHidden(eyebrowElement, false);
-            setHidden(animationElement, false);
+            elements.eyebrowElement.textContent = "Connexion";
+            elements.titleElement.textContent = "Connexion interrompue";
+            elements.messageElement.textContent = "Tentative de reconnexion au serveur en cours.";
+            setHidden(elements.eyebrowElement, false);
+            setHidden(elements.animationElement, false);
             break;
         case "retrying":
-            eyebrowElement.textContent = "Connexion";
-            titleElement.textContent = "Nouvelle tentative en cours";
-            messageElement.textContent = "La connexion n’a pas encore été rétablie.";
-            setHidden(eyebrowElement, false);
-            setHidden(animationElement, false);
-            setHidden(countdownElement, false);
+            elements.eyebrowElement.textContent = "Connexion";
+            elements.titleElement.textContent = "Nouvelle tentative en cours";
+            elements.messageElement.textContent = "La connexion n’est pas encore rétablie.";
+            setHidden(elements.eyebrowElement, false);
+            setHidden(elements.animationElement, false);
+            setHidden(elements.countdownElement, false);
             break;
         case "failed":
-            eyebrowElement.textContent = "Connexion";
-            titleElement.textContent = "Connexion indisponible";
-            messageElement.textContent = "La session n’a pas pu être rétablie pour le moment.";
-            retryButton.textContent = "Réessayer";
-            setHidden(eyebrowElement, false);
-            setHidden(retryButton, false);
+            elements.eyebrowElement.textContent = "Connexion";
+            elements.titleElement.textContent = "Connexion indisponible";
+            elements.messageElement.textContent = "La session n’a pas pu être rétablie pour le moment.";
+            elements.retryButton.textContent = "Réessayer";
+            setHidden(elements.eyebrowElement, false);
+            setHidden(elements.retryButton, false);
             break;
         case "paused":
-            eyebrowElement.textContent = "Session";
-            titleElement.textContent = "Session en pause";
-            messageElement.textContent = "Vous pouvez tenter de reprendre la session en cours.";
-            resumeButton.textContent = "Reprendre";
-            setHidden(eyebrowElement, false);
-            setHidden(resumeButton, false);
+            elements.eyebrowElement.textContent = "Session";
+            elements.titleElement.textContent = "Session en pause";
+            elements.messageElement.textContent = "Vous pouvez tenter de reprendre la session en cours.";
+            elements.resumeButton.textContent = "Reprendre";
+            setHidden(elements.eyebrowElement, false);
+            setHidden(elements.resumeButton, false);
             break;
         case "resume-failed":
-            eyebrowElement.textContent = "Session";
-            titleElement.textContent = "Reprise impossible";
-            messageElement.textContent = "La session n’a pas pu être reprise. Vous pouvez réessayer.";
-            resumeButton.textContent = "Réessayer";
-            setHidden(eyebrowElement, false);
-            setHidden(resumeButton, false);
+            elements.eyebrowElement.textContent = "Session";
+            elements.titleElement.textContent = "Reprise impossible";
+            elements.messageElement.textContent = "La session n’a pas pu être reprise. Vous pouvez réessayer.";
+            elements.resumeButton.textContent = "Réessayer";
+            setHidden(elements.eyebrowElement, false);
+            setHidden(elements.resumeButton, false);
             break;
         default:
+            clearReconnectContent();
             break;
     }
 }
@@ -81,12 +137,12 @@ function handleReconnectStateChanged(event) {
 
     if (state === "hide") {
         document.removeEventListener("visibilitychange", retryWhenDocumentBecomesVisible);
-        resetModalContent();
 
         if (reconnectModal.open) {
             reconnectModal.close();
         }
 
+        clearReconnectContent();
         return;
     }
 
@@ -119,6 +175,7 @@ async function retry() {
                 location.reload();
             } else if (reconnectModal.open) {
                 reconnectModal.close();
+                clearReconnectContent();
             }
         }
     } catch {
@@ -135,6 +192,7 @@ async function resume() {
             location.reload();
         } else if (reconnectModal.open) {
             reconnectModal.close();
+            clearReconnectContent();
         }
     } catch {
         applyStateContent("resume-failed");
