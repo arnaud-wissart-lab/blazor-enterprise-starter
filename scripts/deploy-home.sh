@@ -275,7 +275,7 @@ if [ ! -f "$ENV_FILE_PATH" ]; then
   log "Fichier .env créé depuis .env.example."
 fi
 
-upsert_env_key "$ENV_FILE_PATH" "APP_BIND_ADDRESS" "127.0.0.1"
+upsert_env_key "$ENV_FILE_PATH" "APP_BIND_ADDRESS" "0.0.0.0"
 upsert_env_key "$ENV_FILE_PATH" "APP_PORT" "8085"
 upsert_env_key "$ENV_FILE_PATH" "SERVER_BIND_ADDRESS" "127.0.0.1"
 upsert_env_key "$ENV_FILE_PATH" "SERVER_PORT" "18085"
