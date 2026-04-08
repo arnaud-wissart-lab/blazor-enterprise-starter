@@ -172,6 +172,7 @@ ENV_EXAMPLE_FILE=".env.example"
 COMPOSE_PROJECT="blazor-enterprise-starter-home"
 LOCAL_APP_URL="http://127.0.0.1:8085"
 PUBLIC_APP_URL="https://blazor.arnaudwissart.fr"
+PUBLIC_APP_HEALTHCHECK_IP="127.0.0.1"
 LOCAL_SERVER_HEALTH_URL="http://127.0.0.1:18085/health"
 HEALTHCHECK_TIMEOUT_SECONDS=300
 HEALTHCHECK_POLL_SECONDS=5
@@ -187,6 +188,26 @@ require_cmd git
 require_cmd docker
 require_cmd curl
 require_cmd base64
+
+fetch_public_payload() {
+  if public_payload="$(curl -fsSL --connect-timeout 3 --max-time 10 "$PUBLIC_APP_URL" 2>/dev/null)"; then
+    printf '%s' "$public_payload"
+    return 0
+  fi
+
+  if [[ "$PUBLIC_APP_URL" =~ ^https://([^/]+) ]]; then
+    local public_host="${BASH_REMATCH[1]}"
+    debug "Fallback healthcheck public via résolution locale ${public_host} -> ${PUBLIC_APP_HEALTHCHECK_IP}."
+    curl -fsSL \
+      --connect-timeout 3 \
+      --max-time 10 \
+      --resolve "${public_host}:443:${PUBLIC_APP_HEALTHCHECK_IP}" \
+      "$PUBLIC_APP_URL" 2>/dev/null
+    return $?
+  fi
+
+  return 1
+}
 
 log "Script distant initialisé."
 debug "Contexte distant: ref=${DEPLOY_REF}, repo=${REPO_SLUG}, app_dir=${APP_DIR}."
@@ -326,7 +347,7 @@ if [ "$public_attempts" -lt 1 ]; then
 fi
 
 for ((attempt=1; attempt<=public_attempts; attempt+=1)); do
-  public_payload="$(curl -fsSL --connect-timeout 3 --max-time 10 "$PUBLIC_APP_URL" || true)"
+  public_payload="$(fetch_public_payload || true)"
 
   if printf '%s' "$public_payload" | grep -q "$EXPECTED_MARKER"; then
     public_app_ready="true"
