@@ -1,19 +1,40 @@
 # BlazorEnterpriseStarter
 
-BlazorEnterpriseStarter est une solution de démonstration construite pour illustrer une approche professionnelle d’une application métier moderne en .NET.
+BlazorEnterpriseStarter est un starter Blazor/.NET pour application métier moderne, pensé pour montrer une base crédible, lisible et réutilisable dès les premières minutes de lecture.
 
-Le projet met en avant :
+## TL;DR
 
-- une interface Blazor Web App structurée et crédible pour un contexte professionnel
-- une API ASP.NET Core dédiée aux cas d’usage métier
-- un design system et une bibliothèque de composants réutilisables
-- une orchestration locale lisible avec .NET Aspire
-- une conteneurisation simple avec Docker
-- une persistence SQLite légère via EF Core sur le module backlog
-- une base de tests unitaires, bUnit et E2E ciblée sur les comportements à forte valeur
-- une CI GitHub minimale pour vérifier la build, les tests et la configuration Docker
+- Blazor Web App structurée pour un contexte métier, avec shell applicatif déjà en place
+- API ASP.NET Core séparée pour démontrer une frontière front/backend claire
+- design system et bibliothèque UI directement réutilisables
+- module backlog complet avec recherche, filtres, pagination et CRUD
+- lancement local via .NET Aspire ou Docker sans complexité inutile
+- base de tests et CI minimale pour crédibiliser le socle
 
-L’objectif n’est pas de livrer un produit complet, mais un socle vitrine lisible, maintenable et démontrable localement ou sur GitHub.
+## Accès rapide
+
+- Démo web : `Accueil (/)`, `Bibliothèque UI (/composants)`, `Backlog (/backlog)`
+- Lecture du dépôt : [Architecture](#architecture-de-la-solution), [Ce que montre la démo](#ce-que-montre-la-démo), [Validation locale](#validation-locale)
+- Vérifications : [Tests end-to-end](#tests-end-to-end), [Intégration continue](#intégration-continue), [Lancement via Aspire](#lancement-via-aspire)
+
+## Ce que montre la démo
+
+- une solution .NET multi-projets avec responsabilités explicites
+- un shell Blazor cohérent, directement exploitable comme base de produit
+- un design system simple, homogène et réutilisable
+- un écran métier crédible via le module backlog
+- une API séparée, des contrats partagés et une orchestration locale propre
+- des tests présents pour valider les comportements les plus visibles
+
+## Pourquoi ce repo mérite le détour
+
+- il montre du code lisible, pas une maquette jetable
+- il relie vitrine UI, module métier, API et orchestration dans un même dépôt
+- il privilégie des choix techniques sobres, démontrables et maintenables
+- il donne immédiatement matière à explorer l’architecture, les composants et les tests
+- il sert autant de base de départ que de support de démonstration technique
+
+L’objectif n’est pas de livrer un produit complet, mais un socle vitrine crédible, maintenable et démontrable localement comme sur GitHub.
 
 ## Objectifs techniques
 
@@ -335,21 +356,29 @@ Le dépôt inclut une CI GitHub Actions volontairement sobre :
 
 ## Captures d’écran
 
-Le dossier `docs/screenshots` est prêt à recevoir des captures ou GIFs à mesure que la vitrine visuelle se stabilise.
+Le dossier `docs/screenshots` est prêt à accueillir les captures de vitrine. La section ci-dessous sert de gabarit lisible pour brancher rapidement de vrais visuels dans le README, sans réorganiser sa structure.
 
-Suggestions de captures :
+### Captures attendues
 
 - accueil du projet
-- page de démonstration du design system et des composants
+- bibliothèque UI
 - module backlog produit
-- vue Aspire locale
+- supervision locale ou AppHost Aspire
 
-Exemple de structure à compléter :
+### Convention de nommage
+
+- `docs/screenshots/home-overview.png`
+- `docs/screenshots/components-library.png`
+- `docs/screenshots/backlog-module.png`
+- `docs/screenshots/apphost-dashboard.png`
+
+### Gabarit Markdown prêt à activer
 
 ```md
-![Accueil](docs/screenshots/home.png)
-![Composants](docs/screenshots/components.png)
-![Backlog](docs/screenshots/backlog.png)
+![Accueil](docs/screenshots/home-overview.png)
+![Bibliothèque UI](docs/screenshots/components-library.png)
+![Backlog](docs/screenshots/backlog-module.png)
+![AppHost / Supervision](docs/screenshots/apphost-dashboard.png)
 ```
 
 ## Pistes d’évolution
