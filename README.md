@@ -1,6 +1,6 @@
 # BlazorEnterpriseStarter
 
-BlazorEnterpriseStarter est un socle Blazor/.NET pour application métier, avec interface Blazor Web App, API ASP.NET Core séparée, design system dédié et module backlog déjà câblé.
+Socle Blazor/.NET pour application métier, avec Blazor Web App, API ASP.NET Core séparée, design system dédié et module backlog déjà câblé.
 
 ## TL;DR
 
@@ -21,7 +21,7 @@ BlazorEnterpriseStarter est un socle Blazor/.NET pour application métier, avec 
 
 - solution .NET multi-projets avec responsabilités explicites
 - front Blazor, API backend et contrats partagés séparés
-- bibliothèque UI et design system utilisés sur de vraies pages
+- bibliothèque UI et design system utilisés sur les pages du dépôt
 - parcours métier complet autour d’un backlog produit
 - orchestration locale via Aspire et exécution possible via Docker
 
@@ -266,7 +266,7 @@ Le dépôt inclut une CI GitHub Actions volontairement simple :
 
 ## Captures d’écran
 
-Le dossier `docs/screenshots` contient les visuels utilisés dans la vitrine GitHub. Trois captures sont générées automatiquement via le projet E2E existant :
+Les visuels versionnés sont stockés dans `docs/screenshots`. Trois captures sont générées automatiquement via le projet E2E existant :
 
 - accueil : `docs/screenshots/home-overview.png`
 - bibliothèque UI : `docs/screenshots/components-library.png`

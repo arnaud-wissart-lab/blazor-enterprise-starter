@@ -171,7 +171,7 @@
                 </div>
 
                 <p class="backlog-filters-panel__hint">
-                    La recherche se déclenche après une courte pause. Les autres filtres restent appliqués explicitement.
+                    La recherche se déclenche après une courte pause. Les autres filtres s’appliquent explicitement.
                 </p>
             </aside>
         </div>
@@ -271,10 +271,10 @@ else
     {
         <AppEmptyState Eyebrow="Backlog"
                        Title="Aucun élément ne correspond aux critères"
-                       Description="Modifiez les filtres ou créez un nouvel élément pour afficher un autre scénario produit."
+                       Description="Modifiez les filtres ou créez un nouvel élément."
                        Tone="AppTone.Warning">
             <Actions>
-                       <AppButton Variant="AppButtonVariant.Secondary" OnClick="ReinitialiserFiltresAsync">Réinitialiser</AppButton>
+                <AppButton Variant="AppButtonVariant.Secondary" OnClick="ReinitialiserFiltresAsync">Réinitialiser</AppButton>
                 <AppButton OnClick="OuvrirCreationAsync">Créer un élément</AppButton>
             </Actions>
             <ChildContent>
@@ -439,7 +439,7 @@ else
     <ChildContent>
         <div class="backlog-delete">
             <p>
-                Supprimer
+                Supprimer l’élément
                 <strong>@(_itemEnSuppression?.Titre ?? "cet élément")</strong>
                 du backlog produit ?
             </p>
