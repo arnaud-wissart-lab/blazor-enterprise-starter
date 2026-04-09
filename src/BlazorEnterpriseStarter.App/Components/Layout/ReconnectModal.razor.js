@@ -1,4 +1,4 @@
-const reconnectModal = document.getElementById("components-reconnect-modal");
+const reconnectModal = document.getElementById("bes-reconnect-modal");
 
 if (reconnectModal) {
     reconnectModal.addEventListener("components-reconnect-state-changed", handleReconnectStateChanged);

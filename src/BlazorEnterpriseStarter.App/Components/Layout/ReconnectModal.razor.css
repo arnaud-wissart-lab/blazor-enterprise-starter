@@ -1,4 +1,4 @@
-#components-reconnect-modal {
+#bes-reconnect-modal {
     width: min(25rem, calc(100vw - 2rem));
     margin: 18vh auto;
     padding: 0;
@@ -11,14 +11,14 @@
     animation: components-reconnect-modal-fadeOutOpacity 0.5s both;
 }
 
-#components-reconnect-modal[open] {
+#bes-reconnect-modal[open] {
     animation:
         components-reconnect-modal-slideUp 0.45s cubic-bezier(0.22, 1, 0.36, 1),
         components-reconnect-modal-fadeInOpacity 0.22s ease-out;
     animation-fill-mode: both;
 }
 
-#components-reconnect-modal::backdrop {
+#bes-reconnect-modal::backdrop {
     background: rgba(15, 23, 42, 0.42);
     backdrop-filter: blur(4px);
     animation: components-reconnect-modal-fadeInOpacity 0.24s ease-out;
@@ -66,8 +66,8 @@
     box-shadow: 0 24px 48px rgba(15, 23, 42, 0.2);
 }
 
-#components-reconnect-modal p,
-#components-reconnect-modal h2 {
+#bes-reconnect-modal p,
+#bes-reconnect-modal h2 {
     margin: 0;
     text-align: center;
 }
@@ -99,7 +99,7 @@
     gap: var(--bes-space-3);
 }
 
-#components-reconnect-modal button {
+#bes-reconnect-modal button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -119,17 +119,17 @@
         box-shadow 140ms ease;
 }
 
-#components-reconnect-modal button:hover {
+#bes-reconnect-modal button:hover {
     transform: translateY(-1px);
     background: var(--bes-color-accent-strong);
     box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
 }
 
-#components-reconnect-modal button:active {
+#bes-reconnect-modal button:active {
     transform: translateY(0);
 }
 
-#components-reconnect-modal button:focus-visible {
+#bes-reconnect-modal button:focus-visible {
     outline: 3px solid rgba(37, 99, 235, 0.18);
     outline-offset: 3px;
 }
