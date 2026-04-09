@@ -35,7 +35,7 @@ public sealed class E2ETestHostFixture : IAsyncLifetime
     }
     private async Task StartAsync(CancellationToken cancellationToken)
     {
-        var repositoryRoot = ResolveRepositoryRoot();
+        var repositoryRoot = RepositoryPaths.ResolveRepositoryRoot();
         var tempDirectory = Path.Combine(Path.GetTempPath(), "bes-e2e", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(tempDirectory);
         _databasePath = Path.Combine(tempDirectory, "backlog-e2e.db");
@@ -85,23 +85,6 @@ public sealed class E2ETestHostFixture : IAsyncLifetime
         {
             listener.Stop();
         }
-    }
-
-    private static string ResolveRepositoryRoot()
-    {
-        var directory = new DirectoryInfo(AppContext.BaseDirectory);
-
-        while (directory is not null)
-        {
-            if (File.Exists(Path.Combine(directory.FullName, "BlazorEnterpriseStarter.sln")))
-            {
-                return directory.FullName;
-            }
-
-            directory = directory.Parent;
-        }
-
-        throw new DirectoryNotFoundException("Impossible de retrouver la racine du dépôt pour les tests E2E.");
     }
 
     private static void DeleteTempDirectory(string? path)

@@ -356,14 +356,19 @@ Le dépôt inclut une CI GitHub Actions volontairement sobre :
 
 ## Captures d’écran
 
-Le dossier `docs/screenshots` accueille les visuels de vitrine. La convention ci-dessous est définitive et peut être branchée directement dans le README dès que les fichiers sont produits.
+Le dossier `docs/screenshots` accueille les visuels de vitrine. Trois captures sont désormais générées automatiquement via le projet E2E existant :
 
-### Captures à produire manuellement
+- `docs/screenshots/home-overview.png`
+- `docs/screenshots/components-library.png`
+- `docs/screenshots/backlog-module.png`
 
-- `docs/screenshots/home-overview.png` : accueil avec hero, preuves concrètes et entrées principales visibles
-- `docs/screenshots/components-library.png` : bibliothèque UI avec fondations et premiers composants dans le même cadre
-- `docs/screenshots/backlog-module.png` : backlog avec filtres, KPI et liste métier affichés
-- `docs/screenshots/apphost-dashboard.png` : tableau de bord AppHost ou supervision locale des services
+Commande dédiée :
+
+```powershell
+pwsh ./scripts/capture-screenshots.ps1
+```
+
+La capture `docs/screenshots/apphost-dashboard.png` reste manuelle pour le moment, car elle dépend du dashboard Aspire lancé séparément du flux E2E standard.
 
 ### Gabarit Markdown prêt à activer
 

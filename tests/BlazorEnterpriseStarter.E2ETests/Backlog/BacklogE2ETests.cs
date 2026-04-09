@@ -4,10 +4,8 @@ using static Microsoft.Playwright.Assertions;
 
 namespace BlazorEnterpriseStarter.E2ETests.Backlog;
 
-[CollectionDefinition(nameof(E2ECollection))]
-public sealed class E2ECollection : ICollectionFixture<E2ETestHostFixture>, ICollectionFixture<PlaywrightFixture>;
-
 [Collection(nameof(E2ECollection))]
+[Trait(E2ETestCategories.CategoryKey, E2ETestCategories.Validation)]
 public sealed class BacklogE2ETests
 {
     private readonly E2ETestHostFixture _hostFixture;

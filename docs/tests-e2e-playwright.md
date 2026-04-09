@@ -19,18 +19,26 @@ Le rôle des tests E2E est donc plus limité :
 
 Le projet E2E reste volontairement séparé de la solution principale pour ne pas ralentir `dotnet test BlazorEnterpriseStarter.sln` dans la boucle de développement courante.
 
+Une seconde catégorie de scénarios existe désormais pour générer les captures d’écran de vitrine sans les mélanger aux tests de validation métier.
+
 ## Périmètre couvert
 
-Deux scénarios seulement sont fournis :
+Les scénarios sont séparés en deux familles :
 
-1. ouverture de la page backlog et vérification des éléments de synthèse principaux
-2. création d’un élément de backlog puis recherche de cet élément
+1. `Validation`
+   - ouverture de la page backlog et vérification des éléments de synthèse principaux
+   - création d’un élément de backlog puis recherche de cet élément
 
-Ce choix est volontaire :
+2. `Screenshots`
+   - génération de `docs/screenshots/home-overview.png`
+   - génération de `docs/screenshots/components-library.png`
+   - génération de `docs/screenshots/backlog-module.png`
+
+Ce découpage est volontaire :
 
 - il couvre un vrai écran métier
 - il montre un flux lisible
-- il évite d’ajouter des scénarios artificiels
+- il évite de mélanger validation fonctionnelle et production d’assets de vitrine
 
 ## Structure
 
@@ -39,6 +47,7 @@ tests/
   BlazorEnterpriseStarter.E2ETests/
     Backlog/
     Infrastructure/
+    Screenshots/
 ```
 
 Le fixture de test :
@@ -72,11 +81,52 @@ Exécution standard :
 pwsh ./scripts/test-e2e.ps1
 ```
 
+Cette commande ne lance que les scénarios tagués `Validation`.
+
 Exécution avec navigateur visible :
 
 ```powershell
 pwsh ./scripts/test-e2e.ps1 -Headed
 ```
+
+Génération des captures de vitrine :
+
+```powershell
+pwsh ./scripts/capture-screenshots.ps1
+```
+
+Génération avec navigateur visible :
+
+```powershell
+pwsh ./scripts/capture-screenshots.ps1 -Headed
+```
+
+Les captures sont écrites directement dans `docs/screenshots` avec des noms fixes et sont écrasées à chaque exécution.
+
+## Convention de capture
+
+Les captures de vitrine appliquent une stratégie volontairement sobre :
+
+- viewport fixe `1600 x 1700`
+- thème forcé en mode clair pour éviter une variation selon la machine locale
+- animation et transitions neutralisées uniquement pendant la capture
+- barre de thème flottante masquée pendant la capture pour ne pas masquer le contenu
+- scrollbars masquées pendant la capture pour garder un cadrage propre
+- capture de viewport, pas de `full page`, afin de conserver un rendu homogène dans le README
+
+Chaque scénario attend explicitement les zones clés de la page avant la prise de vue pour éviter les états transitoires.
+
+## AppHost et dashboard Aspire
+
+La capture `docs/screenshots/apphost-dashboard.png` reste manuelle à ce stade.
+
+La raison est pragmatique :
+
+- le dashboard Aspire vit dans un processus et une URL distincts du front et de l’API déjà pilotés par les fixtures E2E
+- son adresse effective dépend du lancement AppHost et de l’outillage Aspire local
+- automatiser proprement cette capture imposerait une orchestration parallèle plus fragile que le gain obtenu
+
+Le choix retenu est donc de garder les trois captures principales totalement automatisées et de documenter clairement que le dashboard AppHost reste une capture manuelle.
 
 ## Notes d’implémentation
 
