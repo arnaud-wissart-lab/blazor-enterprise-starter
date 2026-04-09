@@ -2,15 +2,15 @@
 
 ## Direction visuelle
 
-Le design system adopte une direction visuelle claire, sobre et premium :
+Le design system adopte une direction visuelle claire et sobre :
 
-- base lumineuse et chaleureuse, adaptée à une application métier moderne
-- accent principal vert grisé pour exprimer la stabilité et la maîtrise
-- accent secondaire ambré pour apporter du relief sans effet démonstratif excessif
+- base lumineuse adaptée à une application métier
+- accent principal vert grisé
+- accent secondaire ambré
 - contrastes lisibles, surfaces douces et ombres discrètes
-- composants pensés pour rester crédibles sur des écrans de supervision, formulaires ou tableaux
+- composants pensés pour les écrans de supervision, formulaires et tableaux
 
-Le mode sombre est prévu comme base compatible, sans multiplier les variantes de composants. L’objectif est d’avoir un socle prêt à évoluer, pas un thème parallèle complet dès maintenant.
+Le mode sombre reste compatible avec les mêmes composants, sans multiplier les variantes.
 
 ## Organisation des styles
 
@@ -21,7 +21,7 @@ Les styles globaux du design system sont organisés dans `wwwroot/styles` :
 - `theme.css` : mapping des tokens vers les rôles visuels du thème
 - `base.css` : fondations HTML, typographie, focus, liens et comportements globaux
 - `layout.css` : primitives de composition de page et de grilles
-- `utilities.css` : utilitaires simples, limités et explicitement nommés
+- `utilities.css` : utilitaires simples et explicitement nommés
 
 ## Conventions de nommage
 
@@ -53,7 +53,7 @@ Les composants Razor utilisent une convention locale de type BEM léger :
 - `.surface-card__header`
 - `.surface-card__description`
 
-Cette approche garde les composants lisibles sans créer de dépendance à une nomenclature globale lourde.
+Cette approche garde les composants lisibles sans créer de dépendance à une nomenclature globale plus lourde.
 
 ## Responsive
 

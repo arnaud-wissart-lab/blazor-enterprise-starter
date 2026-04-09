@@ -21,15 +21,15 @@ Méthode :
 
 ## Synthèse
 
-Le socle est sain et plus crédible que beaucoup de dépôts Blazor vitrine. Le projet montre une vraie intention d’architecture, un design system séparé, un cas d’usage métier lisible et une base de tests utiles.
+Le socle est sain. Le projet présente une intention d’architecture claire, un design system séparé, un cas d’usage métier lisible et une base de tests utile.
 
-En revanche, la démonstration reste aujourd’hui au niveau d’un bon starter avancé, pas encore d’une vitrine senior pleinement aboutie. Les limites principales sont :
+Le dépôt reste aujourd’hui au niveau d’un bon starter avancé, avec encore quelques limites structurantes :
 - un positionnement Blazor encore trop implicite
 - une expérience UI sérieuse mais inégale dans les finitions
 - un seul module métier réel
 - une persistance mémoire qui reste acceptable pour le démarrage mais affaiblit le discours "enterprise"
 - une couverture de tests presque exclusivement métier, sans tests de composants ni d’intégration HTTP
-- une valeur GitHub bridée par l’absence de CI visible, de captures stabilisées et d’un plan d’évolution formalisé
+- une présentation GitHub longtemps limitée par l’absence de CI visible, de captures stabilisées et d’un plan d’évolution formalisé
 
 Décision recommandée :
 - conserver le socle actuel
@@ -41,17 +41,17 @@ Décision recommandée :
 ### `BlazorEnterpriseStarter.AppHost`
 
 Constats :
-- L’orchestration Aspire est simple, lisible et cohérente avec l’objectif vitrine.
+- L’orchestration Aspire est simple, lisible et cohérente avec le périmètre du dépôt.
 - Le couplage avec `server` est explicite via `WithReference`, `WaitFor` et les health checks.
 - Le fichier `AppHost.cs` reste volontairement minimal, ce qui facilite la lecture rapide.
 
 Risques :
-- La démonstration Aspire reste basique : aucun service additionnel, aucune ressource externe, aucun scénario de résilience visible.
-- Pour un recruteur expérimenté, la partie Aspire prouve l’intention, mais pas encore une vraie maîtrise d’écosystème distribué.
+- La partie Aspire reste basique : aucun service additionnel, aucune ressource externe, aucun scénario de résilience visible.
+- Elle montre l’intention, sans encore couvrir un écosystème distribué plus riche.
 
 Actions recommandées :
 - Conserver la simplicité actuelle.
-- Ajouter à moyen terme une ressource technique légère et utile à la démonstration, par exemple une base relationnelle pour le backlog.
+- Ajouter à moyen terme une ressource technique légère et utile au périmètre, par exemple une base relationnelle pour le backlog.
 - Documenter explicitement ce que démontre Aspire ici et ce qui est volontairement hors périmètre.
 
 ### `BlazorEnterpriseStarter.ServiceDefaults`
@@ -76,12 +76,12 @@ Constats :
 - Le positionnement réel est celui d’une `Blazor Web App` en `InteractiveServer`, pas d’une application WebAssembly.
 - La séparation entre pages, services HTTP et état local est lisible.
 - Le module backlog évite les appels API directs depuis le Razor, ce qui améliore la maintenabilité.
-- La page d’accueil et la page composants jouent bien leur rôle de vitrine.
+- La page d’accueil et la page composants jouent bien leur rôle de pages de référence.
 
 Faiblesses :
 - Le code de page backlog concentre encore beaucoup de responsabilités dans un seul composant code-behind.
 - Les `CancellationToken` ne sont pas propagés de bout en bout côté UI métier ; beaucoup d’appels partent avec `CancellationToken.None`.
-- Les filtres ne semblent pas synchronisés avec l’URL, ce qui limite les liens profonds, le partage d’état et la démonstration de navigation applicative.
+- Les filtres ne semblent pas synchronisés avec l’URL, ce qui limite les liens profonds, le partage d’état et la lisibilité de la navigation applicative.
 - Le discours Blazor réel n’est pas assez explicite dans le dépôt : rendu interactif côté serveur, pas de SSR pur, pas de WASM.
 
 Risques :
@@ -108,7 +108,7 @@ Faiblesses :
 - Il n’y a ni authentification, ni autorisation, ni versionnement API, ni OpenAPI visible.
 
 Risques :
-- Le dépôt peut être perçu comme une belle façade front avec un backend encore démonstratif au sens strict.
+- Le dépôt peut être perçu comme un front plus avancé que son backend.
 - Le passage à une base réelle demandera de verrouiller plus clairement les frontières de repository et les scénarios d’intégration.
 
 Actions recommandées :
@@ -225,7 +225,7 @@ Constats :
 - Le mode clair/sombre et le shell latéral donnent une vraie identité.
 
 Risques :
-- Certaines finitions peuvent encore casser la perception premium.
+- Certaines finitions peuvent encore casser la qualité perçue.
 - Sans revue visuelle régulière, la cohérence dérivera vite.
 
 Priorité :
@@ -236,14 +236,14 @@ Actions recommandées :
 - Stabiliser un jeu de captures d’écran GitHub.
 - Ajouter des tests ou snapshots visuels plus tard.
 
-### 3. Crédibilité de la démonstration front
+### 3. Couverture front
 
 Constats :
-- Le backlog est un bon cas d’usage de démonstration.
+- Le backlog est un bon cas d’usage principal.
 - La page composants montre des briques utiles, pas seulement décoratives.
 
 Risques :
-- Un seul module métier réel reste un peu court pour un dépôt vitrine senior.
+- Un seul module métier réel reste un peu court pour un dépôt plus complet.
 - Les interactions sont propres, mais encore concentrées sur CRUD + filtres + pagination.
 
 Priorité :
@@ -280,13 +280,13 @@ Constats :
 
 Risques :
 - C’est aujourd’hui la principale faiblesse de crédibilité "enterprise".
-- Toute démonstration de concurrence, d’historique, de requêtes réelles ou de migrations est absente.
+- Toute couverture de concurrence, d’historique, de requêtes réelles ou de migrations est absente.
 
 Priorité :
 - Très haute.
 
 Actions recommandées :
-- Faire évoluer le backlog vers EF Core avec une base simple, idéalement SQLite ou PostgreSQL selon la cible de démonstration.
+- Faire évoluer le backlog vers EF Core avec une base simple, idéalement SQLite ou PostgreSQL selon la cible retenue.
 - Conserver le seed démonstratif, mais dans une vraie persistence.
 
 ### 6. Couverture et qualité des tests
@@ -306,16 +306,16 @@ Actions recommandées :
 - Ajouter bUnit sur quelques composants clés.
 - Garder les tests unitaires existants comme base.
 
-### 7. Valeur vitrine GitHub pour un recruteur technique
+### 7. Présentation du dépôt sur GitHub
 
 Constats :
-- Le README est bien écrit et vend correctement l’intention.
+- Le README est bien écrit et expose correctement l’intention.
 - Le dépôt est lisible et ordonné.
 
 Risques :
 - L’absence de workflow CI visible est un manque important.
 - L’absence de captures stabilisées laisse une partie de la valeur UI invisible.
-- L’absence de plan d’amélioration visible donnait jusque-là une impression de dépôt "presque fini" sans trajectoire claire.
+- L’absence de plan d’amélioration visible pouvait donner une impression de dépôt "presque fini" sans trajectoire claire.
 
 Priorité :
 - Très haute.
@@ -341,7 +341,7 @@ Actions :
 ### Priorité 2
 
 Objectif :
-- rendre le module backlog plus crédible comme démonstration d’application métier
+- renforcer le module backlog comme parcours d’application métier
 
 Actions :
 - synchroniser les filtres backlog avec l’URL
@@ -352,13 +352,13 @@ Actions :
 ### Priorité 3
 
 Objectif :
-- faire passer le dépôt de bon starter démonstratif à vraie vitrine technique senior
+- faire évoluer le dépôt d’un bon starter vers une base plus complète
 
 Actions :
 - remplacer la persistence mémoire par EF Core et une base réelle
 - ajouter des tests d’intégration API
 - exposer OpenAPI
-- enrichir légèrement Aspire avec une ressource utile à la démonstration
+- enrichir légèrement Aspire avec une ressource utile au périmètre
 
 ## Plan de travail pragmatique
 
@@ -370,10 +370,10 @@ Ordre recommandé :
 
 ## Conclusion
 
-Le projet est déjà un bon dépôt vitrine .NET / Blazor. Son principal mérite est de ne pas surjouer l’enterprise avec une architecture artificiellement complexe. Le principal travail à mener n’est donc pas une refonte, mais une montée en crédibilité progressive sur quatre leviers :
+Le projet constitue déjà une base .NET / Blazor solide. Son principal mérite est de ne pas surjouer l’enterprise avec une architecture artificiellement complexe. Le travail à mener reste progressif, autour de quatre leviers :
 - la persistence réelle
 - les tests UI et d’intégration
 - la visibilité GitHub
 - la profondeur fonctionnelle du cas d’usage backlog
 
-Le socle actuel mérite d’être conservé. L’enjeu n’est pas de le remplacer, mais de le durcir là où un recruteur technique senior cherchera immédiatement les limites.
+Le socle actuel mérite d’être conservé. L’enjeu n’est pas de le remplacer, mais de le renforcer sur ses limites les plus visibles.

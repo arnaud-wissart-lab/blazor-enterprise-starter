@@ -4,7 +4,7 @@
 
 <AppPageHeader Eyebrow="Bibliothèque UI"
                Title="Bibliothèque UI"
-               Description="Fondations visuelles, composants et états prêts à réutiliser.">
+               Description="Fondations visuelles, composants et états d’interface prêts à l’emploi.">
     <Badges>
         <AppBadge Tone="AppTone.Accent">Tokens CSS</AppBadge>
         <AppBadge Tone="AppTone.Info">Composants Blazor</AppBadge>
@@ -16,7 +16,7 @@
         <AppButton Href="/backlog">Voir le backlog</AppButton>
     </Actions>
     <ChildContent>
-        <p class="showcase-page-note">Scanner les fondations, puis les usages d’écran les plus utiles.</p>
+        <p class="showcase-page-note">Fondations, composants et états d’interface réunis sur une même page.</p>
     </ChildContent>
 </AppPageHeader>
 
@@ -198,7 +198,7 @@
                     <AppBadge Tone="AppTone.Warning">À vérifier</AppBadge>
                     <AppBadge Tone="AppTone.Danger">Bloqué</AppBadge>
                 </div>
-                <p class="showcase-feedback">La logique sémantique reste identique entre vitrine et backlog.</p>
+        <p class="showcase-feedback">Les mêmes conventions sont reprises dans le backlog.</p>
             </div>
         </AppCard>
 
@@ -228,7 +228,7 @@
     <div class="showcase-grid showcase-grid--two">
         <AppCard Eyebrow="Structure"
                  Title="AppPageHeader et cartes"
-                 Description="Un en-tête réutilisable, puis des cartes plus compactes pour le détail."
+                 Description="Un en-tête réutilisable, complété par des cartes plus compactes pour le détail."
                  Tone="AppTone.Accent">
             <div class="showcase-stack">
                 <AppPageHeader Title="Tableau de bord régional"
@@ -281,7 +281,7 @@
                         <AppButton Variant="AppButtonVariant.Secondary" Size="AppControlSize.Small" OnClick="ImporterRapportExempleAsync">Importer</AppButton>
                     </Actions>
                     <ChildContent>
-                        Un état vide démonstratif, avec une action principale claire et une alternative secondaire.
+                        Un état vide avec une action principale claire et une alternative secondaire.
                     </ChildContent>
                 </AppEmptyState>
             </div>
@@ -321,8 +321,8 @@
     private bool _isModalOpen;
     private string? _messageInteraction;
     private string _titreModale = "Exemple de modale";
-    private string _descriptionModale = "La modale illustre un dialogue court, lisible et centré sur une action explicite.";
-    private string _contenuModale = "Ce format fonctionne bien pour une confirmation, une action secondaire ou un court complément d’information.";
+    private string _descriptionModale = "Exemple de dialogue court, lisible et centré sur une action explicite.";
+    private string _contenuModale = "Ce format convient à une confirmation, une action secondaire ou un court complément d’information.";
 
     private string? EmailError =>
         string.IsNullOrWhiteSpace(_email) || _email.Contains('@', StringComparison.Ordinal)
@@ -333,44 +333,44 @@
     {
         _isButtonLoading = !_isButtonLoading;
         _messageInteraction = _isButtonLoading
-            ? "L’état de chargement est activé sur le bouton de démonstration."
+            ? "L’état de chargement est activé."
             : "L’état de chargement est désactivé.";
         return Task.CompletedTask;
     }
 
     private Task MontrerActionPrincipaleAsync(MouseEventArgs _)
     {
-        _messageInteraction = "Action principale déclenchée : en situation réelle, elle lancerait l’opération prioritaire de l’écran.";
+        _messageInteraction = "Action principale déclenchée.";
         return Task.CompletedTask;
     }
 
     private Task MontrerActionSecondaireAsync(MouseEventArgs _)
     {
-        _messageInteraction = "Action secondaire déclenchée : elle illustre une action utile mais non prioritaire.";
+        _messageInteraction = "Action secondaire déclenchée.";
         return Task.CompletedTask;
     }
 
     private Task MontrerActionNavigationAsync(MouseEventArgs _)
     {
-        _messageInteraction = "Action de navigation déclenchée : la variante ghost reste adaptée aux actions discrètes.";
+        _messageInteraction = "La variante ghost convient aux actions discrètes.";
         return Task.CompletedTask;
     }
 
     private Task MontrerActionDangerAsync(MouseEventArgs _)
     {
-        _messageInteraction = "Action sensible déclenchée : la variante danger sert à signaler un impact potentiellement destructif.";
+        _messageInteraction = "La variante danger signale une action sensible.";
         return Task.CompletedTask;
     }
 
     private Task MontrerActionPetiteAsync(MouseEventArgs _)
     {
-        _messageInteraction = "Le format compact convient aux tableaux, listes denses et zones d’actions secondaires.";
+        _messageInteraction = "Le format compact convient aux listes et tableaux.";
         return Task.CompletedTask;
     }
 
     private Task MontrerActionGrandeAsync(MouseEventArgs _)
     {
-        _messageInteraction = "Le format large sert à renforcer une action importante dans un contexte éditorial ou un pied de page.";
+        _messageInteraction = "Le format large convient aux actions plus structurantes.";
         return Task.CompletedTask;
     }
 
@@ -379,7 +379,7 @@
         ConfigurerModale(
             "Exporter le tableau régional",
             "Exemple d’action secondaire sur un en-tête de page.",
-            "Dans une interface réelle, cette action préparerait un export PDF, Excel ou CSV du tableau affiché, avec les filtres courants déjà appliqués.");
+            "Dans une interface réelle, cette action préparerait un export du tableau affiché avec les filtres courants.");
         return Task.CompletedTask;
     }
 
@@ -408,7 +408,7 @@
         ConfigurerModale(
             "Importer des rapports",
             "Exemple d’action secondaire depuis un état vide.",
-            "Dans un cas réel, cette action ouvrirait un assistant d’import ou un sélecteur de fichier pour injecter plusieurs rapports existants dans l’interface.");
+            "Dans un cas réel, cette action ouvrirait un assistant d’import ou un sélecteur de fichier.");
 
         return Task.CompletedTask;
     }
@@ -422,7 +422,7 @@
     private Task ConfirmModalAsync(MouseEventArgs _)
     {
         _isModalOpen = false;
-        _messageInteraction = "La confirmation a été prise en compte sur l’exemple de modale.";
+        _messageInteraction = "La confirmation a été prise en compte.";
         return Task.CompletedTask;
     }
 

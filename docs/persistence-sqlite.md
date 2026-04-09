@@ -1,31 +1,23 @@
 # Persistence SQLite du backlog
 
-Le projet utilise désormais une persistence locale basée sur `SQLite` et `Entity Framework Core` pour le module backlog.
+Le projet utilise une persistence locale basée sur `SQLite` et `Entity Framework Core` pour le module backlog.
 
-L’objectif est volontairement pragmatique :
+Le choix retenu reste simple :
 
-- conserver un lancement local très simple
-- éviter une infrastructure externe
-- rendre la démonstration plus crédible qu’un simple singleton mémoire
-- garder une architecture lisible pour un recruteur technique
+- lancement local sans infrastructure externe
+- fichier SQLite local
+- `DbContext` EF Core dédié au backlog
+- dépôt `SqliteBacklogRepository`
+- initialisation automatique au démarrage
+- seed minimal si la base est vide
 
-## Choix retenu
+## Choix d’implémentation
 
-La solution met en place :
+Le projet n’utilise pas encore de migrations versionnées. À ce stade, le choix retenu est `EnsureCreated` afin de :
 
-- un fichier SQLite local
-- un `DbContext` EF Core dédié au backlog
-- un dépôt `SqliteBacklogRepository`
-- une initialisation automatique au démarrage
-- un seed minimal si la base est vide
-
-Le projet ne met pas encore en place de migrations versionnées. Pour cette vitrine, le choix retenu est `EnsureCreated` afin de :
-
-- réduire le bruit d’infrastructure
-- éviter de dépendre d’un outillage supplémentaire pour démarrer
-- garder un socle simple à lire
-
-Ce compromis est assumé : il améliore nettement la crédibilité technique par rapport à la mémoire en RAM, tout en restant léger.
+- limiter le bruit d’infrastructure
+- éviter une dépendance supplémentaire pour démarrer
+- garder un socle facile à lire
 
 ## Emplacement de la base
 
@@ -33,7 +25,7 @@ Par défaut, le backend stocke la base dans :
 
 - `src/BlazorEnterpriseStarter.Server/data/blazor-enterprise-starter.db` en lancement local
 
-La chaîne de connexion par défaut est :
+Chaîne de connexion par défaut :
 
 ```json
 "ConnectionStrings": {
@@ -41,7 +33,7 @@ La chaîne de connexion par défaut est :
 }
 ```
 
-Le chemin relatif est automatiquement résolu depuis le répertoire racine du projet serveur.
+Le chemin relatif est résolu depuis le répertoire racine du projet serveur.
 
 ## Initialisation
 
@@ -67,11 +59,11 @@ dotnet run --project src/BlazorEnterpriseStarter.AppHost
 dotnet run --project src/BlazorEnterpriseStarter.Server
 ```
 
-Dans les deux cas, aucune étape manuelle de création de base n’est nécessaire.
+Dans les deux cas, aucune création manuelle de base n’est nécessaire.
 
 ## Lancement via Docker
 
-Le `docker-compose.yml` monte un volume nommé sur `/app/data` pour conserver la base entre deux redémarrages des conteneurs.
+Le `docker-compose.yml` monte un volume nommé sur `/app/data` pour conserver la base entre deux redémarrages.
 
 Commandes utiles :
 
@@ -94,13 +86,11 @@ En local, il suffit de supprimer :
 
 Puis de relancer le backend.
 
-## Limites assumées
+## Limites actuelles
 
-Cette persistence est volontairement sobre :
+Cette persistence reste volontairement sobre :
 
-- pas de migrations versionnées pour le moment
+- pas de migrations versionnées
 - pas de concurrence avancée
 - pas de découpage multi-contexte
 - pas de base externe
-
-Pour une vitrine GitHub, cela reste un bon compromis entre crédibilité, simplicité et coût de maintenance.

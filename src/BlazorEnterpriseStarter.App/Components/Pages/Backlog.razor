@@ -4,7 +4,7 @@
 
 <AppPageHeader Eyebrow="Module métier"
                Title="Backlog produit"
-               Description="Écran métier démontrable avec liste, recherche, filtres, pagination et opérations CRUD.">
+               Description="Écran métier avec liste, recherche, filtres, pagination et opérations CRUD.">
     <Badges>
         <AppBadge Tone="AppTone.Accent">@NombreTotalLibelle</AppBadge>
         @if (FiltreStatutActif is not null)
@@ -26,7 +26,7 @@
         <AppButton OnClick="OuvrirCreationAsync">Créer un élément</AppButton>
     </Actions>
     <ChildContent>
-        <p>Le backlog prouve que le starter ne s’arrête pas à l’UI : données, interactions et API sont déjà raccordées dans un flux concret.</p>
+        <p>Le backlog relie interface, état local et API dans un même flux.</p>
     </ChildContent>
 </AppPageHeader>
 
@@ -65,7 +65,7 @@
 
 <AppCard Eyebrow="Pilotage"
          Title="Filtres et tri"
-         Description="Ajustez la recherche, les vues rapides et l’ordre de lecture sans casser le rythme de l’écran.">
+         Description="Ajustez la recherche, les vues rapides et l’ordre de lecture sans alourdir l’écran.">
     <ChildContent>
         <div class="backlog-filters-panel">
             <div class="backlog-filters-panel__controls">
@@ -135,7 +135,7 @@
 
                     @if (!AUnFiltreActif)
                     {
-                        <p class="backlog-filters-panel__empty">Aucun filtre spécifique n’est appliqué. La vue affiche actuellement tout le backlog.</p>
+                        <p class="backlog-filters-panel__empty">Aucun filtre spécifique n’est appliqué. La vue affiche l’ensemble du backlog.</p>
                     }
                     else
                     {
@@ -171,7 +171,7 @@
                 </div>
 
                 <p class="backlog-filters-panel__hint">
-                    La recherche se déclenche automatiquement après une courte pause. Les autres filtres restent explicites pour garder un comportement lisible.
+                    La recherche se déclenche après une courte pause. Les autres filtres restent appliqués explicitement.
                 </p>
             </aside>
         </div>
@@ -274,11 +274,11 @@ else
                        Description="Modifiez les filtres ou créez un nouvel élément pour afficher un autre scénario produit."
                        Tone="AppTone.Warning">
             <Actions>
-                <AppButton Variant="AppButtonVariant.Secondary" OnClick="ReinitialiserFiltresAsync">Réinitialiser</AppButton>
+                       <AppButton Variant="AppButtonVariant.Secondary" OnClick="ReinitialiserFiltresAsync">Réinitialiser</AppButton>
                 <AppButton OnClick="OuvrirCreationAsync">Créer un élément</AppButton>
             </Actions>
             <ChildContent>
-                Les critères actuels ne renvoient aucun résultat. Vous pouvez élargir la recherche ou ajouter un nouvel élément.
+                Les critères actuels ne renvoient aucun résultat. Vous pouvez élargir la recherche ou créer un nouvel élément.
             </ChildContent>
         </AppEmptyState>
     }
@@ -439,7 +439,7 @@ else
     <ChildContent>
         <div class="backlog-delete">
             <p>
-                Voulez-vous vraiment supprimer
+                Supprimer
                 <strong>@(_itemEnSuppression?.Titre ?? "cet élément")</strong>
                 du backlog produit ?
             </p>

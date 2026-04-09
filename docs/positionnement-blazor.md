@@ -1,73 +1,65 @@
 # Positionnement Blazor du projet
 
-## Mode de rendu utilisé aujourd’hui
+## Mode de rendu utilisé
 
 Le projet utilise une `Blazor Web App` avec rendu interactif côté serveur.
 
 Concrètement :
+
 - les composants Razor interactifs sont activés via `AddInteractiveServerComponents()`
-- l’application expose le mode interactif via `AddInteractiveServerRenderMode()`
+- l’application expose ce mode via `AddInteractiveServerRenderMode()`
 - le routeur principal est rendu avec `@rendermode="InteractiveServer"`
-- la modale de reconnexion est elle aussi rendue en `InteractiveServer`
+- la modale de reconnexion suit le même mode de rendu
 
-Ce choix signifie que :
-- le HTML initial est produit côté serveur
-- l’interactivité des composants est ensuite assurée par le circuit Blazor côté serveur
-- l’état de session et les événements d’interface restent pilotés par Blazor, sans construire un client JavaScript riche sur mesure
+Ce choix implique :
 
-## Ce que le projet démontre réellement du point de vue Blazor
+- un HTML initial produit côté serveur
+- une interactivité portée ensuite par le circuit Blazor côté serveur
+- un front Razor interactif sans client JavaScript applicatif dédié
 
-Le dépôt ne cherche pas à démontrer "tout Blazor". Il cherche à démontrer un usage crédible, lisible et maintenable de Blazor dans une application métier.
+## Ce que couvre le dépôt côté Blazor
 
-Aujourd’hui, le projet met en avant :
+Le dépôt se concentre sur un usage lisible et maintenable de Blazor dans une application métier.
+
+Le périmètre actuel met en avant :
+
 - une composition Razor claire entre layout, pages, composants applicatifs et design system
 - une séparation explicite entre composants visuels, état local et appels HTTP
-- des interactions utilisateur gérées proprement côté composants Razor
-- une bibliothèque de composants réutilisables pensée pour des usages métier réels
-- un cas d’usage front démonstratif avec recherche, filtres, pagination, modales et feedback utilisateur
+- des interactions utilisateur gérées directement côté composants Razor
+- une bibliothèque de composants orientée usages réels
+- un parcours backlog avec recherche, filtres, pagination, modales et feedback utilisateur
 
-Autrement dit, le projet montre surtout :
-- la capacité à structurer un front Blazor sérieux
-- la maîtrise de composants Razor réutilisables
-- la gestion d’état locale sans sur-ingénierie
-- l’articulation front Blazor / API ASP.NET Core dans une solution multi-projets
+## Ce que le dépôt ne cherche pas à couvrir
 
-## Ce que le projet ne cherche pas à démontrer
+Le projet n’a pas pour objectif principal de couvrir :
 
-Le projet n’a pas pour objectif principal de démontrer :
 - une application Blazor WebAssembly autonome ou offline-first
 - une architecture front massivement orientée client
 - un store global complexe de type Redux
-- une démonstration exhaustive des modes de rendu hybrides Blazor
-- une couverture complète de toutes les primitives avancées de l’écosystème Blazor
+- une couverture exhaustive des modes de rendu hybrides Blazor
+- l’ensemble des primitives avancées de l’écosystème Blazor
 
-Ce n’est pas une faiblesse en soi. C’est un cadrage volontaire pour préserver la lisibilité du dépôt.
+## Pourquoi ce choix ici
 
-## Pourquoi ce choix est pertinent ici
+Le mode `InteractiveServer` reste cohérent avec le périmètre du dépôt :
 
-Le mode `InteractiveServer` est cohérent avec la vocation vitrine du projet :
-- il réduit le bruit technique inutile pour un dépôt de démonstration
-- il permet de garder une architecture front très lisible
-- il met l’accent sur Razor, les composants, la composition d’interface et les flux métier
-- il reste parfaitement crédible pour une application interne ou un back-office
+- il limite le bruit technique inutile
+- il garde le front très lisible
+- il met l’accent sur Razor, les composants et les flux métier
+- il reste adapté à une application interne ou un back-office
 
-Dans ce contexte, changer de mode de rendu uniquement pour “cocher plus de cases Blazor” serait contre-productif.
+## Compromis actuels
 
-## Compromis assumés
+Les compromis retenus sont les suivants :
 
-Les compromis actuels sont les suivants :
-- la démonstration privilégie la lisibilité à la variété des modes de rendu
-- l’état local reste simple et ciblé sur le module backlog
-- la persistance métier est encore mémoire, ce qui limite le discours "enterprise" mais ne remet pas en cause la démonstration Blazor elle-même
+- priorité donnée à la lisibilité plutôt qu’à la variété des modes de rendu
+- état local simple et ciblé sur le module backlog
+- périmètre fonctionnel volontairement concentré sur un seul parcours métier
 
-Le bon levier d’amélioration n’est donc pas une refonte du mode de rendu. Le bon levier est de mieux rendre visibles les choix Blazor déjà présents et d’étoffer progressivement les parcours front les plus démonstratifs.
+## Suite possible
 
-## Suite recommandée
+Les évolutions les plus naturelles seraient :
 
-Pour renforcer la valeur démonstrative côté Blazor sans casser le socle :
-- assumer explicitement dans la documentation que le projet est une `Blazor Web App` en `InteractiveServer`
-- rendre ce choix visible dans l’interface elle-même
-- compléter la page composants avec une lecture architecturale front
-- ajouter ensuite des tests de composants bUnit sur les briques clés
-
-Ce plan améliore la perception recruteur sans transformer le projet en vitrine artificiellement complexe.
+- expliciter davantage ce choix dans le README et dans l’interface
+- enrichir la page composants avec une lecture plus architecturale du front
+- compléter les composants structurants avec des tests bUnit ciblés

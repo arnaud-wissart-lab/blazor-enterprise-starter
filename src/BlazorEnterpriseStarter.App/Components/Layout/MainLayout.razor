@@ -1,11 +1,11 @@
 @inherits LayoutComponentBase
 
 <AppShell ProductName="BlazorEnterpriseStarter"
-          Title="Starter applicatif .NET"
-          Subtitle="Base Blazor avec API séparée, design system et module backlog déjà exploitable."
-          TopBarEyebrow="Démo"
-          TopBarTitle="Explorer le starter"
-          TopBarDescription="Accueil, bibliothèque UI et backlog montrent ensemble le socle applicatif, le design system et un écran métier réutilisable.">
+          Title="Socle applicatif .NET"
+          Subtitle="Blazor Web App, API séparée, design system et backlog produit."
+          TopBarEyebrow="Navigation"
+          TopBarTitle="Parcours du dépôt"
+          TopBarDescription="Accueil, bibliothèque UI et backlog produit.">
     <NavigationContent>
         <div class="layout-nav">
             <NavLink href="/" Match="NavLinkMatch.All" class="layout-nav__link">
@@ -19,7 +19,7 @@
                         </span>
                         <strong>Accueil</strong>
                     </span>
-                    <small>Positionnement du starter, preuves concrètes et accès principaux.</small>
+                    <small>Vue d’ensemble du dépôt et accès principaux.</small>
                 </span>
             </NavLink>
 
@@ -55,7 +55,7 @@
                         </span>
                         <strong>Backlog produit</strong>
                     </span>
-                    <small>Recherche, filtres, pagination et opérations CRUD sur un vrai écran métier.</small>
+                    <small>Recherche, filtres, pagination et opérations CRUD sur un écran métier.</small>
                 </span>
             </NavLink>
         </div>
@@ -63,11 +63,11 @@
 
     <SidebarContent>
         <div class="layout-sidebar-panel">
-            <p class="layout-sidebar-panel__eyebrow">Repères</p>
+            <p class="layout-sidebar-panel__eyebrow">Repères clés</p>
             <ul class="layout-sidebar-panel__list">
                 <li>Front Blazor et API ASP.NET Core séparés</li>
-                <li>Design system et composants applicatifs factorisés</li>
-                <li>Backlog utilisé comme preuve métier directement exploitable</li>
+                <li>Design system et composants applicatifs dédiés</li>
+                <li>Backlog produit déjà raccordé à l’API</li>
                 <li>Lancement local via Aspire ou Docker</li>
             </ul>
         </div>

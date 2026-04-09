@@ -3,13 +3,13 @@
 
 <PageTitle>Accueil</PageTitle>
 
-<AppPageHeader Eyebrow="Starter métier"
+<AppPageHeader Eyebrow="Application métier"
                Title="Starter Blazor/.NET pour application métier"
-               Description="Une base crédible avec shell applicatif, design system réutilisable, API séparée, backlog démontrable et premiers tests déjà en place.">
+               Description="Un socle avec shell applicatif, design system dédié, API séparée, backlog produit et premiers tests.">
     <Badges>
         <AppBadge Tone="AppTone.Accent">Blazor Web App</AppBadge>
         <AppBadge Tone="AppTone.Info">API ASP.NET Core séparée</AppBadge>
-        <AppBadge Tone="AppTone.Success">Design system réutilisable</AppBadge>
+        <AppBadge Tone="AppTone.Success">Bibliothèque UI</AppBadge>
         <AppBadge Tone="AppTone.Neutral">Aspire + Docker</AppBadge>
     </Badges>
     <Actions>
@@ -27,8 +27,8 @@
                 <span>Recherche, filtres, pagination, API et CRUD déjà raccordés.</span>
             </div>
             <div class="home-hero-point">
-                <strong>Base technique crédible</strong>
-                <span>8 projets, tests ciblés et deux modes de lancement pour partir vite sans repartir de zéro.</span>
+                <strong>Socle technique</strong>
+                <span>8 projets, tests ciblés et deux modes de lancement.</span>
             </div>
         </div>
     </ChildContent>
@@ -36,9 +36,9 @@
 
 <section class="home-section">
     <div class="home-section__heading">
-        <p class="home-section__eyebrow">Preuves concrètes</p>
-        <h2>Ce que le starter livre déjà</h2>
-        <p>Chaque point est déjà visible dans le code, l’interface ou la chaîne de lancement.</p>
+        <p class="home-section__eyebrow">Repères</p>
+        <h2>Repères du dépôt</h2>
+        <p>Quelques points utiles pour situer rapidement le périmètre et les parcours disponibles.</p>
     </div>
 
     <div class="home-proof-grid">
@@ -49,24 +49,24 @@
             </div>
         </AppCard>
 
-        <AppCard Title="3 zones à vérifier" Description="Seulement les parcours qui démontrent réellement le starter." IsCompact="true">
+        <AppCard Title="3 parcours principaux" Description="Accueil, bibliothèque UI et backlog produit." IsCompact="true">
             <div class="home-proof-card">
                 <strong>3</strong>
                 <span>accueil, bibliothèque UI et module backlog</span>
             </div>
         </AppCard>
 
-        <AppCard Title="2 modes de lancement" Description="Le projet reste démontrable localement sans friction." IsCompact="true">
+        <AppCard Title="2 modes de lancement" Description="Aspire pour l’orchestration, Docker pour la stack conteneurisée." IsCompact="true">
             <div class="home-proof-card">
                 <strong>2</strong>
                 <span>AppHost Aspire pour orchestrer, Docker pour lancer la stack complète</span>
             </div>
         </AppCard>
 
-        <AppCard Title="Tests déjà présents" Description="Le dépôt ne s’arrête pas à la démonstration visuelle." IsCompact="true">
+        <AppCard Title="Tests déjà présents" Description="Build, tests unitaires et E2E ciblés." IsCompact="true">
             <div class="home-proof-card">
                 <strong>OK</strong>
-                <span>xUnit, bUnit et E2E ciblés sur les comportements les plus démonstratifs</span>
+                    <span>xUnit, bUnit et E2E sur les comportements principaux</span>
             </div>
         </AppCard>
     </div>
@@ -76,18 +76,18 @@
     <div class="home-section__heading">
         <p class="home-section__eyebrow">Parcours</p>
         <h2>Explorer rapidement les zones utiles</h2>
-        <p>Chaque entrée répond à un besoin concret : situer le starter, vérifier l’UI ou tester un écran métier crédible.</p>
+        <p>Chaque entrée répond à un besoin concret : situer le dépôt, parcourir l’UI ou ouvrir l’écran métier principal.</p>
     </div>
 
     <div class="home-entry-grid">
         <AppCard Eyebrow="Accueil"
-                 Title="Comprendre la proposition"
-                 Description="Un point d’entrée direct pour situer le starter, son périmètre et sa valeur."
+                 Title="Comprendre l’ensemble"
+                 Description="Un point d’entrée pour situer le dépôt, ses parcours et son organisation."
                  IsCompact="true">
             <ChildContent>
                 <ul class="home-list">
-                    <li>positionnement du starter</li>
-                    <li>preuves concrètes déjà livrées</li>
+                    <li>vue d’ensemble du dépôt</li>
+                    <li>parcours disponibles</li>
                     <li>architecture résumée en quelques blocs</li>
                 </ul>
             </ChildContent>
@@ -114,7 +114,7 @@
 
         <AppCard Eyebrow="Backlog"
                  Title="Tester un écran métier"
-                 Description="Le backlog concentre le scénario le plus concret du starter, avec interactions, API et état local."
+                 Description="Le backlog concentre le parcours métier principal, avec interactions, API et état local."
                  IsCompact="true">
             <ChildContent>
                 <ul class="home-list">
@@ -133,8 +133,8 @@
 <section class="home-section">
     <div class="home-section__heading">
         <p class="home-section__eyebrow">Architecture</p>
-        <h2>Une base claire à reprendre</h2>
-        <p>Le dépôt repose sur des frontières simples, lisibles et crédibles pour une application métier moderne.</p>
+        <h2>Structure du dépôt</h2>
+        <p>Le socle s’appuie sur des frontières simples entre front, API, contrats et orchestration.</p>
     </div>
 
     <div class="home-architecture-grid">
@@ -147,7 +147,7 @@
         <AppCard Eyebrow="Contrats" Title="Types partagés explicites" Description="Les contrats communs évitent les duplications entre front, API et tests." IsCompact="true">
             <ChildContent></ChildContent>
         </AppCard>
-        <AppCard Eyebrow="Exécution" Title="Aspire et Docker dès le départ" Description="Le projet reste démontrable localement comme en environnement conteneurisé léger." IsCompact="true">
+        <AppCard Eyebrow="Exécution" Title="Aspire et Docker" Description="Aspire pour l’orchestration locale, Docker pour l’exécution en conteneurs." IsCompact="true">
             <ChildContent></ChildContent>
         </AppCard>
     </div>
@@ -156,8 +156,8 @@
 <section class="home-section">
     <div class="home-section__heading">
         <p class="home-section__eyebrow">Dès J1</p>
-        <h2>Ce que le starter apporte immédiatement</h2>
-        <p>Le projet ne part pas d’une page vide : il fournit déjà les briques utiles pour lancer un socle métier crédible.</p>
+        <h2>Ce qui est déjà en place</h2>
+        <p>Le dépôt rassemble déjà les briques utiles pour lancer une application métier.</p>
     </div>
 
     <div class="home-day-one-grid">
@@ -179,7 +179,7 @@
             </ul>
         </AppCard>
 
-        <AppCard Title="Socle métier" Description="Le backlog sert déjà de preuve fonctionnelle." IsCompact="true">
+        <AppCard Title="Socle métier" Description="Le backlog sert de parcours métier principal." IsCompact="true">
             <ul class="home-check-list">
                 <li>liste métier</li>
                 <li>recherche et filtres</li>
@@ -188,7 +188,7 @@
             </ul>
         </AppCard>
 
-        <AppCard Title="Base technique" Description="Le socle reste lisible, testable et démontrable." IsCompact="true">
+        <AppCard Title="Base technique" Description="Client API, état local, tests et modes de lancement." IsCompact="true">
             <ul class="home-check-list">
                 <li>client API dédié</li>
                 <li>état local explicite</li>
@@ -203,12 +203,12 @@
     <div class="home-section__heading">
         <p class="home-section__eyebrow">Plateforme</p>
         <h2>Un contrôle simple, déjà intégré</h2>
-        <p>La supervision reste compacte : elle confirme rapidement que l’interface parle bien au backend et que le starter est exploitable.</p>
+        <p>Le contrôle de plateforme permet de vérifier rapidement l’état du backend depuis l’interface.</p>
     </div>
 
     <div class="home-platform-grid">
-        <AppCard Title="Ce que montre ce bloc"
-                 Description="Le contrôle de plateforme valide l’état du socle sans surcharger la page d’accueil."
+        <AppCard Title="Ce que couvre ce bloc"
+                 Description="Un résumé court de l’état de la plateforme, sans alourdir la page d’accueil."
                  IsCompact="true">
             <ChildContent>
                 <ul class="home-check-list">
