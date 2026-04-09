@@ -122,11 +122,30 @@ La capture `docs/screenshots/apphost-dashboard.png` reste manuelle à ce stade.
 
 La raison est pragmatique :
 
-- le dashboard Aspire vit dans un processus et une URL distincts du front et de l’API déjà pilotés par les fixtures E2E
-- son adresse effective dépend du lancement AppHost et de l’outillage Aspire local
-- automatiser proprement cette capture imposerait une orchestration parallèle plus fragile que le gain obtenu
+- le dashboard Aspire vit dans un processus distinct du front et de l’API déjà pilotés par les fixtures E2E
+- l’URL de base peut être stabilisée via le profil `http`, mais l’accès complet au dashboard dépend d’une URL de connexion avec jeton éphémère fournie au démarrage
+- automatiser cette capture imposerait donc de parser un log Aspire spécifique pour récupérer ce jeton, ce qui couple la génération d’assets à un détail d’implémentation peu rentable à maintenir
 
 Le choix retenu est donc de garder les trois captures principales totalement automatisées et de documenter clairement que le dashboard AppHost reste une capture manuelle.
+
+## Capture manuelle du dashboard Aspire
+
+Checklist :
+
+1. lancer `dotnet run --project src/BlazorEnterpriseStarter.AppHost`
+2. ouvrir l’URL de dashboard affichée par l’AppHost dans la console
+3. attendre que les ressources `app` et `server` soient visibles dans l’écran de supervision
+4. capturer la vue d’ensemble du dashboard
+5. enregistrer l’image sous `docs/screenshots/apphost-dashboard.png`
+
+Si vous souhaitez forcer une URL HTTP stable en local, vous pouvez utiliser :
+
+```powershell
+$env:ASPIRE_ALLOW_UNSECURED_TRANSPORT = "true"
+dotnet run --project src/BlazorEnterpriseStarter.AppHost --launch-profile http
+```
+
+Dans ce cas, l’AppHost annonce une URL de connexion de type `http://localhost:15061/login?t=...`, dont le jeton reste éphémère et n’est pas exploité par l’automatisation du repo.
 
 ## Notes d’implémentation
 

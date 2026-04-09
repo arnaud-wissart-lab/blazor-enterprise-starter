@@ -388,7 +388,17 @@ pwsh ./scripts/install-playwright.ps1
 
 ### AppHost / Supervision
 
-La capture `docs/screenshots/apphost-dashboard.png` reste manuelle pour le moment, car elle dépend du dashboard Aspire lancé séparément du flux E2E standard.
+La capture `docs/screenshots/apphost-dashboard.png` reste manuelle.
+
+Dans l’état actuel du repo, son automatisation imposerait de lancer l’AppHost Aspire puis de récupérer un jeton de connexion éphémère exposé au démarrage. Le coût de maintenance serait disproportionné pour une seule capture bonus.
+
+Procédure manuelle :
+
+1. lancer `dotnet run --project src/BlazorEnterpriseStarter.AppHost`
+2. ouvrir l’URL du dashboard Aspire affichée par l’AppHost
+3. attendre que `app` et `server` apparaissent dans l’écran de supervision
+4. capturer la vue d’ensemble du dashboard
+5. enregistrer l’image sous `docs/screenshots/apphost-dashboard.png`
 
 ## Pistes d’évolution
 
