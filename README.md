@@ -356,28 +356,39 @@ Le dépôt inclut une CI GitHub Actions volontairement sobre :
 
 ## Captures d’écran
 
-Le dossier `docs/screenshots` accueille les visuels de vitrine. Trois captures sont désormais générées automatiquement via le projet E2E existant :
+Le dossier `docs/screenshots` accueille les visuels de vitrine. Trois captures sont générées automatiquement via le projet E2E existant :
 
-- `docs/screenshots/home-overview.png`
-- `docs/screenshots/components-library.png`
-- `docs/screenshots/backlog-module.png`
+- accueil : `docs/screenshots/home-overview.png`
+- bibliothèque UI : `docs/screenshots/components-library.png`
+- backlog : `docs/screenshots/backlog-module.png`
 
-Commande dédiée :
+Régénération :
 
 ```powershell
 pwsh ./scripts/capture-screenshots.ps1
 ```
 
-La capture `docs/screenshots/apphost-dashboard.png` reste manuelle pour le moment, car elle dépend du dashboard Aspire lancé séparément du flux E2E standard.
+Si Playwright n’est pas encore installé localement :
 
-### Gabarit Markdown prêt à activer
-
-```md
-![Accueil](docs/screenshots/home-overview.png)
-![Bibliothèque UI](docs/screenshots/components-library.png)
-![Backlog](docs/screenshots/backlog-module.png)
-![AppHost / Supervision](docs/screenshots/apphost-dashboard.png)
+```powershell
+pwsh ./scripts/install-playwright.ps1
 ```
+
+### Accueil
+
+![Accueil](docs/screenshots/home-overview.png)
+
+### Bibliothèque UI
+
+![Bibliothèque UI](docs/screenshots/components-library.png)
+
+### Backlog
+
+![Backlog](docs/screenshots/backlog-module.png)
+
+### AppHost / Supervision
+
+La capture `docs/screenshots/apphost-dashboard.png` reste manuelle pour le moment, car elle dépend du dashboard Aspire lancé séparément du flux E2E standard.
 
 ## Pistes d’évolution
 
