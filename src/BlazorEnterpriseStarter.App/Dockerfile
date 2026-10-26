@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0.403 AS build
 WORKDIR /source
 
 COPY ["src/BlazorEnterpriseStarter.App/BlazorEnterpriseStarter.App.csproj", "src/BlazorEnterpriseStarter.App/"]
@@ -16,7 +16,7 @@ RUN dotnet publish "src/BlazorEnterpriseStarter.App/BlazorEnterpriseStarter.App.
     --output /app/publish \
     /p:UseAppHost=false
 
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0.14 AS final
 WORKDIR /app
 
 ENV ASPNETCORE_HTTP_PORTS=8080
